@@ -1,0 +1,14 @@
+{
+  "locales": {
+    "en": "English",
+    "pl": "Polish"
+  },
+  "screens": {
+    "loginView": {
+      "test": "HI"
+    },
+    "homeView": {
+      "test": "test"
+    }
+  }
+}
