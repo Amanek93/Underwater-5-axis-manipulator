@@ -1,14 +1,14 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LoginView from '../../../auth/screens/login-view';
+import WelcomeView from '../../../auth/screens/welcome-view';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
     return (
         <Stack.Navigator headerMode="none">
-            <Stack.Screen component={LoginView} name="Auth" />
+            <Stack.Screen component={WelcomeView} name="Welcome" />
         </Stack.Navigator>
     );
 };

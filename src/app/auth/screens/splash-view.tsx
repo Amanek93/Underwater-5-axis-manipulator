@@ -15,7 +15,7 @@ const WelcomView = observer(function WelcomView({ example }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require('../../../assets/images/logootools.png')}/>
+                <Image style={styles.logo} source={require('../../../assets/images/logootools.png')}/>
             </View>
         </SafeAreaView>
     );
@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
     },
     logo:{
         justifyContent:'center',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
+        alignItems: 'center'
     },
 });
 

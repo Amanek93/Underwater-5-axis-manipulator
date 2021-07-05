@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.4,
         shadowRadius: 1,
+
     },
     gradient: {
         alignItems: 'center',
