@@ -1,21 +1,44 @@
-import React from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, View, Animated} from 'react-native';
 import { observer } from 'mobx-react-lite';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 
+interface Props {
+    navigation: StackNavigationProp<any>;
+}
 
-type Props = {
-    example: boolean;
-};
+const WelcomView = observer(function WelcomView({ navigation }: Props) {
+    const fadeAnim = useState(new Animated.Value(1))[0]
 
-const WelcomView = observer(function WelcomView({ example }: Props) {
+
+        function fadeOut() {
+            Animated.timing(fadeAnim, {
+                toValue: 0,
+                duration: 2000,
+                useNativeDriver: true
+            }).start()
+        }
+
+        useEffect(()=> {
+            fadeOut();
+        },[]);
+        setTimeout(()=>{
+            navigation.navigate('LoginView')
+        },3000)
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require('../../../assets/images/logootools.png')}/>
+                <Animated.View
+                    style={{
+                        opacity: fadeAnim,
+                    }}>
+                    <Image style={styles.logo} source={require('../../../assets/images/ocean-tech-logo.png')}/>
+                </Animated.View>
             </View>
         </SafeAreaView>
     );
@@ -40,6 +63,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
+
     },
 });
 
