@@ -4,8 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import i18n from '@shared/language/i18n';
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
 
+import Icon from '@ui/components/Icon';
 import InputText from '@ui/components/InputText';
 import MainButton from '@ui/components/MainButton';
 
@@ -42,7 +43,7 @@ const LoginView = ({ navigation }: Props) => {
     };
 
     useEffect(() => {
-        if (isValidLogin && isValidPassword) navigation.navigate('Welcome');
+        if (isValidLogin && isValidPassword) navigation.navigate('Home', { screen: 'HomeView' });
         console.log(`login: ${isValidLogin}`);
         console.log(`password: ${isValidPassword}`);
     }, [isValidLogin, isValidPassword]);
@@ -101,7 +102,9 @@ const LoginView = ({ navigation }: Props) => {
                 />
             </View>
             <View style={styles.supportContainer}>
-                <TouchableOpacity style={{ backgroundColor: 'white', width: 50, height: 50 }} />
+                <TouchableOpacity style={{ width: 50, height: 50 }}>
+                    <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.exclamationCircle} />
+                </TouchableOpacity>
                 <TouchableOpacity style={{ backgroundColor: 'grey', width: 50, height: 50 }} />
             </View>
         </SafeAreaView>
