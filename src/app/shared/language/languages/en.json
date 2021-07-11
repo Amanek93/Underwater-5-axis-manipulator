@@ -5,7 +5,11 @@
   },
   "screens": {
     "loginView": {
-      "test": "HI"
+      "login": "LOGIN",
+      "password": "PASSWORD",
+      "wrongLogin": "Bad login!",
+      "wrongPassword": "Wrong password!",
+      "wrongLoginOrPassword": "Incorrect password or login!"
     },
     "homeView": {
       "test": "test"

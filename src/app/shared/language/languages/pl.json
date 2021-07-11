@@ -5,7 +5,11 @@
   },
   "screens": {
     "loginView": {
-      "test": "ELO"
+      "login": "LOGIN",
+      "password": "HASŁO",
+      "wrongLogin": "Zły login!",
+      "wrongPassword": "Złe hasło!",
+      "wrongLoginOrPassword": "Złe hasło lub login!"
     },
     "homeView": {
       "test": "test"
