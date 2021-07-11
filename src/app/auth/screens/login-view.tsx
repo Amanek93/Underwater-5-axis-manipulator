@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -9,7 +9,7 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 import InputText from '@ui/components/InputText';
 import MainButton from '@ui/components/MainButton';
 
-const users = [
+const USERS = [
     {
         name: 'oceantech',
         password: 'oceantech',
@@ -29,60 +29,23 @@ type Props = {
 const LoginView = ({ navigation }: Props) => {
     const [user, setUser] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [isValidName, setIsValidName] = useState<boolean>(true);
-    const [isValidPassword, setIsValidPassword] = useState<boolean>(true);
-    const [isValidFoundPassword, setIsValidFoundPassword] = useState<boolean>(true);
-    const [found, setFound] = useState<number>(-1);
+    const [isValidLogin, setIsValidLogin] = useState<boolean>(false);
+    const [isValidPassword, setIsValidPassword] = useState<boolean>(false);
 
-    const handleValidUser = (value: string) => {
-        const findIndex = users.findIndex(x => x.name === value);
-        if (findIndex !== -1 && value) {
-            if (value === users[findIndex].name) {
-                setIsValidName(true);
-                console.log(value);
-                console.log(findIndex);
-                setFound(findIndex);
-            } else {
-                setIsValidName(false);
-                setFound(findIndex);
-            }
-        } else {
-            setIsValidName(false);
-            setFound(findIndex);
-        }
+    const handleValid = () => {
+        const findIndex = USERS.findIndex(x => x.name === user);
+        if (findIndex !== -1) {
+            setIsValidLogin(true);
+            if (USERS[findIndex].password === password) setIsValidPassword(true);
+            else setIsValidPassword(false);
+        } else setIsValidLogin(false);
     };
 
-    const handleValidPassword = (value: string) => {
-        if (found !== -1 && value) {
-            const findIndex = users.findIndex(x => x.name === value);
-            if (found === findIndex) {
-                setIsValidPassword(true);
-                setIsValidFoundPassword(true);
-                console.log(findIndex);
-                console.log(found);
-                console.log('a');
-            } else {
-                setIsValidPassword(false);
-                setIsValidFoundPassword(true);
-                console.log('cr');
-            }
-        } else if (value) {
-            setIsValidFoundPassword(false);
-            console.log(found);
-            console.log('b');
-        }
-    };
-
-    const loginButtonHandler = (myIndex: number, myLogin: string, myPassword: string) => {
-        handleValidUser(myLogin);
-        handleValidPassword(myPassword);
-        if (myIndex !== -1) {
-            if (users[myIndex].name === myLogin && users[myIndex].password === myPassword) {
-                console.log('zadzialalo');
-                return navigation.navigate('Welcome');
-            } else console.log('nie zadzialalo');
-        } else console.log('index -1');
-    };
+    useEffect(() => {
+        if (isValidLogin && isValidPassword) navigation.navigate('Welcome');
+        console.log(`login: ${isValidLogin}`);
+        console.log(`password: ${isValidPassword}`);
+    }, [isValidLogin, isValidPassword]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -102,7 +65,7 @@ const LoginView = ({ navigation }: Props) => {
                     title={i18n.t('screens.loginView.login')}
                 />
                 <View style={styles.textValidationContainer}>
-                    {!isValidName && (
+                    {!isValidLogin && (
                         <Text style={styles.validationText}>
                             {i18n.t('screens.loginView.wrongLogin')}
                         </Text>
@@ -123,7 +86,7 @@ const LoginView = ({ navigation }: Props) => {
                             {i18n.t('screens.loginView.wrongPassword')}
                         </Text>
                     )}
-                    {!isValidFoundPassword && isValidPassword && (
+                    {isValidPassword && (
                         <Text style={styles.validationText}>
                             {i18n.t('screens.loginView.wrongLoginOrPassword')}
                         </Text>
@@ -132,7 +95,7 @@ const LoginView = ({ navigation }: Props) => {
             </View>
             <View style={styles.buttonContainer}>
                 <MainButton
-                    onPress={() => loginButtonHandler(found, user, password)}
+                    onPress={() => handleValid()}
                     style={styles.mainBotton}
                     title={i18n.t('screens.loginView.login')}
                 />

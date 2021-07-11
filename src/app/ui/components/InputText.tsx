@@ -30,6 +30,7 @@ const InputText = ({
             </View>
             <View style={styles.inputContainer}>
                 <TextInput
+                    autoCapitalize="none"
                     numberOfLines={1}
                     onChangeText={onChangeText}
                     placeholder={placeHolder}
