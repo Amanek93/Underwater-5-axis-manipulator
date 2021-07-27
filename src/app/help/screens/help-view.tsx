@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import  {useEffect} from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
@@ -14,7 +15,7 @@ type Props = {
     navigation: StackNavigationProp<any>;
 };
 
-const HomeView = observer(function WelcomView({ navigation }: Props) {
+const HelpView = observer(function WelcomView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -66,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeView;
+export default HelpView;

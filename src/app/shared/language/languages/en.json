@@ -11,8 +11,18 @@
       "wrongPassword": "Wrong password!",
       "wrongLoginOrPassword": "Incorrect password or login!"
     },
+
     "homeView": {
       "test": "test"
+    },
+    "navigationBar": {
+      "naviBar-home": "HOME",
+      "naviBar-liveStream": "LIVE STREAM",
+      "naviBar-settings": "SETTINGS",
+      "naviBar-telemetry": "TELEMETRY",
+      "naviBar-diagnostic": "DIAGNOSTIC",
+      "naviBar-info": "INFO",
+      "naviBar-help": "HELP"
     }
   }
 }

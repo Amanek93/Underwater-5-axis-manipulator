@@ -17,6 +17,13 @@ import {
     faTrash,
     faUser,
     faUserCircle,
+    faHouseUser,
+    faHome,
+    faTachometerAlt,
+    faGamepad,
+    faStethoscope,
+    faQuestion,
+    faHospitalSymbol,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const GLOBAL_ICONS = {
@@ -38,4 +45,11 @@ export const GLOBAL_ICONS = {
     moneyBillWave: faMoneyBillWave,
     arrowsAltH: faArrowsAltH,
     userCircle: faUserCircle,
+    houseUser: faHouseUser,
+    home: faHome,
+    telemetry: faTachometerAlt,
+    gamepad: faGamepad,
+    stethoscope:faStethoscope,
+    question: faQuestion,
+    help : faHospitalSymbol
 };

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import  {useEffect} from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 
 // import i18n from '@shared/language/i18n';
-import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
+import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui/const/colors';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import NavigationBar from '@ui/components/NavigationBar';
@@ -14,7 +15,7 @@ type Props = {
     navigation: StackNavigationProp<any>;
 };
 
-const HomeView = observer(function WelcomView({ navigation }: Props) {
+const DiagnosticView = observer(function WelcomView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -31,7 +32,7 @@ const HomeView = observer(function WelcomView({ navigation }: Props) {
             <NavigationBar/>
             </View>
             <View style={styles.contentContainer}>
-                <Image source={require('../../../assets/images/images.png')}/>
+                {/*<Image source={require('../../../assets/images/images.png')}/>*/}
             </View>
             </View>
         </SafeAreaView>
@@ -66,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeView;
+export default DiagnosticView;

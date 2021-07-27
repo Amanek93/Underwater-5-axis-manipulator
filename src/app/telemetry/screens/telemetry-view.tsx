@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import  {useEffect} from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
@@ -14,7 +15,7 @@ type Props = {
     navigation: StackNavigationProp<any>;
 };
 
-const HomeView = observer(function WelcomView({ navigation }: Props) {
+const TelemetryView = observer(function WelcomView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -31,7 +32,7 @@ const HomeView = observer(function WelcomView({ navigation }: Props) {
             <NavigationBar/>
             </View>
             <View style={styles.contentContainer}>
-                <Image source={require('../../../assets/images/images.png')}/>
+                {/*<Image source={require('../../../assets/images/images.png')}/>*/}
             </View>
             </View>
         </SafeAreaView>
@@ -66,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeView;
+export default TelemetryView;

@@ -10,6 +10,7 @@ type Props = {
     placeHolder?: string;
     bgColor?: string;
     onChangeText?(userName: string): void;
+    onSubmitEditing?(userName: string): void;
     secureTextEntry?: boolean;
 };
 
@@ -20,6 +21,7 @@ const InputText = ({
     placeHolder,
     bgColor,
     onChangeText,
+    onSubmitEditing,
     secureTextEntry,
     ...rest
 }: Props) => {

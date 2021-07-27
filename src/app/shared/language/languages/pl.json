@@ -11,6 +11,15 @@
       "wrongPassword": "Złe hasło!",
       "wrongLoginOrPassword": "Złe hasło lub login!"
     },
+    "navigationBar": {
+      "home": "HOME",
+      "liveStream": "TRYB WIDEO",
+      "settings": "USTAWIENIA",
+      "telemetry": "TELEMETRIA",
+      "diagnostic": "DIAGNOSTYKA",
+      "info": "INFO",
+      "help": "POMOC"
+    },
     "homeView": {
       "test": "test"
     }
