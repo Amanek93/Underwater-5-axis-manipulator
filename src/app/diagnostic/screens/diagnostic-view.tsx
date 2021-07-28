@@ -1,15 +1,15 @@
 import * as React from 'react';
-import  {useEffect} from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 
 // import i18n from '@shared/language/i18n';
-import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui/const/colors';
+import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import NavigationBar from '@ui/components/NavigationBar';
 import Header from '../../ui/components/Header';
+import NavigationBar from '@ui/components/NavigationBar';
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -26,14 +26,14 @@ const DiagnosticView = observer(function WelcomView({ navigation }: Props) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header/>
-            <View style={{flexDirection: 'row',}}>
-            <View style={{alignItems: 'flex-start', justifyContent:'flex-end'}}>
-            <NavigationBar/>
-            </View>
-            <View style={styles.contentContainer}>
-                {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-            </View>
+            <Header />
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
+                    <NavigationBar />
+                </View>
+                <View style={styles.contentContainer}>
+                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
         backgroundColor: GLOBAL_COLORS.primary,
         flex: 1,
     },
+    contentContainer: {
+        backgroundColor: 'white',
+        height: '100%',
+        width: '100%',
+    },
     logo: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -52,19 +57,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    navigationBarContainer: {
+        justifyContent: 'flex-start',
+    },
     text: {
         color: GLOBAL_COLORS.text,
         fontSize: GLOBAL_FONTSIZES.header,
     },
-    navigationBarContainer: {
-        justifyContent: 'flex-start',
-
-    },
-    contentContainer: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'white',
-    }
 });
 
 export default DiagnosticView;
