@@ -7,10 +7,12 @@ import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from '
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '../const';
 
 import Icon from '@ui/components/Icon';
+//ZAIMPORTOWAŁEM hooka nawigacyjnego
 import { useNavigation } from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 
+//POPRAWIŁEM NAZWY WIDOKÓW
 const DATA: Array<{
     icon: any;
     iconColor: string;
@@ -77,12 +79,14 @@ const DATA: Array<{
 ];
 
 const NavigationBar = () => {
+    //deklaruję hooka nawigacyjnego
     const navigation = useNavigation();
 
     const renderItem = ({ item }: any) => {
         return (
             <TouchableOpacity
                 onPress={() => {
+                    //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
                     navigation.navigate(item.navigationId);
                 }}
                 style={item.isActive ? styles.pressedButtonContainer : styles.buttonContainer}
