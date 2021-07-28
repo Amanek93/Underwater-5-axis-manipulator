@@ -10,8 +10,6 @@ import Icon from '@ui/components/Icon';
 import InputText from '@ui/components/InputText';
 import MainButton from '@ui/components/MainButton';
 
-
-
 const USERS = [
     {
         name: 'oceantech',
@@ -32,40 +30,38 @@ type Props = {
 const LoginView = ({ navigation }: Props) => {
     const [user, setUser] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [isValid, setIsValid] = useState<{ user: boolean; password: boolean}>({
+    const [isValid, setIsValid] = useState<{ user: boolean; password: boolean }>({
         user: false,
         password: false,
     });
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-
     const handleValid = () => {
         const findIndex = USERS.findIndex(x => x.name === user);
         setIsSubmit(true);
         if (findIndex !== -1) {
-
             if (USERS[findIndex].password === password) {
                 setIsValid({
                     user: true,
                     password: true,
-                })
-            }
-            else {
+                });
+            } else {
                 setIsValid({
                     user: true,
                     password: false,
-                })
+                });
             }
         } else {
             setIsValid({
                 user: false,
                 password: false,
-            })
+            });
         }
     };
 
     useEffect(() => {
-        if (isValid.user === true && isValid.password === true) navigation.navigate('Home', { screen: 'HomeView' });
+        if (isValid.user === true && isValid.password === true)
+            navigation.navigate('Home', { screen: 'HomeView' });
         // console.log(`login: ${isValidLogin}`);
         // console.log(`login: ${user}`);
         // console.log(`password: ${isValidPassword}`);
@@ -90,7 +86,7 @@ const LoginView = ({ navigation }: Props) => {
                     title={i18n.t('screens.loginView.login')}
                 />
                 <View style={styles.textValidationContainer}>
-                    {((isValid.user === false) && (isSubmit === true)) &&(
+                    {isValid.user === false && isSubmit === true && (
                         <Text style={styles.validationText}>
                             {i18n.t('screens.loginView.wrongLogin')}
                         </Text>
@@ -106,12 +102,12 @@ const LoginView = ({ navigation }: Props) => {
                     title={i18n.t('screens.loginView.password')}
                 />
                 <View style={styles.textValidationContainer}>
-                    {((isValid.password) === false && (isValid.user) === true && (isSubmit === true)) &&(
+                    {isValid.password === false && isValid.user === true && isSubmit === true && (
                         <Text style={styles.validationText}>
                             {i18n.t('screens.loginView.wrongPassword')}
                         </Text>
                     )}
-                    {((isValid.password) === false && (isValid.user === false) && (isSubmit === true)) && (
+                    {isValid.password === false && isValid.user === false && isSubmit === true && (
                         <Text style={styles.validationText}>
                             {i18n.t('screens.loginView.wrongLoginOrPassword')}
                         </Text>
@@ -129,7 +125,7 @@ const LoginView = ({ navigation }: Props) => {
                 <TouchableOpacity style={{ width: 50, height: 50 }}>
                     <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.exclamationCircle} />
                 </TouchableOpacity>
-                <TouchableOpacity style={{ width: 50, height: 50 }} >
+                <TouchableOpacity style={{ width: 50, height: 50 }}>
                     <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.houseUser} />
                 </TouchableOpacity>
             </View>
