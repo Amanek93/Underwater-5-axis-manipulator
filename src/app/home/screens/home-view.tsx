@@ -4,18 +4,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 
 // import i18n from '@shared/language/i18n';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
-import NavigationBar from '@ui/components/NavigationBar';
+import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 
 type Props = {
-    navigation: StackNavigationProp<any>;
-    route: any;
+    navigation: DrawerNavigationProp<any>;
 };
 
-const HomeView = observer(function WelcomView({ route, navigation }: Props) {
+const HomeView = observer(function WelcomView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -28,7 +27,12 @@ const HomeView = observer(function WelcomView({ route, navigation }: Props) {
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }} />
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
+                    <NavigationToggleButton
+                        onPress={() => navigation.toggleDrawer()}
+                        title="nawigacja"
+                    />
+                </View>
                 <View style={styles.contentContainer}>
                     <Image source={require('../../../assets/images/images.png')} />
                     <Text>Home</Text>

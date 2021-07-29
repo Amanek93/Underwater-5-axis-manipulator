@@ -1,39 +1,27 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import DiagnosticView from '@diagnostic/screens/diagnostic-view';
 import HelpView from '@help//screens/help-view';
 import HomeView from '@home/screens/home-view';
-import Icon from '@ui/components/Icon';
 import InfoView from '@info/screens/info-view';
 import LiveStreamView from '@liveStream/screens/liveStream-view';
 import SettingsView from '@settings/screens/settings-view';
 import TelemetryView from '@telemetry/screens/telemetry-view';
-import { GLOBAL_COLORS, GLOBAL_ICONS } from '@ui';
 
-const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const HomeStack = () => {
     return (
-        <Tab.Navigator>
-            <Tab.Screen
-                component={HomeView}
-                name="HomeView"
-                options={{
-                    tabBarColor: GLOBAL_COLORS.primary,
-                    tabBarIcon: ({ color }) => (
-                        <Icon color="green" name={GLOBAL_ICONS.cog} size={42} />
-                    ),
-                    tabBarLabel: 'elo',
-                }}
-            />
-            <Tab.Screen component={SettingsView} name="SettingsView" />
-            <Tab.Screen component={LiveStreamView} name="LiveStreamView" />
-            <Tab.Screen component={DiagnosticView} name="DiagnosticView" />
-            <Tab.Screen component={HelpView} name="HelpView" />
-            <Tab.Screen component={InfoView} name="InfoView" />
-            <Tab.Screen component={TelemetryView} name="TelemetryView" />
-        </Tab.Navigator>
+        <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen component={HomeView} name="HomeView" />
+            <Drawer.Screen component={SettingsView} name="SettingsView" />
+            <Drawer.Screen component={LiveStreamView} name="LiveStreamView" />
+            <Drawer.Screen component={DiagnosticView} name="DiagnosticView" />
+            <Drawer.Screen component={HelpView} name="HelpView" />
+            <Drawer.Screen component={InfoView} name="InfoView" />
+            <Drawer.Screen component={TelemetryView} name="TelemetryView" />
+        </Drawer.Navigator>
     );
 };
 

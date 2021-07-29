@@ -10,13 +10,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
 import NavigationBar from '@ui/components/NavigationBar';
+import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 type Props = {
-    navigation: StackNavigationProp<any>;
-    route: any;
+    navigation: DrawerNavigationProp<any>;
 };
 
-const TelemetryView = observer(function WelcomView({ route, navigation }: Props) {
+const TelemetryView = observer(function WelcomView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -30,7 +31,10 @@ const TelemetryView = observer(function WelcomView({ route, navigation }: Props)
             <Header />
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationBar activeIndex={5} />
+                    <NavigationToggleButton
+                        onPress={() => navigation.toggleDrawer()}
+                        title="nawigacja"
+                    />
                 </View>
                 <View style={styles.contentContainer}>
                     {/*<Image source={require('../../../assets/images/images.png')}/>*/}
