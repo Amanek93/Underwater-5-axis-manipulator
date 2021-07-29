@@ -12,9 +12,10 @@ import NavigationBar from '@ui/components/NavigationBar';
 
 type Props = {
     navigation: StackNavigationProp<any>;
+    route: any;
 };
 
-const SettingsView = observer(function WelcomView({ navigation }: Props) {
+const SettingsView = observer(function WelcomView({ route, navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -28,7 +29,7 @@ const SettingsView = observer(function WelcomView({ navigation }: Props) {
             <Header />
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationBar />
+                    <NavigationBar activeIndex={4} />
                 </View>
                 <View style={styles.contentContainer}>
                     {/*<Image source={require('../../../assets/images/images.png')}/>*/}

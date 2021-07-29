@@ -15,9 +15,10 @@ const screenKey = 5;
 
 type Props = {
     navigation: StackNavigationProp<any>;
+    route: any;
 };
 
-const InfoView = observer(function WelcomView({ navigation }: Props) {
+const InfoView = observer(function WelcomView({ route, navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -31,7 +32,7 @@ const InfoView = observer(function WelcomView({ navigation }: Props) {
             <Header />
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationBar screenKey={screenKey} />
+                    <NavigationBar activeIndex={7} />
                 </View>
                 <View style={styles.contentContainer}>
                     {/*<Image source={require('../../../assets/images/images.png')}/>*/}

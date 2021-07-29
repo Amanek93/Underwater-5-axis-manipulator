@@ -13,10 +13,9 @@ import NavigationBar from '@ui/components/NavigationBar';
 
 type Props = {
     navigation: StackNavigationProp<any>;
-    route: any;
 };
 
-const HelpView = observer(function WelcomView({ route, navigation }: Props) {
+const HelpView = observer(function WelcomView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -24,14 +23,13 @@ const HelpView = observer(function WelcomView({ route, navigation }: Props) {
             }),
         [navigation],
     );
-    const { activeIndex } = route.params;
 
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationBar activeId={activeIndex} />
+                    <NavigationBar activeIndex={8} />
                 </View>
                 <View style={styles.contentContainer}>
                     <Image source={require('../../../assets/images/images.png')} />

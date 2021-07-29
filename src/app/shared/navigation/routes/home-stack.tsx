@@ -1,30 +1,39 @@
-
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeView from '@home/screens/home-view';
-import SettingsView from '@settings/screens/settings-view';
-import LiveStreamView from '@liveStream/screens/liveStream-view';
 import DiagnosticView from '@diagnostic/screens/diagnostic-view';
 import HelpView from '@help//screens/help-view';
+import HomeView from '@home/screens/home-view';
+import Icon from '@ui/components/Icon';
 import InfoView from '@info/screens/info-view';
+import LiveStreamView from '@liveStream/screens/liveStream-view';
+import SettingsView from '@settings/screens/settings-view';
 import TelemetryView from '@telemetry/screens/telemetry-view';
+import { GLOBAL_COLORS, GLOBAL_ICONS } from '@ui';
 
-
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
     return (
-        <Stack.Navigator headerMode="none">
-            <Stack.Screen component={HomeView} name="HomeView" />
-            <Stack.Screen component={SettingsView} name="SettingsView" />
-            <Stack.Screen component={LiveStreamView} name="LiveStreamView" />
-            <Stack.Screen component={DiagnosticView} name="DiagnosticView" />
-            <Stack.Screen component={HelpView} name="HelpView" />
-            <Stack.Screen component={InfoView} name="InfoView" />
-            <Stack.Screen component={TelemetryView} name="TelemetryView" />
-
-        </Stack.Navigator>
+        <Tab.Navigator>
+            <Tab.Screen
+                component={HomeView}
+                name="HomeView"
+                options={{
+                    tabBarColor: GLOBAL_COLORS.primary,
+                    tabBarIcon: ({ color }) => (
+                        <Icon color="green" name={GLOBAL_ICONS.cog} size={42} />
+                    ),
+                    tabBarLabel: 'elo',
+                }}
+            />
+            <Tab.Screen component={SettingsView} name="SettingsView" />
+            <Tab.Screen component={LiveStreamView} name="LiveStreamView" />
+            <Tab.Screen component={DiagnosticView} name="DiagnosticView" />
+            <Tab.Screen component={HelpView} name="HelpView" />
+            <Tab.Screen component={InfoView} name="InfoView" />
+            <Tab.Screen component={TelemetryView} name="TelemetryView" />
+        </Tab.Navigator>
     );
 };
 
