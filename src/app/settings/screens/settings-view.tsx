@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'white',
+        backgroundColor: 'purple',
     }
 });
 

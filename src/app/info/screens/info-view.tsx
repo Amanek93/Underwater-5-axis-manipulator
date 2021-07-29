@@ -11,6 +11,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import NavigationBar from '@ui/components/NavigationBar';
 import Header from '../../ui/components/Header';
 
+const screenKey = 5;
+
 type Props = {
     navigation: StackNavigationProp<any>;
 };
@@ -29,7 +31,7 @@ const InfoView = observer(function WelcomView({ navigation }: Props) {
             <Header/>
             <View style={{flexDirection: 'row',}}>
             <View style={{alignItems: 'flex-start', justifyContent:'flex-end'}}>
-            <NavigationBar/>
+            <NavigationBar screenKey={screenKey}/>
             </View>
             <View style={styles.contentContainer}>
                 {/*<Image source={require('../../../assets/images/images.png')}/>*/}
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'white',
+        backgroundColor: 'green',
     }
 });
 

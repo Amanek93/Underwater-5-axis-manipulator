@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     contentContainer: {
-        backgroundColor: 'white',
+        backgroundColor: 'red',
         height: '100%',
         width: '100%',
     },

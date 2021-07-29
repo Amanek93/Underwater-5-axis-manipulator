@@ -13,9 +13,10 @@ import Header from '../../ui/components/Header';
 
 type Props = {
     navigation: StackNavigationProp<any>;
+    route: any;
 };
 
-const HelpView = observer(function WelcomView({ navigation }: Props) {
+const HelpView = observer(function WelcomView({route, navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -23,13 +24,14 @@ const HelpView = observer(function WelcomView({ navigation }: Props) {
             }),
         [navigation],
     );
+    const { activeIndex } = route.params;
 
     return (
         <SafeAreaView style={styles.container}>
             <Header/>
             <View style={{flexDirection: 'row',}}>
             <View style={{alignItems: 'flex-start', justifyContent:'flex-end'}}>
-            <NavigationBar/>
+            <NavigationBar activeId={activeIndex}/>
             </View>
             <View style={styles.contentContainer}>
                 <Image source={require('../../../assets/images/images.png')}/>
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'white',
+        backgroundColor: 'pink',
     }
 });
 
