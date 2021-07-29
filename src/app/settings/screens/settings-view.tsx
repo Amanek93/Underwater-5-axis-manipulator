@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import {  StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 // import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import NavigationBar from '@ui/components/NavigationBar';
 import Header from '../../ui/components/Header';
+import NavigationBar from '@ui/components/NavigationBar';
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -25,14 +25,15 @@ const SettingsView = observer(function WelcomView({ navigation }: Props) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Header/>
-            <View style={{flexDirection: 'row',}}>
-            <View style={{alignItems: 'flex-start', justifyContent:'flex-end'}}>
-            <NavigationBar/>
-            </View>
-            <View style={styles.contentContainer}>
-                {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-            </View>
+            <Header />
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
+                    <NavigationBar />
+                </View>
+                <View style={styles.contentContainer}>
+                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
+                    <Text>settings</Text>
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -43,6 +44,11 @@ const styles = StyleSheet.create({
         backgroundColor: GLOBAL_COLORS.primary,
         flex: 1,
     },
+    contentContainer: {
+        backgroundColor: 'purple',
+        height: '100%',
+        width: '100%',
+    },
     logo: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -51,19 +57,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    navigationBarContainer: {
+        justifyContent: 'flex-start',
+    },
     text: {
         color: GLOBAL_COLORS.text,
         fontSize: GLOBAL_FONTSIZES.header,
     },
-    navigationBarContainer: {
-        justifyContent: 'flex-start',
-
-    },
-    contentContainer: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'purple',
-    }
 });
 
 export default SettingsView;

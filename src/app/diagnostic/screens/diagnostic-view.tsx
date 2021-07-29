@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 
@@ -33,6 +33,7 @@ const DiagnosticView = observer(function WelcomView({ navigation }: Props) {
                 </View>
                 <View style={styles.contentContainer}>
                     {/*<Image source={require('../../../assets/images/images.png')}/>*/}
+                    <Text>diagnostic</Text>
                 </View>
             </View>
         </SafeAreaView>
