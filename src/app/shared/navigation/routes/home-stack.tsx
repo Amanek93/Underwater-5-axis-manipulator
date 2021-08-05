@@ -6,6 +6,7 @@ import HelpView from '@help//screens/help-view';
 import HomeView from '@home/screens/home-view';
 import InfoView from '@info/screens/info-view';
 import LiveStreamView from '@liveStream/screens/liveStream-view';
+import NavigationBar from '@navigation/components/NavigationBar';
 import SettingsView from '@settings/screens/settings-view';
 import TelemetryView from '@telemetry/screens/telemetry-view';
 
@@ -13,7 +14,10 @@ const Drawer = createDrawerNavigator();
 
 const HomeStack = () => {
     return (
-        <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator
+            drawerContent={props => <NavigationBar {...props} />}
+            initialRouteName="Home"
+        >
             <Drawer.Screen component={HomeView} name="HomeView" />
             <Drawer.Screen component={SettingsView} name="SettingsView" />
             <Drawer.Screen component={LiveStreamView} name="LiveStreamView" />
