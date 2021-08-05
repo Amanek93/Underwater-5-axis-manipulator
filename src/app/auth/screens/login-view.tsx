@@ -28,8 +28,8 @@ type Props = {
 };
 
 const LoginView = ({ navigation }: Props) => {
-    const [user, setUser] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [user, setUser] = useState<string>('user');
+    const [password, setPassword] = useState<string>('user');
     const [isValid, setIsValid] = useState<{ user: boolean; password: boolean }>({
         user: false,
         password: false,
