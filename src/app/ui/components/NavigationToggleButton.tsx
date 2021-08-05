@@ -1,53 +1,91 @@
-import LinearGradient from 'react-native-linear-gradient';
-import React from 'react';
-import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
+import { useIsDrawerOpen } from '@react-navigation/drawer';
 
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '../const';
+import Icon from '@ui/components/Icon';
+import { GLOBAL_COLORS, GLOBAL_ICONS } from '@ui';
+
+const NAVIGATION_BAR_WIDTH = 320;
 
 type Props = {
-    color?: string;
-    enabled?: boolean;
-    title: string;
-    style?: StyleProp<ViewStyle>;
     onPress(): void;
 };
 
-const NavigationToggleButton = ({ color, enabled = true, onPress, style, title }: Props) => {
+const NavigationToggleButton = ({ onPress }: Props) => {
+    const [progress] = useState<Animated.Value>(new Animated.Value(0));
+    const isDrawerOpen = useIsDrawerOpen();
+
+    const show = () => {
+        Animated.timing(progress, {
+            duration: 300,
+            toValue: 1,
+            useNativeDriver: false,
+        }).start();
+    };
+
+    const hide = () => {
+        Animated.timing(progress, {
+            duration: 300,
+            toValue: 0,
+            useNativeDriver: false,
+        }).start();
+    };
+
+    const toggleDrawer = () => {
+        if (isDrawerOpen) hide();
+        else show();
+    };
+
+    useEffect(() => {
+        toggleDrawer();
+    }, [isDrawerOpen]);
+
+    const translateX = progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [NAVIGATION_BAR_WIDTH, 0],
+    });
+
+    const opacity = progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0.6, 1],
+    });
+
     return (
-        <TouchableOpacity
-            disabled={enabled === false}
-            onPress={onPress}
-            style={[styles.button, style, { backgroundColor: color ? color : GLOBAL_COLORS.extra }]}
+        <Animated.View
+            style={[
+                styles.container,
+                {
+                    transform: [{ translateX }],
+                    opacity,
+                },
+            ]}
         >
-            {enabled === false ? (
-                <View style={styles.greyButton}>
-                    <Text style={styles.text}>{title}</Text>
-                </View>
-            ) : !color ? (
-                <LinearGradient
-                    angle={45}
-                    angleCenter={{ x: 0.6, y: 0.5 }}
-                    colors={[GLOBAL_COLORS.secondary, GLOBAL_COLORS.extra]}
-                    style={styles.gradient}
-                    useAngle
-                >
-                    <Text style={styles.text}>{title}</Text>
-                </LinearGradient>
-            ) : (
-                <View style={[styles.greyButton, { backgroundColor: color }]}>
-                    <Text style={styles.text}>{title}</Text>
-                </View>
-            )}
-        </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    toggleDrawer();
+                    onPress();
+                }}
+                style={styles.button}
+            >
+                <Icon
+                    color={GLOBAL_COLORS.darkIcon}
+                    name={GLOBAL_ICONS.navigate}
+                    size={42}
+                    style={styles.icon}
+                />
+            </TouchableOpacity>
+        </Animated.View>
     );
 };
 
 const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        borderRadius: 56,
+        backgroundColor: GLOBAL_COLORS.third,
+        borderBottomEndRadius: 56,
+        borderTopEndRadius: 56,
         elevation: 4,
-        height: 56,
+        height: 100,
         justifyContent: 'center',
         shadowOffset: {
             height: 1,
@@ -55,33 +93,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.4,
         shadowRadius: 1,
-        transform: [{ rotate: '-90deg' }],
     },
-    gradient: {
-        alignItems: 'center',
-        backgroundColor: GLOBAL_COLORS.secondary,
-        borderRadius: 56,
-        height: 56,
-        justifyContent: 'center',
-        width: '100%',
+    container: {
+        left: 0,
+        position: 'absolute',
+        top: '45%',
     },
-    greyButton: {
-        alignItems: 'center',
-        backgroundColor: GLOBAL_COLORS.extra,
-        borderRadius: 56,
-        height: 56,
-        justifyContent: 'center',
-        width: '100%',
-    },
-    text: {
-        color: GLOBAL_COLORS.text,
-        fontFamily: GLOBAL_FONTS.ROBOTO,
-        fontSize: GLOBAL_FONTSIZES.header,
-        fontWeight: 'bold' as const,
-        letterSpacing: 0.09,
-        paddingHorizontal: 20,
-        textAlign: 'center',
-    },
+    icon: {},
 });
 
 export default NavigationToggleButton;

@@ -26,13 +26,8 @@ const HomeView = observer(function WelcomView({ navigation }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
-                        title="nawigacja"
-                    />
-                </View>
                 <View style={styles.contentContainer}>
                     <Image source={require('../../../assets/images/images.png')} />
                     <Text>Home</Text>
