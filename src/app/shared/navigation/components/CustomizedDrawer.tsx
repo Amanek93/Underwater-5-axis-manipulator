@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import i18n from '@shared/language/i18n';
 
-import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Image } from 'react-native';
+import {
+    Dimensions,
+    FlatList,
+    Image,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 
+//import Icon from '@ui/components/Icon';
+import Icon from '@ui/components/Icon';
+import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
 
-import Icon from '@ui/components/Icon';
-//ZAIMPORTOWAŁEM hooka nawigacyjnego
-//import { useNavigation } from '@react-navigation/native';
-
-const windowHeight = Dimensions.get('window').height;
-
-//POPRAWIŁEM NAZWY WIDOKÓW
 const DATA: Array<{
     icon: any;
     iconColor: string;
@@ -85,7 +90,9 @@ const DATA: Array<{
     },
 ];
 
-const NavigationBar = () => {
+const windowHeight = Dimensions.get('window').height;
+
+const CustomizedDrawer = props => {
     //deklaruję hooka nawigacyjnego
     // const navigation = useNavigation();
 
@@ -105,7 +112,7 @@ const NavigationBar = () => {
                 <View {...{ backgroundColor: GLOBAL_COLORS.secondary, width: 15, height: '100%' }}>
                     {activeIndex === index && <View style={{ backgroundColor: 'grey', flex: 1 }} />}
                 </View>
-                <View style={{ flex: 1, top: 10 }}>
+                <View style={{ flex: 1, top: 10, height: (windowHeight - windowHeight / 7) / 7 }}>
                     <View style={styles.iconContainer}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Icon
@@ -128,6 +135,15 @@ const NavigationBar = () => {
     };
     return (
         <SafeAreaView style={styles.statusBarContainer}>
+            <View
+                style={{ height: windowHeight / 7, justifyContent: 'center', alignItems: 'center' }}
+            >
+                <Image
+                    resizeMode="contain"
+                    source={require('../../../../assets/images/ocean-tech-logo.png')}
+                    style={styles.imageContainer}
+                />
+            </View>
 
             <FlatList
                 data={DATA}
@@ -141,26 +157,17 @@ const NavigationBar = () => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        alignItems: 'flex-start',
         backgroundColor: GLOBAL_COLORS.secondary,
         flexDirection: 'row',
-        height: windowHeight / 7.5,
-        justifyContent: 'flex-start',
         width: 150,
+
     },
     flatListTextContainer: {
         alignItems: 'center',
         flex: 0.5,
         justifyContent: 'flex-start',
     },
-    greyButton: {
-        alignItems: 'center',
-        backgroundColor: GLOBAL_COLORS.extra,
-        borderRadius: 56,
-        height: 56,
-        justifyContent: 'center',
-        width: '100%',
-    },
+
     iconCont: {
         alignItems: 'center',
         flex: 0.5,
@@ -180,15 +187,15 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         backgroundColor: GLOBAL_COLORS.extra,
         flexDirection: 'row',
-        height: windowHeight / 7.5,
+        // height: windowHeight / 7.5,
         justifyContent: 'flex-start',
-        width: 150,
+        // width: 150,
     },
     statusBarContainer: {
         alignItems: 'center',
+        backgroundColor: GLOBAL_COLORS.secondary,
         height: '100%',
         justifyContent: 'center',
-        backgroundColor: 'red',
     },
     text: {
         color: GLOBAL_COLORS.text,
@@ -201,4 +208,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NavigationBar;
+export default CustomizedDrawer;

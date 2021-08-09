@@ -1,6 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import CustomizedDrawer from '@navigation/components/CustomizedDrawer';
 import DiagnosticView from '@diagnostic/screens/diagnostic-view';
 import HelpView from '@help//screens/help-view';
 import HomeView from '@home/screens/home-view';
@@ -15,7 +16,15 @@ const Drawer = createDrawerNavigator();
 const HomeStack = () => {
     return (
         <Drawer.Navigator
-            drawerContent={props => <NavigationBar {...props} />}
+            drawerContent={props => <CustomizedDrawer {...props} />}
+            drawerContentOptions={{
+                activeTintColor: '#e91e63',
+                itemStyle: { width: 140, height: 80 },
+            }}
+            drawerStyle={{
+                width: 150,
+            }}
+            drawerType={"permanent"}
             initialRouteName="Home"
         >
             <Drawer.Screen component={HomeView} name="HomeView" />
