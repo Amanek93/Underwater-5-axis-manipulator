@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
 // import i18n from '@shared/language/i18n';
 
-import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Image } from 'react-native';
+import {
+    Dimensions,
+    FlatList,
+    Image,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
 
@@ -128,7 +137,6 @@ const NavigationBar = () => {
     };
     return (
         <SafeAreaView style={styles.statusBarContainer}>
-
             <FlatList
                 data={DATA}
                 keyExtractor={DATA => DATA.keyId}
@@ -186,9 +194,9 @@ const styles = StyleSheet.create({
     },
     statusBarContainer: {
         alignItems: 'center',
+        backgroundColor: 'red',
         height: '100%',
         justifyContent: 'center',
-        backgroundColor: 'red',
     },
     text: {
         color: GLOBAL_COLORS.text,

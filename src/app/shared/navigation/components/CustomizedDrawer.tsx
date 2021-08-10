@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 // import i18n from '@shared/language/i18n';
 
 import {
@@ -10,12 +10,14 @@ import {
     Text,
     TouchableOpacity,
     View,
+    Animated
 } from 'react-native';
 
 //import Icon from '@ui/components/Icon';
 import Icon from '@ui/components/Icon';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
+import {useNavigation} from '@react-navigation/native';
 
 const DATA: Array<{
     icon: any;
@@ -32,7 +34,7 @@ const DATA: Array<{
         title: 'HOME',
         navigationId: 'HomeView',
         isActive: false,
-        keyId: 1,
+        keyId: 0,
     },
     {
         icon: GLOBAL_ICONS.gamepad,
@@ -41,7 +43,7 @@ const DATA: Array<{
         title: 'lIVE STREAM',
         navigationId: 'LiveStreamView',
         isActive: false,
-        keyId: 2,
+        keyId: 1,
     },
     {
         icon: GLOBAL_ICONS.cog,
@@ -50,7 +52,7 @@ const DATA: Array<{
         title: 'SETTINGS',
         navigationId: 'SettingsView',
         isActive: false,
-        keyId: 3,
+        keyId: 2,
     },
     {
         icon: GLOBAL_ICONS.telemetry,
@@ -59,7 +61,7 @@ const DATA: Array<{
         title: 'TELEMETRY',
         navigationId: 'TelemetryView',
         isActive: false,
-        keyId: 4,
+        keyId: 3,
     },
     {
         icon: GLOBAL_ICONS.stethoscope,
@@ -68,7 +70,7 @@ const DATA: Array<{
         title: 'DIAGNOSTIC',
         navigationId: 'DiagnosticView',
         isActive: false,
-        keyId: 5,
+        keyId: 4,
     },
     {
         icon: GLOBAL_ICONS.question,
@@ -77,7 +79,7 @@ const DATA: Array<{
         title: 'INFO',
         navigationId: 'InfoView',
         isActive: false,
-        keyId: 6,
+        keyId: 5,
     },
     {
         icon: GLOBAL_ICONS.help,
@@ -86,7 +88,7 @@ const DATA: Array<{
         title: 'HELP',
         navigationId: 'HelpView',
         isActive: false,
-        keyId: 7,
+        keyId: 6,
     },
 ];
 
@@ -94,24 +96,25 @@ const windowHeight = Dimensions.get('window').height;
 
 const CustomizedDrawer = props => {
     //deklaruję hooka nawigacyjnego
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
 
-    const activeIndex = 1;
+    const [activeIndex, setIsActive] = useState('0');
 
     const renderItem = ({ item, index }: any) => {
         return (
             <TouchableOpacity
                 onPress={() => {
                     //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
-                    //navigation.navigate(item.navigationId);
+                    navigation.navigate(item.navigationId);
+                    setIsActive(item.keyId);
                 }}
                 style={
                     activeIndex === index ? styles.pressedButtonContainer : styles.buttonContainer
                 }
             >
-                <View {...{ backgroundColor: GLOBAL_COLORS.secondary, width: 15, height: '100%' }}>
+                <Animated.View {...{ backgroundColor: GLOBAL_COLORS.secondary, width: 15, height: '100%' }}>
                     {activeIndex === index && <View style={{ backgroundColor: 'grey', flex: 1 }} />}
-                </View>
+                </Animated.View>
                 <View style={{ flex: 1, top: 10, height: (windowHeight - windowHeight / 7) / 7 }}>
                     <View style={styles.iconContainer}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>

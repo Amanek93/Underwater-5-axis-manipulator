@@ -5,7 +5,7 @@ import { useIsDrawerOpen } from '@react-navigation/drawer';
 import Icon from '@ui/components/Icon';
 import { GLOBAL_COLORS, GLOBAL_ICONS } from '@ui';
 
-const NAVIGATION_BAR_WIDTH = 320;
+const NAVIGATION_BAR_WIDTH = 140;
 
 type Props = {
     onPress(): void;

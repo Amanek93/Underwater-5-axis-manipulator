@@ -7,7 +7,7 @@ import HelpView from '@help//screens/help-view';
 import HomeView from '@home/screens/home-view';
 import InfoView from '@info/screens/info-view';
 import LiveStreamView from '@liveStream/screens/liveStream-view';
-import NavigationBar from '@navigation/components/NavigationBar';
+
 import SettingsView from '@settings/screens/settings-view';
 import TelemetryView from '@telemetry/screens/telemetry-view';
 
