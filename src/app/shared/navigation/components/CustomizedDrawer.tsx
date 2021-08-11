@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState, useRef } from 'react';
 // import i18n from '@shared/language/i18n';
 
 import {
+    Animated,
     Dimensions,
     FlatList,
     Image,
@@ -10,14 +11,13 @@ import {
     Text,
     TouchableOpacity,
     View,
-    Animated
 } from 'react-native';
 
 //import Icon from '@ui/components/Icon';
 import Icon from '@ui/components/Icon';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const DATA: Array<{
     icon: any;
@@ -94,45 +94,84 @@ const DATA: Array<{
 
 const windowHeight = Dimensions.get('window').height;
 
-const CustomizedDrawer = props => {
+const CustomizedDrawer = () => {
     //deklaruję hooka nawigacyjnego
     const navigation = useNavigation();
 
-    const [activeIndex, setIsActive] = useState('0');
+    const [activeIndex, setIsActive] = useState(0);
+    const translateX = useRef(new Animated.Value(0)).current;
+    const [onRight, setOnRight] = useState(false);
+
+    const animate = () => {
+        Animated.spring(translateX, {
+            toValue: onRight ? 0 : 15,
+            useNativeDriver: true,
+        }).start();
+        setOnRight(!onRight);
+    };
 
     const renderItem = ({ item, index }: any) => {
         return (
             <TouchableOpacity
                 onPress={() => {
                     //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
+
                     navigation.navigate(item.navigationId);
+                    animate();
                     setIsActive(item.keyId);
                 }}
                 style={
                     activeIndex === index ? styles.pressedButtonContainer : styles.buttonContainer
                 }
             >
-                <Animated.View {...{ backgroundColor: GLOBAL_COLORS.secondary, width: 15, height: '100%' }}>
-                    {activeIndex === index && <View style={{ backgroundColor: 'grey', flex: 1 }} />}
+                <Animated.View
+                    style={[styles.animatedViewContainer, {transform:[{translateX}]}]}
+                >
+                    {activeIndex === index && (
+                        <View style={{ backgroundColor: 'grey', flex: 1, }} />
+                    )}
                 </Animated.View>
-                <View style={{ flex: 1, top: 10, height: (windowHeight - windowHeight / 7) / 7 }}>
-                    <View style={styles.iconContainer}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Icon
-                                color={item.iconColor}
-                                name={item.icon}
-                                size={42}
-                                style={styles.iconCont}
-                            />
+                {activeIndex === index
+                ?
+                    <Animated.View style={[styles.flatListButtonContainer, {transform:[{translateX}]}]}>
+                        <View style={styles.iconContainer}>
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Icon
+                                    color={item.iconColor}
+                                    name={item.icon}
+                                    size={42}
+                                    style={styles.iconCont}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.flatListTextContainer}>
+                            <Text style={styles.text}>
+                                {/*{i18n.t(item.title)}*/}
+                                {item.title}
+                            </Text>
+                        </View>
+                    </Animated.View>
+                :
+                    <View style={styles.flatListButtonContainer}>
+                        <View style={styles.iconContainer}>
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <Icon
+                                    color={item.iconColor}
+                                    name={item.icon}
+                                    size={42}
+                                    style={styles.iconCont}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.flatListTextContainer}>
+                            <Text style={styles.text}>
+                                {/*{i18n.t(item.title)}*/}
+                                {item.title}
+                            </Text>
                         </View>
                     </View>
-                    <View style={styles.flatListTextContainer}>
-                        <Text style={styles.text}>
-                            {/*{i18n.t(item.title)}*/}
-                            {item.title}
-                        </Text>
-                    </View>
-                </View>
+                }
+
             </TouchableOpacity>
         );
     };
@@ -162,19 +201,25 @@ const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: GLOBAL_COLORS.secondary,
         flexDirection: 'row',
-        width: 150,
-
+        width: 160,
+    },
+    pressedButtonContainer: {
+        backgroundColor: GLOBAL_COLORS.extra,
+        flexDirection: 'row',
+        width: 160,
     },
     flatListTextContainer: {
         alignItems: 'center',
         flex: 0.5,
         justifyContent: 'flex-start',
+
     },
 
     iconCont: {
         alignItems: 'center',
         flex: 0.5,
         justifyContent: 'center',
+
     },
     iconContainer: {
         alignItems: 'center',
@@ -186,14 +231,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 150,
     },
-    pressedButtonContainer: {
-        alignItems: 'flex-start',
-        backgroundColor: GLOBAL_COLORS.extra,
-        flexDirection: 'row',
-        // height: windowHeight / 7.5,
-        justifyContent: 'flex-start',
-        // width: 150,
-    },
+
     statusBarContainer: {
         alignItems: 'center',
         backgroundColor: GLOBAL_COLORS.secondary,
@@ -209,6 +247,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: 130,
     },
+    animatedViewContainer: {
+        backgroundColor: GLOBAL_COLORS.secondary,
+        width: 15,
+        height: '100%',
+        right:15,
+    },
+    flatListButtonContainer: {
+        flex: 1,
+        top: 10,
+        height: (windowHeight - windowHeight / 7) / 7,
+        right: 5,
+    }
 });
 
 export default CustomizedDrawer;
