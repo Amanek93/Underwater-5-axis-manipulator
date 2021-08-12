@@ -30,17 +30,13 @@ const LiveStreamView = observer(function WelcomView({ navigation }: Props) {
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
-                        title="nawigacja"
-                    />
-                </View>
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }} />
                 <View style={styles.contentContainer}>
                     {/*<Image source={require('../../../assets/images/images.png')}/>*/}
                     <Text>Live Stream</Text>
                 </View>
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} title="nawigacja" />
         </SafeAreaView>
     );
 });

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 // import i18n from '@shared/language/i18n';
 
 import {
@@ -15,7 +15,13 @@ import {
 
 //import Icon from '@ui/components/Icon';
 import Icon from '@ui/components/Icon';
-import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
+import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import {
+    DrawerContentScrollView,
+    DrawerItem,
+    DrawerItemList,
+    DrawerNavigationProp,
+} from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
 import { useNavigation } from '@react-navigation/native';
 
@@ -96,44 +102,66 @@ const windowHeight = Dimensions.get('window').height;
 
 const CustomizedDrawer = () => {
     //deklaruję hooka nawigacyjnego
-    const navigation = useNavigation();
+    const navigation = useNavigation<DrawerNavigationProp<any>>();
 
     const [activeIndex, setIsActive] = useState(0);
     const translateX = useRef(new Animated.Value(0)).current;
-    const [onRight, setOnRight] = useState(false);
 
-    const animate = () => {
-        Animated.spring(translateX, {
-            toValue: onRight ? 0 : 15,
-            useNativeDriver: true,
+    const show = () => {
+        Animated.timing(translateX, {
+            toValue: 0,
+            useNativeDriver: false,
+            duration: 300,
         }).start();
-        setOnRight(!onRight);
     };
+
+    const hide = () => {
+        Animated.timing(translateX, {
+            toValue: 15,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+    };
+
+    const handleButton = useCallback(
+        (index, item) => {
+            show();
+            setTimeout(() => {
+                hide();
+            }, 600);
+            setTimeout(() => {
+                navigation.navigate(item.navigationId);
+            }, 300);
+        },
+        [activeIndex],
+    );
 
     const renderItem = ({ item, index }: any) => {
         return (
             <TouchableOpacity
                 onPress={() => {
                     //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
-
-                    navigation.navigate(item.navigationId);
-                    animate();
                     setIsActive(item.keyId);
+
+                    handleButton(index, item);
                 }}
                 style={
-                    activeIndex === index ? styles.pressedButtonContainer : styles.buttonContainer
+                    item.keyId === activeIndex
+                        ? styles.pressedButtonContainer
+                        : styles.buttonContainer
                 }
             >
                 <Animated.View
-                    style={[styles.animatedViewContainer, {transform:[{translateX}]}]}
+                    style={[styles.animatedViewContainer, { transform: [{ translateX }] }]}
                 >
-                    {activeIndex === index && (
-                        <View style={{ backgroundColor: 'grey', flex: 1, }} />
+                    {item.keyId === activeIndex && (
+                        <View style={{ backgroundColor: 'grey', flex: 1 }} />
                     )}
                 </Animated.View>
-                {activeIndex === index
-                ?
-                    <Animated.View style={[styles.flatListButtonContainer, {transform:[{translateX}]}]}>
+                {item.keyId === activeIndex ? (
+                    <Animated.View
+                        style={[styles.flatListButtonContainer, { transform: [{ translateX }] }]}
+                    >
                         <View style={styles.iconContainer}>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Icon
@@ -151,7 +179,7 @@ const CustomizedDrawer = () => {
                             </Text>
                         </View>
                     </Animated.View>
-                :
+                ) : (
                     <View style={styles.flatListButtonContainer}>
                         <View style={styles.iconContainer}>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -170,8 +198,7 @@ const CustomizedDrawer = () => {
                             </Text>
                         </View>
                     </View>
-                }
-
+                )}
             </TouchableOpacity>
         );
     };
@@ -193,45 +220,56 @@ const CustomizedDrawer = () => {
                 numColumns={1}
                 renderItem={renderItem}
             />
+            <NavigationToggleButton onPress={() => {}} />
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
+    animatedViewContainer: {
+        backgroundColor: GLOBAL_COLORS.secondary,
+        height: '100%',
+        right: 15,
+        width: 15,
+    },
     buttonContainer: {
         backgroundColor: GLOBAL_COLORS.secondary,
         flexDirection: 'row',
         width: 160,
     },
-    pressedButtonContainer: {
-        backgroundColor: GLOBAL_COLORS.extra,
-        flexDirection: 'row',
-        width: 160,
+    flatListButtonContainer: {
+        flex: 1,
+        height: (windowHeight - windowHeight / 7) / 7,
+        right: 5,
+        top: 10,
     },
+
     flatListTextContainer: {
         alignItems: 'center',
         flex: 0.5,
         justifyContent: 'flex-start',
-
     },
-
     iconCont: {
         alignItems: 'center',
         flex: 0.5,
         justifyContent: 'center',
-
     },
     iconContainer: {
         alignItems: 'center',
         flex: 0.5,
         justifyContent: 'center',
     },
+
     imageContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         width: 150,
     },
-
+    pressedButtonContainer: {
+        backgroundColor: GLOBAL_COLORS.extra,
+        flexDirection: 'row',
+        width: 160,
+    },
     statusBarContainer: {
         alignItems: 'center',
         backgroundColor: GLOBAL_COLORS.secondary,
@@ -247,18 +285,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: 130,
     },
-    animatedViewContainer: {
-        backgroundColor: GLOBAL_COLORS.secondary,
-        width: 15,
-        height: '100%',
-        right:15,
-    },
-    flatListButtonContainer: {
-        flex: 1,
-        top: 10,
-        height: (windowHeight - windowHeight / 7) / 7,
-        right: 5,
-    }
 });
 
 export default CustomizedDrawer;
