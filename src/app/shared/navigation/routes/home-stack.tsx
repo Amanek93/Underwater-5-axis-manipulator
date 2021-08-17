@@ -22,9 +22,9 @@ const HomeStack = () => {
                 itemStyle: { width: 140, height: 80 },
             }}
             drawerStyle={{
-                width: 160,
+                width: 175,
             }}
-            drawerType={"permanent"}
+            // drawerType={"permanent"}
             initialRouteName="Home"
         >
             <Drawer.Screen component={HomeView} name="HomeView" />

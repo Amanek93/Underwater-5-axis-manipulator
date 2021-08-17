@@ -57,11 +57,15 @@ const styles = StyleSheet.create({
     logo: {
         alignItems: 'center',
         backgroundColor: 'transparent',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+
     },
     logoContainer: {
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        padding: 10,
+        position: 'absolute',
+        top: 350,
     },
     text: {
         color: GLOBAL_COLORS.text,

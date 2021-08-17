@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-// import i18n from '@shared/language/i18n';
+import React, { useCallback, useRef, useState } from 'react';
+import i18n from '@shared/language/i18n';
 
 import {
     Animated,
@@ -13,15 +13,10 @@ import {
     View,
 } from 'react-native';
 
-//import Icon from '@ui/components/Icon';
+
 import Icon from '@ui/components/Icon';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
-import {
-    DrawerContentScrollView,
-    DrawerItem,
-    DrawerItemList,
-    DrawerNavigationProp,
-} from '@react-navigation/drawer';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
 import { useNavigation } from '@react-navigation/native';
 
@@ -37,7 +32,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.home,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.home',
-        title: 'HOME',
+        title: "home",
         navigationId: 'HomeView',
         isActive: false,
         keyId: 0,
@@ -46,7 +41,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.gamepad,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.test.test',
-        title: 'lIVE STREAM',
+        title: "liveStream",
         navigationId: 'LiveStreamView',
         isActive: false,
         keyId: 1,
@@ -55,7 +50,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.cog,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.settings',
-        title: 'SETTINGS',
+        title: 'settings',
         navigationId: 'SettingsView',
         isActive: false,
         keyId: 2,
@@ -64,7 +59,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.telemetry,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.telemetry',
-        title: 'TELEMETRY',
+        title: 'telemetry',
         navigationId: 'TelemetryView',
         isActive: false,
         keyId: 3,
@@ -73,7 +68,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.stethoscope,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.diagnostic',
-        title: 'DIAGNOSTIC',
+        title: 'diagnostic',
         navigationId: 'DiagnosticView',
         isActive: false,
         keyId: 4,
@@ -82,7 +77,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.question,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.info',
-        title: 'INFO',
+        title: 'info',
         navigationId: 'InfoView',
         isActive: false,
         keyId: 5,
@@ -91,7 +86,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.help,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.help',
-        title: 'HELP',
+        title: 'help',
         navigationId: 'HelpView',
         isActive: false,
         keyId: 6,
@@ -124,7 +119,7 @@ const CustomizedDrawer = () => {
     };
 
     const handleButton = useCallback(
-        (index, item) => {
+        ( item) => {
             show();
             setTimeout(() => {
                 hide();
@@ -137,13 +132,14 @@ const CustomizedDrawer = () => {
     );
 
     const renderItem = ({ item, index }: any) => {
+
         return (
             <TouchableOpacity
                 onPress={() => {
                     //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
                     setIsActive(item.keyId);
 
-                    handleButton(index, item);
+                    handleButton(index);
                 }}
                 style={
                     item.keyId === activeIndex
@@ -174,8 +170,7 @@ const CustomizedDrawer = () => {
                         </View>
                         <View style={styles.flatListTextContainer}>
                             <Text style={styles.text}>
-                                {/*{i18n.t(item.title)}*/}
-                                {item.title}
+                                {i18n.t(`screens.navigationBar.${item.title}`)}
                             </Text>
                         </View>
                     </Animated.View>
@@ -193,8 +188,7 @@ const CustomizedDrawer = () => {
                         </View>
                         <View style={styles.flatListTextContainer}>
                             <Text style={styles.text}>
-                                {/*{i18n.t(item.title)}*/}
-                                {item.title}
+                                {i18n.t(`screens.navigationBar.${item.title}`)}
                             </Text>
                         </View>
                     </View>
@@ -263,12 +257,12 @@ const styles = StyleSheet.create({
     imageContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 150,
+        width: 175,
     },
     pressedButtonContainer: {
         backgroundColor: GLOBAL_COLORS.extra,
         flexDirection: 'row',
-        width: 160,
+        width: 175,
     },
     statusBarContainer: {
         alignItems: 'center',
@@ -283,7 +277,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
         textAlign: 'center',
-        width: 130,
+        width: 140,
     },
 });
 

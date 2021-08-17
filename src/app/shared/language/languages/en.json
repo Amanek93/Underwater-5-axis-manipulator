@@ -16,13 +16,13 @@
       "test": "test"
     },
     "navigationBar": {
-      "naviBar-home": "HOME",
-      "naviBar-liveStream": "LIVE STREAM",
-      "naviBar-settings": "SETTINGS",
-      "naviBar-telemetry": "TELEMETRY",
-      "naviBar-diagnostic": "DIAGNOSTIC",
-      "naviBar-info": "INFO",
-      "naviBar-help": "HELP"
+      "home": "HOME",
+      "liveStream": "LIVE STREAM",
+      "settings": "SETTINGS",
+      "telemetry": "TELEMETRY",
+      "diagnostic": "DIAGNOSTIC",
+      "info": "INFO",
+      "help": "HELP"
     }
   }
 }

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -24,7 +24,7 @@ const USERS = [
 ];
 
 type Props = {
-    navigation: StackNavigationProp<any>;
+    navigation: StackNavigationProp<never>;
 };
 
 const LoginView = ({ navigation }: Props) => {
@@ -59,81 +59,126 @@ const LoginView = ({ navigation }: Props) => {
         }
     };
 
+    const translateY = useRef(new Animated.Value(0)).current;
+    const [onTop, setOnTop] = useState(false);
+
+    const animate = () => {
+        Animated.spring(translateY, {
+            toValue: onTop ? 0 : -700,
+            useNativeDriver: false,
+        }).start();
+        setOnTop(!onTop);
+    };
+    const animate1 = () => {
+        Animated.spring(translateY, {
+            toValue: onTop ? 0 : -400,
+            useNativeDriver: false,
+            // bounciness: 5,
+            speed: 4,
+        }).start();
+        setOnTop(!onTop);
+    };
+
     useEffect(() => {
-        if (isValid.user === true && isValid.password === true)
-            navigation.navigate('Home', { screen: 'HomeView' });
-        // console.log(`login: ${isValidLogin}`);
-        // console.log(`login: ${user}`);
-        // console.log(`password: ${isValidPassword}`);
-        // console.log(`password: ${password}`);
-    }, [isValid.user, isValid.password]);
+        if (isValid.user && isValid.password) navigation.navigate('Home', { screen: 'HomeView' });
+    }, [isValid.user, isValid.password, navigation]);
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.logoContainer}>
+            <Animated.View style={[styles.logoContainer, { transform: [{ translateY }] }]}>
                 <Image
                     source={require('../../../assets/images/ocean-tech-logo.png')}
                     style={styles.logo}
                 />
-            </View>
-            <View style={styles.inputTextContainer}>
-                <InputText
-                    bgColor="white"
-                    labelValue={user}
-                    onChangeText={userName => {
-                        setUser(userName);
-                    }}
-                    title={i18n.t('screens.loginView.login')}
-                />
-                <View style={styles.textValidationContainer}>
-                    {isValid.user === false && isSubmit === true && (
-                        <Text style={styles.validationText}>
-                            {i18n.t('screens.loginView.wrongLogin')}
-                        </Text>
-                    )}
-                </View>
-                <InputText
-                    bgColor="white"
-                    labelValue={password}
-                    onChangeText={(userPassword: string) => {
-                        setPassword(userPassword);
-                    }}
-                    secureTextEntry
-                    title={i18n.t('screens.loginView.password')}
-                />
-                <View style={styles.textValidationContainer}>
-                    {isValid.password === false && isValid.user === true && isSubmit === true && (
-                        <Text style={styles.validationText}>
-                            {i18n.t('screens.loginView.wrongPassword')}
-                        </Text>
-                    )}
-                    {isValid.password === false && isValid.user === false && isSubmit === true && (
-                        <Text style={styles.validationText}>
-                            {i18n.t('screens.loginView.wrongLoginOrPassword')}
-                        </Text>
-                    )}
-                </View>
-            </View>
-            <View style={styles.buttonContainer}>
+            </Animated.View>
+            <View style={styles.animationButtonContainer}>
                 <MainButton
-                    onPress={() => handleValid()}
-                    style={styles.mainBotton}
+                    onPress={() => {
+                        animate();
+                        animate1();
+                        console.log(translateY);
+                    }}
+                    style={styles.animationButton}
                     title={i18n.t('screens.loginView.login')}
                 />
             </View>
-            <View style={styles.supportContainer}>
-                <TouchableOpacity style={{ width: 50, height: 50 }}>
-                    <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.exclamationCircle} />
-                </TouchableOpacity>
-                <TouchableOpacity style={{ width: 50, height: 50 }}>
-                    <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.houseUser} />
-                </TouchableOpacity>
-            </View>
+            <Animated.View style={[styles.animatdContainer, { transform: [{ translateY }] }]}>
+                <View style={styles.inputTextContainer}>
+                    <InputText
+                        bgColor="white"
+                        labelValue={user}
+                        onChangeText={userName => {
+                            setUser(userName);
+                        }}
+                        title={i18n.t('screens.loginView.login')}
+                    />
+                    <View style={styles.textValidationContainer}>
+                        {!isValid.user && isSubmit && (
+                            <Text style={styles.validationText}>
+                                {i18n.t('screens.loginView.wrongLogin')}
+                            </Text>
+                        )}
+                    </View>
+                    <InputText
+                        bgColor="white"
+                        labelValue={password}
+                        onChangeText={(userPassword: string) => {
+                            setPassword(userPassword);
+                        }}
+                        secureTextEntry
+                        title={i18n.t('screens.loginView.password')}
+                    />
+                    <View style={styles.textValidationContainer}>
+                        {!isValid.password && isValid.user && isSubmit && (
+                            <Text style={styles.validationText}>
+                                {i18n.t('screens.loginView.wrongPassword')}
+                            </Text>
+                        )}
+                        {!isValid.password && !isValid.user && isSubmit && (
+                            <Text style={styles.validationText}>
+                                {i18n.t('screens.loginView.wrongLoginOrPassword')}
+                            </Text>
+                        )}
+                    </View>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <MainButton
+                        onPress={() => handleValid()}
+                        style={styles.mainBotton}
+                        title={i18n.t('screens.loginView.login')}
+                    />
+                </View>
+                <View style={styles.supportContainer}>
+                    <TouchableOpacity style={{ width: 50, height: 50 }}>
+                        <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.exclamationCircle} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ width: 50, height: 50 }}>
+                        <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.houseUser} />
+                    </TouchableOpacity>
+                </View>
+            </Animated.View>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
+    animatdContainer: {
+        alignItems: 'center',
+        backgroundColor: GLOBAL_COLORS.extra,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        height: 500,
+        top: 700,
+        width: '100%',
+    },
+    animationButton: {
+        width: 150,
+    },
+    animationButtonContainer: {
+        justifyContent: 'flex-start',
+        position: 'absolute',
+        top: 550,
+    },
     buttonContainer: {
         flexDirection: 'row',
         padding: 10,
@@ -146,16 +191,19 @@ const styles = StyleSheet.create({
     },
     inputTextContainer: {
         padding: 10,
+        width: 350,
     },
     logo: {
         alignItems: 'center',
         backgroundColor: 'transparent',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     logoContainer: {
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         padding: 10,
+        position: 'absolute',
+        top: 350,
     },
     mainBotton: {
         height: 20,
