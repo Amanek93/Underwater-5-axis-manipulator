@@ -1,12 +1,14 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 
 import { Dimensions,  Text,  SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import {GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS} from '@ui/const';
 
 import Icon from '@ui/components/Icon';
+import i18n from '@shared/language/i18n';
 
 import DropDownPicker from 'react-native-dropdown-picker';
+
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
@@ -33,7 +35,7 @@ const Header = () => {
                                 style={styles.icon}
                             />
                         </View>
-                        <Text style={styles.textButton}>Connected</Text>
+                        <Text style={styles.textButton}>{i18n.t('screens.header.connected')}</Text>
                     </TouchableOpacity>
                     <View style={styles.dropdownContainer}>
                         <DropDownPicker
@@ -47,19 +49,18 @@ const Header = () => {
                     </View>
                 </View>
                 <View style={styles.cinematicContainer}>
-                    <View style={styles.cinematicButtonContainer}>
-                        <TouchableOpacity style={styles.cinematicButton}>
-                            <Text>assdasdas</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.cinematicButton}>
-                            <Text>assdasdas</Text>
-                        </TouchableOpacity>
-                    </View>
-
+                    {/*<View style={styles.cinematicButtonContainer}>*/}
+                    {/*    <TouchableOpacity style={styles.cinematicButton}>*/}
+                    {/*        <Text style={styles.cinematicButtonText}>{i18n.t('screens.header.connected')}</Text>*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*    <TouchableOpacity style={styles.cinematicButton}>*/}
+                    {/*        <Text style={styles.cinematicButtonText}>{i18n.t('screens.header.connected')}</Text>*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*</View>*/}
                 </View>
             </View>
             <View style={styles.rightHeaderContainer}>
-                <TouchableOpacity style={styles.connectedButton}>
+                <TouchableOpacity style={styles.resetButton}>
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
@@ -68,9 +69,9 @@ const Header = () => {
                             style={styles.icon}
                         />
                     </View>
-                    <Text style={styles.textButton}>Connected</Text>
+                    <Text style={styles.textButton}>{i18n.t('screens.header.reset')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.connectedButton}>
+                <TouchableOpacity style={styles.homeButton}>
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
@@ -79,9 +80,9 @@ const Header = () => {
                             style={styles.icon}
                         />
                     </View>
-                    <Text style={styles.textButton}>Connected</Text>
+                    <Text style={styles.textButton}>{i18n.t('screens.header.home')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.connectedButton}>
+                <TouchableOpacity style={styles.memoButton}>
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
@@ -90,9 +91,9 @@ const Header = () => {
                             style={styles.icon}
                         />
                     </View>
-                    <Text style={styles.textButton}>Connected</Text>
+                    <Text style={styles.textButton}>{i18n.t('screens.header.memory')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.connectedButton}>
+                <TouchableOpacity style={styles.stopButton}>
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
@@ -101,7 +102,7 @@ const Header = () => {
                             style={styles.icon}
                         />
                     </View>
-                    <Text style={styles.textButton}>Connected</Text>
+                    <Text style={styles.textButton}>{i18n.t('screens.header.stop')}</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -110,38 +111,36 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     headerContainer: {
-        backgroundColor: GLOBAL_COLORS.secondary,
+        backgroundColor: GLOBAL_COLORS.primary,
         flexDirection: 'row',
         height: windowHeight / 7,
         justifyContent: 'center',
         width: windowWidth,
     },
     leftHeaderContainer: {
-        backgroundColor: 'green',
         flex: 2,
         flexDirection: 'row',
+        paddingHorizontal: 5,
     },
     rightHeaderContainer: {
-        backgroundColor: '#8a2be2',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingHorizontal: 5,
     },
     connectedContainer: {
-        backgroundColor: 'red',
         flex:1,
         height: windowHeight / 7,
         flexDirection: 'row',
-
     },
     connectedButton: {
         width: windowHeight / 7,
         height: windowHeight / 7,
-        backgroundColor: 'green',
+        backgroundColor:  GLOBAL_COLORS.extra,
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-
+        paddingHorizontal: 5,
     },
     connectedButtonIcon: {
 
@@ -154,7 +153,6 @@ const styles = StyleSheet.create({
     icon: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'orange',
     },
     textButton:{
         flex: 1,
@@ -164,15 +162,13 @@ const styles = StyleSheet.create({
     },
     dropdownContainer: {
         flex:1,
-        backgroundColor: 'yellow',
+        padding: 5,
     },
     homeStopContainer: {
       flex:1,
-      backgroundColor: 'pink',
     },
     cinematicContainer: {
         flex:1,
-        backgroundColor: 'pink',
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
@@ -181,7 +177,44 @@ const styles = StyleSheet.create({
       backgroundColor: 'grey',
     },
     cinematicButton: {
-      flex:1,
+        justifyContent: 'center',
+        alignItems:'center',
+        flex:1,
+    },
+    cinematicButtonText: {
+        textAlign: 'center',
+    },
+    resetButton:{
+        width: windowHeight / 7,
+        height: windowHeight / 7,
+        backgroundColor: GLOBAL_COLORS.extra,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    homeButton:{
+        width: windowHeight / 7,
+        height: windowHeight / 7,
+        backgroundColor: GLOBAL_COLORS.extra,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    memoButton:{
+        width: windowHeight / 7,
+        height: windowHeight / 7,
+        backgroundColor: GLOBAL_COLORS.extra,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    stopButton:{
+        width: windowHeight / 7,
+        height: windowHeight / 7,
+        backgroundColor: GLOBAL_COLORS.stopBackground,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 

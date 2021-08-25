@@ -15,6 +15,15 @@
     "homeView": {
       "test": "test"
     },
+    "header": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "reset": "Reset",
+      "stop": "Stop",
+      "home": "Home",
+      "memory": "Memory",
+
+    },
     "navigationBar": {
       "home": "HOME",
       "liveStream": "LIVE STREAM",
@@ -23,6 +32,6 @@
       "diagnostic": "DIAGNOSTIC",
       "info": "INFO",
       "help": "HELP"
-    }
+    },
   }
 }

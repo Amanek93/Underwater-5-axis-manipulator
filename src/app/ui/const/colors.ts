@@ -9,4 +9,7 @@ export const GLOBAL_COLORS = {
     textSecondary: darkMode ? '#747e90' : '#747e90',
     icon: darkMode ? '#FFFFFF' : '#FFFFFF',
     darkIcon: darkMode ? '#000000' : '#000000',
+    stopBackground: darkMode? '#b22222' : '#b22222',
+    resetBackground: darkMode? '#a9a9a9' : '#a9a9a9',
+
 };

@@ -22,6 +22,14 @@
     },
     "homeView": {
       "test": "test"
+    },
+    "header": {
+      "connected": "Połączony",
+      "disconnected": "Rozłączony",
+      "reset": "Reset",
+      "stop": "Stop",
+      "home": "Home",
+      "memory": "Historia"
     }
   }
 }
