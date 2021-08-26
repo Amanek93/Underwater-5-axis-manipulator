@@ -2,12 +2,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '../const';
+
+import {GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES} from '@ui';
 
 type Props = {
     color?: string;
+
     enabled?: boolean;
-    title: string;
+    title?: string;
     style?: StyleProp<ViewStyle>;
     onPress(): void;
 };
@@ -80,6 +82,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
         textAlign: 'center',
+    },
+    icon: {
+      alignItems: 'center',
+      justifyContent: 'center',
     },
 });
 

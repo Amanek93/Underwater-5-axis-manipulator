@@ -1,5 +1,6 @@
 import {
     faAngleLeft,
+    faAngleRight,
     faArrowsAltH,
     faBriefcase,
     faChevronDown,
@@ -34,6 +35,7 @@ import {
 
 export const GLOBAL_ICONS = {
     angleLeft: faAngleLeft,
+    angleRight: faAngleRight,
     mapMarkerAlt: faMapMarkerAlt,
     phoneAlt: faPhoneAlt,
     eye: faEye,
@@ -64,4 +66,5 @@ export const GLOBAL_ICONS = {
     syncAlt: faSyncAlt,
     plug: faPlug,
     checkCircle: faCheckCircle,
+
 };
