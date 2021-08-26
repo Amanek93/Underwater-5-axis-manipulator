@@ -12,8 +12,16 @@ import DropDownPicker from 'react-native-dropdown-picker';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
-const Header = () => {
+type Props = {
+    resetHandler(): void;
+    homeHandler(): void;
+    memoHandler(): void;
+    stopHandler(): void;
+}
+
+const Header = ({resetHandler, homeHandler, memoHandler, stopHandler}: Props) => {
     const [open, setOpen] = useState(false);
+    const [connected, setConnected] = useState<boolean>(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
         {label: 'Apple', value: 'apple', },
@@ -26,16 +34,48 @@ const Header = () => {
         <SafeAreaView style={styles.headerContainer}>
             <View style={styles.leftHeaderContainer}>
                 <View style={styles.connectedContainer}>
-                    <TouchableOpacity style={styles.connectedButton}>
+                    <TouchableOpacity style={styles.connectedButton}
+                    onPress={()=>{
+                        setConnected(!connected);
+
+                    }
+                    }>
                         <View style={styles.iconContainer}>
                             <Icon
                                 color={GLOBAL_COLORS.icon}
-                                name={GLOBAL_ICONS.home}
+                                name={GLOBAL_ICONS.plug}
                                 size={42}
                                 style={styles.icon}
                             />
                         </View>
-                        <Text style={styles.textButton}>{i18n.t('screens.header.connected')}</Text>
+                        {connected ?
+                            <>
+                            <Text style={styles.textButton}>{i18n.t('screens.header.connected')}</Text>
+                                <View style={styles.checkTickContainer}>
+                                    <Icon
+                                        color={GLOBAL_COLORS.connectedTickColor}
+                                        name={GLOBAL_ICONS.checkCircle}
+                                        size={20}
+                                        style={{backgroundColor: GLOBAL_COLORS.primary, borderRadius:10,}}
+                                    />
+                                </View>
+
+                            </>
+                            :
+                            <>
+                            <Text style={styles.textButton}>{i18n.t('screens.header.disconnected')}</Text>
+                            <View style={styles.checkTickContainer}>
+                            <Icon
+                            color={GLOBAL_COLORS.disconnectedTickColor}
+                            name={GLOBAL_ICONS.checkCircle}
+                            size={20}
+                            style={{backgroundColor: GLOBAL_COLORS.primary, borderRadius:10,}}
+                            />
+                            </View>
+
+                            </>
+
+                        }
                     </TouchableOpacity>
                     <View style={styles.dropdownContainer}>
                         <DropDownPicker
@@ -49,29 +89,25 @@ const Header = () => {
                     </View>
                 </View>
                 <View style={styles.cinematicContainer}>
-                    {/*<View style={styles.cinematicButtonContainer}>*/}
-                    {/*    <TouchableOpacity style={styles.cinematicButton}>*/}
-                    {/*        <Text style={styles.cinematicButtonText}>{i18n.t('screens.header.connected')}</Text>*/}
-                    {/*    </TouchableOpacity>*/}
-                    {/*    <TouchableOpacity style={styles.cinematicButton}>*/}
-                    {/*        <Text style={styles.cinematicButtonText}>{i18n.t('screens.header.connected')}</Text>*/}
-                    {/*    </TouchableOpacity>*/}
-                    {/*</View>*/}
                 </View>
             </View>
             <View style={styles.rightHeaderContainer}>
-                <TouchableOpacity style={styles.resetButton}>
+                <TouchableOpacity style={styles.resetButton}
+                                  onPress={resetHandler}
+                >
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
-                            name={GLOBAL_ICONS.home}
+                            name={GLOBAL_ICONS.syncAlt}
                             size={42}
                             style={styles.icon}
                         />
                     </View>
                     <Text style={styles.textButton}>{i18n.t('screens.header.reset')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.homeButton}>
+                <TouchableOpacity style={styles.homeButton}
+                                  onPress={homeHandler}
+                >
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
@@ -82,22 +118,25 @@ const Header = () => {
                     </View>
                     <Text style={styles.textButton}>{i18n.t('screens.header.home')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.memoButton}>
+                <TouchableOpacity style={styles.memoButton}
+                                  onPress={memoHandler}
+                >
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
-                            name={GLOBAL_ICONS.home}
+                            name={GLOBAL_ICONS.recycle}
                             size={42}
                             style={styles.icon}
                         />
                     </View>
                     <Text style={styles.textButton}>{i18n.t('screens.header.memory')}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.stopButton}>
+                <TouchableOpacity style={styles.stopButton} onPress={stopHandler}
+                >
                     <View style={styles.iconContainer}>
                         <Icon
                             color={GLOBAL_COLORS.icon}
-                            name={GLOBAL_ICONS.home}
+                            name={GLOBAL_ICONS.stopCircle}
                             size={42}
                             style={styles.icon}
                         />
@@ -216,6 +255,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    checkTickContainer: {
+        position: "absolute",
+        right: '30%',
+        top: '20%',
+    }
 });
 
 export default Header;

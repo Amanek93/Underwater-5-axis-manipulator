@@ -25,6 +25,11 @@ import {
     faTrash,
     faUser,
     faUserCircle,
+    faStopCircle,
+    faRecycle,
+    faSyncAlt,
+    faPlug,
+    faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const GLOBAL_ICONS = {
@@ -54,4 +59,9 @@ export const GLOBAL_ICONS = {
     question: faQuestion,
     help: faHospitalSymbol,
     navigate: faEllipsisV,
+    stopCircle: faStopCircle,
+    recycle: faRecycle,
+    syncAlt: faSyncAlt,
+    plug: faPlug,
+    checkCircle: faCheckCircle,
 };
