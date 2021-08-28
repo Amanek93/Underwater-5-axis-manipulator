@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 
-import CircularSlider from '@ui/components/CircularSlide';
-
+import ControlSlider from '@home/components/ControlSlider';
 import Header from '../../ui/components/Header';
-import MainButton from '@ui/components/MainButton';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
-import { HomeActionTypes, getSpeed } from '@home';
-import { useDispatch, useSelector } from 'react-redux';
 
 type Props = {
     navigation: DrawerNavigationProp<never>;
 };
 
 const HomeView = observer(function WelcomeView({ navigation }: Props) {
-    const [count, setCount] = useState<number>(0);
-
-    const speed = useSelector(getSpeed);
-    const dispatch = useDispatch();
-
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -32,10 +23,6 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
         [navigation],
     );
 
-    const handleAddSpeed = () => {
-        dispatch({ type: HomeActionTypes.ADD_SPEED });
-    };
-
     return (
         <SafeAreaView style={styles.container}>
             <Header />
@@ -43,50 +30,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer} />
                 <View style={styles.rightContentContainer}>
-                    <View style={styles.progressCircleContainer}>
-                        <CircularSlider
-                            buttonBorderColor="#3FE3EB"
-                            buttonFillColor="#fff"
-                            buttonRadius={5}
-                            buttonStrokeWidth={15}
-                            contentContainerStyle={styles.contentContainerStyle}
-                            linearGradient={[
-                                { stop: '0%', color: GLOBAL_COLORS.secondary },
-                                { stop: '100%', color: GLOBAL_COLORS.extra },
-                            ]}
-                            max={90}
-                            min={-90}
-                            onChange={(count: number) => setCount(count)}
-                            openingRadian={Math.PI / 2}
-                            step={1}
-                            strokeWidth={15}
-                            value={count}
-                        >
-                            <Text style={styles.text}>Axis 1</Text>
-                        </CircularSlider>
-                        <View style={styles.countContainer}>
-                            <MainButton
-                                iconName={GLOBAL_ICONS.angleLeft}
-                                iconSize={20}
-                                onPress={handleAddSpeed}
-                                style={styles.countButton}
-                            />
-                            <MainButton
-                                enabled
-                                onPress={() => {
-                                    console.log('elo');
-                                }}
-                                style={styles.countMeter}
-                                title={speed}
-                            />
-                            <MainButton
-                                iconName={GLOBAL_ICONS.angleRight}
-                                iconSize={20}
-                                onPress={() => setCount(count + 1)}
-                                style={styles.countButton}
-                            />
-                        </View>
-                    </View>
+                    <ControlSlider />
                 </View>
             </View>
         </SafeAreaView>
