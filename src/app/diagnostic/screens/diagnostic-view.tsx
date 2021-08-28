@@ -9,7 +9,6 @@ import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
-import NavigationBar from '@ui/components/NavigationBar';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
