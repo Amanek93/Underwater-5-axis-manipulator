@@ -11,6 +11,8 @@ import CircularSlider from '@ui/components/CircularSlide';
 import Header from '../../ui/components/Header';
 import MainButton from '@ui/components/MainButton';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import { HomeActionTypes, getSpeed } from '@home';
+import { useDispatch, useSelector } from 'react-redux';
 
 type Props = {
     navigation: DrawerNavigationProp<never>;
@@ -18,6 +20,10 @@ type Props = {
 
 const HomeView = observer(function WelcomeView({ navigation }: Props) {
     const [count, setCount] = useState<number>(0);
+
+    const speed = useSelector(getSpeed);
+    const dispatch = useDispatch();
+
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -25,6 +31,10 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
+
+    const handleAddSpeed = () => {
+        dispatch({ type: HomeActionTypes.ADD_SPEED });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -58,7 +68,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
                             <MainButton
                                 iconName={GLOBAL_ICONS.angleLeft}
                                 iconSize={20}
-                                onPress={() => setCount(count - 1)}
+                                onPress={handleAddSpeed}
                                 style={styles.countButton}
                             />
                             <MainButton
@@ -67,7 +77,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
                                     console.log('elo');
                                 }}
                                 style={styles.countMeter}
-                                title={count}
+                                title={speed}
                             />
                             <MainButton
                                 iconName={GLOBAL_ICONS.angleRight}
