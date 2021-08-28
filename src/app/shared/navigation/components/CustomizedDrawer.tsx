@@ -13,7 +13,6 @@ import {
     View,
 } from 'react-native';
 
-
 import Icon from '@ui/components/Icon';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -32,7 +31,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.home,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.navigationBar.home',
-        title: "home",
+        title: 'home',
         navigationId: 'HomeView',
         isActive: false,
         keyId: 0,
@@ -41,7 +40,7 @@ const DATA: Array<{
         icon: GLOBAL_ICONS.gamepad,
         iconColor: GLOBAL_COLORS.icon,
         //title: 'screen.test.test',
-        title: "liveStream",
+        title: 'liveStream',
         navigationId: 'LiveStreamView',
         isActive: false,
         keyId: 1,
@@ -119,7 +118,7 @@ const CustomizedDrawer = () => {
     };
 
     const handleButton = useCallback(
-        ( item) => {
+        item => {
             show();
             setTimeout(() => {
                 hide();
@@ -132,14 +131,13 @@ const CustomizedDrawer = () => {
     );
 
     const renderItem = ({ item, index }: any) => {
-
         return (
             <TouchableOpacity
                 onPress={() => {
                     //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
                     setIsActive(item.keyId);
 
-                    handleButton(index);
+                    handleButton(item);
                 }}
                 style={
                     item.keyId === activeIndex
@@ -210,7 +208,7 @@ const CustomizedDrawer = () => {
 
             <FlatList
                 data={DATA}
-                keyExtractor={DATA => DATA.keyId}
+                keyExtractor={item => item.keyId.toString}
                 numColumns={1}
                 renderItem={renderItem}
             />
