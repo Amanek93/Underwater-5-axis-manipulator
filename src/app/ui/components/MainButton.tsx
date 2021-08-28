@@ -2,21 +2,29 @@ import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-
-import {GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES} from '@ui';
-import Icon from "@ui/components/Icon";
+import Icon from '@ui/components/Icon';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type Props = {
     color?: string;
-    iconExist?: string;
-    iconSize?: number;
+    iconName?: IconProp;
+    iconSize?: 18 | 20 | 22 | 26 | 30 | 34 | 38 | 42 | 46 | 50;
     enabled?: boolean;
-    title?: string;
+    title?: string | number;
     style?: StyleProp<ViewStyle>;
     onPress(): void;
 };
 
-const MainButton = ({ color, iconExist, iconSize, enabled = true, onPress, style, title }: Props) => {
+const MainButton = ({
+    color,
+    iconName,
+    iconSize,
+    enabled = true,
+    onPress,
+    style,
+    title,
+}: Props) => {
     return (
         <TouchableOpacity
             disabled={enabled === false}
@@ -25,19 +33,17 @@ const MainButton = ({ color, iconExist, iconSize, enabled = true, onPress, style
         >
             {enabled === false ? (
                 <View style={styles.greyButton}>
-                    {iconExist ? (
-                            <Icon
-                                color={GLOBAL_COLORS.icon}
-                                name={iconExist}
-                                size={iconSize}
-                                style={styles.icon}
-                            />
-                    )
-                   :
+                    {iconName ? (
+                        <Icon
+                            color={GLOBAL_COLORS.icon}
+                            name={iconName}
+                            size={iconSize}
+                            style={styles.icon}
+                        />
+                    ) : (
                         <Text style={styles.text}>{title}</Text>
-                        }
+                    )}
                 </View>
-
             ) : !color ? (
                 <LinearGradient
                     angle={45}
@@ -46,31 +52,29 @@ const MainButton = ({ color, iconExist, iconSize, enabled = true, onPress, style
                     style={styles.gradient}
                     useAngle
                 >
-                    {iconExist ? (
-                            <Icon
-                                color={GLOBAL_COLORS.icon}
-                                name={iconExist}
-                                size={iconSize}
-                                style={styles.icon}
-                            />
-                        )
-                        :
+                    {iconName ? (
+                        <Icon
+                            color={GLOBAL_COLORS.icon}
+                            name={iconName}
+                            size={iconSize}
+                            style={styles.icon}
+                        />
+                    ) : (
                         <Text style={styles.text}>{title}</Text>
-                    }
+                    )}
                 </LinearGradient>
             ) : (
                 <View style={[styles.greyButton, { backgroundColor: color }]}>
-                    {iconExist ? (
-                            <Icon
-                                color={GLOBAL_COLORS.icon}
-                                name={iconExist}
-                                size={iconSize}
-                                style={styles.icon}
-                            />
-                        )
-                        :
+                    {iconName ? (
+                        <Icon
+                            color={GLOBAL_COLORS.icon}
+                            name={iconName}
+                            size={iconSize}
+                            style={styles.icon}
+                        />
+                    ) : (
                         <Text style={styles.text}>{title}</Text>
-                    }
+                    )}
                 </View>
             )}
         </TouchableOpacity>
@@ -90,7 +94,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.4,
         shadowRadius: 1,
-
     },
     gradient: {
         alignItems: 'center',
@@ -108,6 +111,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
     },
+    icon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     text: {
         color: GLOBAL_COLORS.text,
         fontFamily: GLOBAL_FONTS.ROBOTO,
@@ -115,10 +122,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
         textAlign: 'center',
-    },
-    icon: {
-      alignItems: 'center',
-      justifyContent: 'center',
     },
 });
 
