@@ -4,17 +4,19 @@ import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from '
 
 
 import {GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES} from '@ui';
+import Icon from "@ui/components/Icon";
 
 type Props = {
     color?: string;
-
+    iconExist?: string;
+    iconSize?: number;
     enabled?: boolean;
     title?: string;
     style?: StyleProp<ViewStyle>;
     onPress(): void;
 };
 
-const MainButton = ({ color, enabled = true, onPress, style, title }: Props) => {
+const MainButton = ({ color, iconExist, iconSize, enabled = true, onPress, style, title }: Props) => {
     return (
         <TouchableOpacity
             disabled={enabled === false}
@@ -23,8 +25,19 @@ const MainButton = ({ color, enabled = true, onPress, style, title }: Props) => 
         >
             {enabled === false ? (
                 <View style={styles.greyButton}>
-                    <Text style={styles.text}>{title}</Text>
+                    {iconExist ? (
+                            <Icon
+                                color={GLOBAL_COLORS.icon}
+                                name={iconExist}
+                                size={iconSize}
+                                style={styles.icon}
+                            />
+                    )
+                   :
+                        <Text style={styles.text}>{title}</Text>
+                        }
                 </View>
+
             ) : !color ? (
                 <LinearGradient
                     angle={45}
@@ -33,11 +46,31 @@ const MainButton = ({ color, enabled = true, onPress, style, title }: Props) => 
                     style={styles.gradient}
                     useAngle
                 >
-                    <Text style={styles.text}>{title}</Text>
+                    {iconExist ? (
+                            <Icon
+                                color={GLOBAL_COLORS.icon}
+                                name={iconExist}
+                                size={iconSize}
+                                style={styles.icon}
+                            />
+                        )
+                        :
+                        <Text style={styles.text}>{title}</Text>
+                    }
                 </LinearGradient>
             ) : (
                 <View style={[styles.greyButton, { backgroundColor: color }]}>
-                    <Text style={styles.text}>{title}</Text>
+                    {iconExist ? (
+                            <Icon
+                                color={GLOBAL_COLORS.icon}
+                                name={iconExist}
+                                size={iconSize}
+                                style={styles.icon}
+                            />
+                        )
+                        :
+                        <Text style={styles.text}>{title}</Text>
+                    }
                 </View>
             )}
         </TouchableOpacity>

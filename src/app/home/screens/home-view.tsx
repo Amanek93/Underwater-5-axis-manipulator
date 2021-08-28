@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { ProgressCircle } from 'react-native-svg-charts';
-import {GLOBAL_COLORS, GLOBAL_FONTSIZES, GLOBAL_ICONS} from '@ui';
+import {GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS} from '@ui';
 
-import Icon from '@ui/components/Icon';
+import CircularSlider from 'rn-circular-slider'
+
+
+
+// https://codepen.io/anthonydugois/pen/oLEWrb
+
 
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import MainButton from "@ui/components/MainButton";
 
 
 type Props = {
@@ -18,6 +23,7 @@ type Props = {
 };
 
 const HomeView = observer(function WelcomView({ navigation }: Props) {
+    const [count, setCount] = useState<number>(0);
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -38,33 +44,39 @@ const HomeView = observer(function WelcomView({ navigation }: Props) {
                 </View>
                 <View style={styles.rightContentContainer}>
                     <View style={styles.progressCircleContainer}>
-                    <ProgressCircle
-                        style={{ height: 200}}
-                        progress={0.5}
-                        progressColor={GLOBAL_COLORS.secondary}
-                        strokeWidth={20}
-                        endAngle={Math.PI/2}
-                        startAngle={-Math.PI/2}
-                    />
+                        <CircularSlider
+                        step={1}
+                        min={-90}
+                        max={90}
+                        value={count}
+                        onChange={count => setCount(count)}
+                        contentContainerStyle={styles.contentContainerStyle}
+                        strokeWidth={15}
+                        buttonBorderColor="#3FE3EB"
+                        buttonFillColor="#fff"
+                        buttonStrokeWidth={15}
+                        openingRadian={Math.PI/2}
+                        buttonRadius={5}
+                        linearGradient={[{ stop: '0%', color: GLOBAL_COLORS.secondary }, { stop: '100%', color: GLOBAL_COLORS.extra }]}
+                        >
+                            <Text style={styles.text}>Axis 1</Text>
+                        </CircularSlider>
                     <View style={styles.countContainer}>
-
-                            <TouchableOpacity>
-                                <Icon
-                                    color={GLOBAL_COLORS.icon}
-                                    name={GLOBAL_ICONS.angleLeft}
-                                    size={30}
-                                    style={styles.icon}
-                                />
-                            </TouchableOpacity>
-                            <Text>0</Text>
-                        <TouchableOpacity>
-                            <Icon
-                                color={GLOBAL_COLORS.icon}
-                                name={GLOBAL_ICONS.angleRight}
-                                size={30}
-                                style={styles.icon}
-                            />
-                        </TouchableOpacity>
+                        <MainButton onPress={()=>setCount(count-1)}
+                                    iconSize={20}
+                                    iconExist={GLOBAL_ICONS.angleLeft}
+                                    style={styles.countButton}
+                        />
+                            <MainButton onPress={null}
+                                        enabled={true}
+                                        title={count}
+                                        style={styles.countMeter}
+                                        />
+                        <MainButton onPress={()=>setCount(count+1)}
+                                    iconSize={20}
+                                    iconExist={GLOBAL_ICONS.angleRight}
+                                    style={styles.countButton}
+                        />
                     </View>
                     </View>
                 </View>
@@ -98,6 +110,14 @@ const styles = StyleSheet.create({
         backgroundColor:'red',
         flex:10,
     },
+    text: {
+        color: GLOBAL_COLORS.text,
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: GLOBAL_FONTSIZES.header,
+        fontWeight: 'bold' as const,
+        letterSpacing: 0.09,
+        textAlign: 'center',
+    },
     rightContentContainer:{
         backgroundColor: GLOBAL_COLORS.leftViewContainer,
         flex:5,
@@ -109,16 +129,30 @@ const styles = StyleSheet.create({
     },
     countContainer:{
         backgroundColor: 'red',
-        width: 200,
-        height: 50,
+        width: 250,
+        height: 40,
         flexDirection: 'row',
         bottom: 90,
+        justifyContent: 'space-between',
     },
     incrementButton: {
         width: 60,
-        height: 50,
+        height: 40,
 
-    }
+    },
+    countButton: {
+        width: 70,
+        height: 40,
+    },
+    countMeter:{
+        width: 100,
+        height: 40,
+    },
+    contentContainerStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 export default HomeView;
+
