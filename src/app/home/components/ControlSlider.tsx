@@ -1,24 +1,57 @@
 import CircularSlider from '../../ui/components/CircularSlide';
+import LinearGradient from 'react-native-linear-gradient';
 import MainButton from '../../ui/components/MainButton';
-import React, { useState } from 'react';
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '../../ui';
-import { HomeActionTypes } from '../actions';
-import { StyleSheet, Text, View } from 'react-native';
-import { getSpeed } from '../selectors';
+import React, {useState, useEffect} from 'react';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
+import { HomeActionTypes } from '@home';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+
+
+import {getDevice} from '@home';
 import { useDispatch, useSelector } from 'react-redux';
 
-type Props = {};
+type Props = {
+
+};
+
+let timer: number;
 
 const ControlSlider = ({}: Props) => {
     const [count, setCount] = useState<number>(0);
-
-    const speed = useSelector(getSpeed);
+    const device = useSelector(getDevice);
     const dispatch = useDispatch();
 
     const handleAddSpeed = () => {
         dispatch({ type: HomeActionTypes.ADD_SPEED });
     };
+    const handleSubtractSpeed = () => {
+        dispatch({ type: HomeActionTypes.SUBTRACT_SPEED });
+    };
 
+
+    useEffect (()=>{
+        if (device.speed === -90 || device.speed === 90) {
+            cleanup()
+            if (device.speed === 90) console.warn('You have reached your limit!');
+        }
+    }, [device.speed, handleAddSpeed])
+
+
+
+
+
+    const _handleLongPress = (type: string) => {
+       timer = setInterval( () => {
+            if (type === 'plus') {
+                handleAddSpeed()
+            } else if (type === 'minus') {
+                handleSubtractSpeed()
+            }
+        }, 100);
+        };
+    function cleanup() {
+        clearInterval(timer);
+    }
     return (
         <View style={styles.progressCircleContainer}>
             <CircularSlider
@@ -37,29 +70,40 @@ const ControlSlider = ({}: Props) => {
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}
-                value={count}
+                value={device.speed}
             >
                 <Text style={styles.text}>Axis 1</Text>
             </CircularSlider>
             <View style={styles.countContainer}>
                 <MainButton
                     iconName={GLOBAL_ICONS.angleLeft}
+                    enabled={device.speed !== -90}
                     iconSize={20}
-                    onPress={handleAddSpeed}
+                    onLongPress={() => _handleLongPress('minus')}
+                    onPress={handleSubtractSpeed}
+                    onPressOut={cleanup}
                     style={styles.countButton}
                 />
-                <MainButton
-                    enabled
-                    onPress={() => {
-                        console.log('elo');
-                    }}
-                    style={styles.countMeter}
-                    title={speed}
-                />
+                <LinearGradient
+                    angle={45}
+                    angleCenter={{ x: 0.6, y: 0.5 }}
+                    colors={[GLOBAL_COLORS.secondary, GLOBAL_COLORS.extra]}
+                    style={styles.gradient}
+                    useAngle
+                    >
+                    <TextInput
+                        style={styles.textInputContainer}
+                        value={() => device.speed}
+                    />
+                    <Text>{device.speed}</Text>
+                </LinearGradient>
                 <MainButton
                     iconName={GLOBAL_ICONS.angleRight}
+                    enabled={device.speed !==90}
                     iconSize={20}
-                    onPress={() => setCount(count + 1)}
+                    onLongPress={() => _handleLongPress('plus')}
+                    onPress={handleAddSpeed}
+                    onPressOut={cleanup}
                     style={styles.countButton}
                 />
             </View>
@@ -77,11 +121,11 @@ const styles = StyleSheet.create({
         width: 70,
     },
     countContainer: {
-        backgroundColor: 'red',
         bottom: 90,
         flexDirection: 'row',
         height: 40,
         justifyContent: 'space-between',
+        alignItems: 'center',
         width: 250,
     },
     countMeter: {
@@ -99,6 +143,25 @@ const styles = StyleSheet.create({
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
         textAlign: 'center',
+    },
+    textInputContainer:{
+        width: 100,
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign:'center',
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: GLOBAL_FONTSIZES.header,
+        fontWeight: 'bold' as const,
+        letterSpacing: 0.09,
+    },
+    gradient: {
+        alignItems: 'center',
+        backgroundColor: GLOBAL_COLORS.secondary,
+        borderRadius: 56,
+        height: 56,
+        justifyContent: 'center',
+        width: 100,
     },
 });
 
