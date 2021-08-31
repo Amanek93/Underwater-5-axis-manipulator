@@ -1,7 +1,7 @@
 import CircularSlider from '../../ui/components/CircularSlide';
 import LinearGradient from 'react-native-linear-gradient';
 import MainButton from '../../ui/components/MainButton';
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
 import { HomeActionTypes } from '@home';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
@@ -14,12 +14,15 @@ type Props = {
 
 };
 
-let timer: number;
+let timer: any;
+
+//Problem z typowaniem timera
 
 const ControlSlider = ({}: Props) => {
-    const [count, setCount] = useState<number>(0);
     const device = useSelector(getDevice);
     const dispatch = useDispatch();
+
+
 
     const handleAddSpeed = () => {
         dispatch({ type: HomeActionTypes.ADD_SPEED });
@@ -66,7 +69,7 @@ const ControlSlider = ({}: Props) => {
                 ]}
                 max={90}
                 min={-90}
-                onChange={(count: number) => setCount(count)}
+
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}
@@ -93,9 +96,8 @@ const ControlSlider = ({}: Props) => {
                     >
                     <TextInput
                         style={styles.textInputContainer}
-                        value={() => device.speed}
+                        value={device.speed.toString()}
                     />
-                    <Text>{device.speed}</Text>
                 </LinearGradient>
                 <MainButton
                     iconName={GLOBAL_ICONS.angleRight}
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
     },
     textInputContainer:{
         width: 100,
-        height: 60,
+        height: 56,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign:'center',
@@ -154,6 +156,7 @@ const styles = StyleSheet.create({
         fontSize: GLOBAL_FONTSIZES.header,
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
+        color: GLOBAL_COLORS.text,
     },
     gradient: {
         alignItems: 'center',

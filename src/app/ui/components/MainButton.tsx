@@ -12,8 +12,8 @@ type Props = {
     iconSize?: 18 | 20 | 22 | 26 | 30 | 34 | 38 | 42 | 46 | 50;
     enabled?: boolean;
     title?: string | number;
-    onLongPress?(): string;
-    onPressOut?(): string;
+    onLongPress?(): void;
+    onPressOut?(): void;
     style?: StyleProp<ViewStyle>;
     onPress(): void;
 };
@@ -31,14 +31,14 @@ const MainButton = ({
 }: Props) => {
     return (
         <TouchableOpacity
-            disabled={enabled}
+            disabled={enabled === false}
             delayLongPress={500}
             onLongPress={onLongPress}
             onPressOut={onPressOut}
             onPress={onPress}
             style={[styles.button, style, { backgroundColor: color ? color : GLOBAL_COLORS.extra }]}
         >
-            {enabled ? (
+            {enabled === false ? (
                 <View style={styles.greyButton}>
                     {iconName ? (
                         <Icon
