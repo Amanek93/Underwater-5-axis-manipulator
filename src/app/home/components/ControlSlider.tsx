@@ -1,7 +1,7 @@
 import CircularSlider from '../../ui/components/CircularSlide';
 import LinearGradient from 'react-native-linear-gradient';
 import MainButton from '../../ui/components/MainButton';
-import React, {useEffect} from 'react';
+import React, {useEffect, } from 'react';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
 import { HomeActionTypes } from '@home';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
@@ -10,24 +10,27 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import {getDevice} from '@home';
 import { useDispatch, useSelector } from 'react-redux';
 
-type Props = {
 
+type Props = {
+    circularTitle?: string;
+    addValue?: string;
+    subtractValue?: string;
+    dispatchName?: symbol;
 };
 
 let timer: any;
 
 //Problem z typowaniem timera
 
-const ControlSlider = ({}: Props) => {
+const ControlSlider = ({circularTitle, addValue, subtractValue, dispatchName}: Props) => {
     const device = useSelector(getDevice);
     const dispatch = useDispatch();
 
 
-
-    const handleAddSpeed = () => {
-        dispatch({ type: HomeActionTypes.ADD_SPEED });
+    const handleAdd = () => {
+        addValue;
     };
-    const handleSubtractSpeed = () => {
+    const handleSubtract = () => {
         dispatch({ type: HomeActionTypes.SUBTRACT_SPEED });
     };
 
@@ -37,18 +40,15 @@ const ControlSlider = ({}: Props) => {
             cleanup()
             if (device.speed === 90) console.warn('You have reached your limit!');
         }
-    }, [device.speed, handleAddSpeed])
-
-
-
+    }, [device.speed, handleAdd])
 
 
     const _handleLongPress = (type: string) => {
        timer = setInterval( () => {
             if (type === 'plus') {
-                handleAddSpeed()
+                handleAdd()
             } else if (type === 'minus') {
-                handleSubtractSpeed()
+                handleSubtract()
             }
         }, 100);
         };
@@ -57,33 +57,33 @@ const ControlSlider = ({}: Props) => {
     }
     return (
         <View style={styles.progressCircleContainer}>
-            <CircularSlider
-                buttonBorderColor="#3FE3EB"
-                buttonFillColor="#fff"
-                buttonRadius={5}
-                buttonStrokeWidth={15}
-                contentContainerStyle={styles.contentContainerStyle}
-                linearGradient={[
-                    { stop: '0%', color: GLOBAL_COLORS.secondary },
-                    { stop: '100%', color: GLOBAL_COLORS.extra },
-                ]}
-                max={90}
-                min={-90}
-
-                openingRadian={Math.PI / 2}
-                step={1}
-                strokeWidth={15}
-                value={device.speed}
-            >
-                <Text style={styles.text}>Axis 1</Text>
-            </CircularSlider>
+                    <CircularSlider
+                        buttonBorderColor="#3FE3EB"
+                        buttonFillColor="#fff"
+                        buttonRadius={5}
+                        buttonStrokeWidth={15}
+                        contentContainerStyle={styles.contentContainerStyle}
+                        linearGradient={[
+                            { stop: '0%', color: GLOBAL_COLORS.secondary },
+                            { stop: '100%', color: GLOBAL_COLORS.extra },
+                        ]}
+                        max={90}
+                        min={-90}
+                        onChage={device.speed}
+                        openingRadian={Math.PI / 2}
+                        step={1}
+                        strokeWidth={15}
+                        value={device.speed}
+                        >
+                        <Text style={styles.text}>{circularTitle}</Text>
+                </CircularSlider>
             <View style={styles.countContainer}>
                 <MainButton
                     iconName={GLOBAL_ICONS.angleLeft}
                     enabled={device.speed !== -90}
                     iconSize={20}
                     onLongPress={() => _handleLongPress('minus')}
-                    onPress={handleSubtractSpeed}
+                    onPress={handleSubtract}
                     onPressOut={cleanup}
                     style={styles.countButton}
                 />
@@ -104,9 +104,10 @@ const ControlSlider = ({}: Props) => {
                     enabled={device.speed !==90}
                     iconSize={20}
                     onLongPress={() => _handleLongPress('plus')}
-                    onPress={handleAddSpeed}
+                    onPress={handleAdd}
                     onPressOut={cleanup}
                     style={styles.countButton}
+
                 />
             </View>
         </View>
@@ -137,14 +138,19 @@ const styles = StyleSheet.create({
     progressCircleContainer: {
         alignItems: 'center',
         justifyContent: 'center',
+        transform:[{
+            scale: 0.8,
+        }],
+        height: 250,
     },
     text: {
-        color: GLOBAL_COLORS.text,
+        color: GLOBAL_COLORS.primary,
         fontFamily: GLOBAL_FONTS.ROBOTO,
         fontSize: GLOBAL_FONTSIZES.header,
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
         textAlign: 'center',
+        bottom: 20,
     },
     textInputContainer:{
         width: 100,

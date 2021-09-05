@@ -210,7 +210,7 @@ const CustomizedDrawer = () => {
 
             <FlatList
                 data={DATA}
-                keyExtractor={DATA => DATA.keyId}
+                keyExtractor={DATA => DATA.keyId.toString()}
                 numColumns={1}
                 renderItem={renderItem}
             />

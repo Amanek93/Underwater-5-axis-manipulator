@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -9,6 +9,34 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 import ControlSlider from '@home/components/ControlSlider';
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import MainButton from "@ui/components/MainButton";
+
+const DATA = [
+    {
+        id: 'bd7',
+        title: 'Axis 1',
+    },
+    {
+        id: 'db8',
+        title: 'Axis 2',
+    },
+    {
+        id: 'db9',
+        title: 'Axis 3',
+    },
+    {
+        id: 'db10',
+        title: 'Axis 4',
+    },
+    {
+        id: 'db11',
+        title: 'Axis 5',
+    },
+    {
+        id: 'db12',
+        title: 'Speed',
+    },
+];
 
 type Props = {
     navigation: DrawerNavigationProp<never>;
@@ -23,6 +51,13 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
         [navigation],
     );
 
+
+    const renderItem = ({item }) => (
+        <ControlSlider
+            circularTitle={item.title}
+        />
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <Header />
@@ -30,7 +65,21 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer} />
                 <View style={styles.rightContentContainer}>
-                    <ControlSlider />
+                    <View
+                    style={styles.rightContentRotaryContainer}>
+                    <FlatList
+                    data={DATA}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    />
+                    </View>
+                    <View
+                        style={styles.rightContentButtonContainer}>
+                        <MainButton onPress={()=>console.log('button1')} title={'save'} style={{width: 100}}/>
+                        <MainButton onPress={()=>console.log('button2')} title={'clear'} style={{width: 100}}/>
+                        <MainButton onPress={()=>console.log('button3')} title={'add'} style={{width: 100}}/>
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
@@ -90,6 +139,8 @@ const styles = StyleSheet.create({
         backgroundColor: GLOBAL_COLORS.leftViewContainer,
         borderRadius: 20,
         flex: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     text: {
         color: GLOBAL_COLORS.text,
@@ -99,6 +150,19 @@ const styles = StyleSheet.create({
         letterSpacing: 0.09,
         textAlign: 'center',
     },
+    rightContentRotaryContainer: {
+        flex:9,
+        width:'100%',
+        alignItems: 'center',
+    },
+    rightContentButtonContainer:{
+        flexDirection: 'row',
+        width: "60%",
+        flex:1,
+        backgroundColor: 'pink',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    }
 });
 
 export default HomeView;

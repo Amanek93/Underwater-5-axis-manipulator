@@ -5,14 +5,14 @@ import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 
-import { persistStore } from 'redux-persist';
+// import { persistStore } from 'redux-persist';
 import { store } from '@store';
 
-const rehydrateStore = () => {
-    persistStore(store, null, () => {
-        store.getState();
-    });
-};
+// const rehydrateStore = () => {
+//     persistStore(store, null, () => {
+//         store.getState();
+//     });
+// };
 
 const App = () => {
     // useEffect(() => {
