@@ -20,7 +20,7 @@ type Props = {
 
 let timer: any;
 
-const ControlSlider = ({ circularTitle, addActionType, subtractActionType, deviceKey }: Props) => {
+const ControlSlider = ({ circularTitle, addActionType, subtractActionType}: Props) => {
     const device = useSelector(getDevice);
     const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
     };
 
     useEffect(() => {
-        if (device.deviceKey === -90 || device.deviceKey === 90) {
+        if (device.entries(deviceKey) === -90 || device.deviceKey === 90) {
             cleanup();
             if (device.deviceKey === 90) console.warn('You have reached your limit!');
         }
@@ -89,10 +89,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                     style={styles.gradient}
                     useAngle
                 >
-                    <TextInput
-                        style={styles.textInputContainer}
-                        value={device.deviceKey.toString()}
-                    />
+                    <TextInput style={styles.textInputContainer} value={device.deviceKey} />
                 </LinearGradient>
                 <MainButton
                     enabled={device.deviceKey !== 90}
