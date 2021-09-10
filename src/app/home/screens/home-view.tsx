@@ -10,7 +10,6 @@ import Header from '../../ui/components/Header';
 import MainButton from '@ui/components/MainButton';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { HomeActionTypes } from '@home';
-
 const DATA = [
     {
         id: 'bd7',

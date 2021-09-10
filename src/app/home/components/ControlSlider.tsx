@@ -7,7 +7,6 @@ import { HomeActionTypes, getDevice } from '@home';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 type Props = {
     circularTitle?: string;
     addValue?: string;
