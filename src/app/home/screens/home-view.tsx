@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -69,13 +68,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-    const renderItem = (item: {
-        id: string;
-        title: string;
-        addActionType: HomeActionTypes;
-        subtractActionType: HomeActionTypes;
-        deviceKey: string;
-    }) => (
+    const renderItem = (item) => (
         <ControlSlider
             addActionType={item.addActionType}
             circularTitle={item.title}
@@ -113,7 +106,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
                         <MainButton
                             onPress={() => console.log('button3')}
                             style={styles.mainButton}
-                            title="add"
+                            title=""
                         />
                     </View>
                 </View>
