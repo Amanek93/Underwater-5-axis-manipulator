@@ -30,17 +30,14 @@ const MainButton = ({
     title,
 }: Props) => {
     return (
-
         <TouchableOpacity
-            disabled={enabled === false}
             delayLongPress={500}
+            disabled={enabled === false}
             onLongPress={onLongPress}
-            onPressOut={onPressOut}
             onPress={onPress}
+            onPressOut={onPressOut}
             style={[styles.button, style, { backgroundColor: color ? color : GLOBAL_COLORS.extra }]}
         >
-
-
             {enabled === false ? (
                 <View style={styles.greyButton}>
                     {iconName ? (
@@ -69,7 +66,6 @@ const MainButton = ({
                             size={iconSize}
                             style={styles.icon}
                         />
-
                     ) : (
                         <Text style={styles.text}>{title}</Text>
                     )}
