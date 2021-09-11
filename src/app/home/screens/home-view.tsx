@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -16,47 +16,47 @@ const DATA = [
         title: 'Axis 1',
         addActionType: HomeActionTypes.ADD_AXIS1,
         subtractActionType: HomeActionTypes.SUBTRACT_AXIS1,
-        deviceKey: 'axialRadius1',
+        deveKey: 'axialRadius1',
     },
     {
         id: 'db8',
         title: 'Axis 2',
         addActionType: HomeActionTypes.ADD_AXIS2,
         subtractActionType: HomeActionTypes.SUBTRACT_AXIS2,
-        deviceKey: 'axialRadius2',
+        devKey: 'axialRadius2',
     },
     {
         id: 'db9',
         title: 'Axis 3',
         addActionType: HomeActionTypes.ADD_AXIS3,
         subtractActionType: HomeActionTypes.SUBTRACT_AXIS3,
-        deviceKey: 'axialRadius3',
+        devKey: 'axialRadius3',
     },
     {
         id: 'db10',
         title: 'Axis 4',
         addActionType: HomeActionTypes.ADD_AXIS4,
         subtractActionType: HomeActionTypes.SUBTRACT_AXIS4,
-        deviceKey: 'axialRadius4',
+        devKey: 'axialRadius4',
     },
     {
         id: 'db11',
         title: 'Axis 5',
         addActionType: HomeActionTypes.ADD_AXIS5,
         subtractActionType: HomeActionTypes.SUBTRACT_AXIS5,
-        deviceKey: 'axialRadius5',
+        devKey: 'axialRadius5',
     },
     {
         id: 'db12',
         title: 'Speed',
         addActionType: HomeActionTypes.ADD_SPEED,
         subtractActionType: HomeActionTypes.SUBTRACT_SPEED,
-        deviceKey: 'speed',
+        devKey: 'speed',
     },
 ];
 
 type Props = {
-    navigation: DrawerNavigationProp<never>;
+    navigation: DrawerNavigationProp<any>;
 };
 
 const HomeView = observer(function WelcomeView({ navigation }: Props) {
@@ -67,11 +67,11 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-    const renderItem = (item) => (
+    const renderItem = ({ item }: string) => (
         <ControlSlider
             addActionType={item.addActionType}
             circularTitle={item.title}
-            deviceKey={item.deviceKey}
+            deviceKey={item.devKey}
             subtractActionType={item.subtractActionType}
         />
     );

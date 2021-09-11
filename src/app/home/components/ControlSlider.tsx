@@ -14,8 +14,7 @@ type Props = {
     dispatchName?: symbol;
     addActionType?: HomeActionTypes;
     subtractActionType?: HomeActionTypes;
-    deviceKey?: string | undefined;
-
+    deviceKey: string;
 };
 
 let timer: any;
@@ -23,7 +22,6 @@ let timer: any;
 const ControlSlider = ({ circularTitle, addActionType, subtractActionType, deviceKey }: Props) => {
     const device = useSelector(getDevice);
     const dispatch = useDispatch();
-    const key = deviceKey;
 
     const handleAdd = () => {
         dispatch({ type: addActionType });
@@ -31,13 +29,22 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
     const handleSubtract = () => {
         dispatch({ type: subtractActionType });
     };
+    const _handleTextInputValue = (value: any, item: string) => {
+        if (value[item as keyof typeof value] === undefined) {
+            return (item = '');
+        }
+    };
 
     useEffect(() => {
-        if (device[deviceKey] === -90 || device[deviceKey] === 90) {
+        if (
+            device[deviceKey as keyof typeof device] === -90 ||
+            device[deviceKey as keyof typeof device] === 90
+        ) {
             cleanup();
-            if (device[deviceKey] === 90) console.warn('You have reached your limit!');
+            if (device[deviceKey as keyof typeof device] === 90)
+                console.warn('You have reached your limit!');
         }
-    }, [device[deviceKey], handleAdd]);
+    }, [device[deviceKey as keyof typeof device], handleAdd]);
 
     const _handleLongPress = (type: string) => {
         timer = setInterval(() => {
@@ -65,21 +72,21 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                 ]}
                 max={90}
                 min={-90}
-                onChage={device[deviceKey]}
+                onChage={device[deviceKey as keyof typeof device]}
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}
-                value={device[deviceKey]}
+                value={device[deviceKey as keyof typeof device]}
             >
                 <Text style={styles.text}>{circularTitle}</Text>
             </CircularSlider>
             <View style={styles.countContainer}>
                 <MainButton
-                    enabled={device[deviceKey] !== -90}
+                    enabled={device[deviceKey as keyof typeof device] !== -90}
                     iconName={GLOBAL_ICONS.angleLeft}
                     iconSize={20}
                     onLongPress={() => _handleLongPress('minus')}
-                    onPress={() => console.log(circularTitle)}
+                    onPress={handleSubtract}
                     onPressOut={cleanup}
                     style={styles.countButton}
                 />
@@ -90,10 +97,13 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                     style={styles.gradient}
                     useAngle
                 >
-                    <TextInput style={styles.textInputContainer} value={device[deviceKey]} />
+                    <TextInput
+                        style={styles.textInputContainer}
+                        value={_handleTextInputValue(device, deviceKey)}
+                    />
                 </LinearGradient>
                 <MainButton
-                    enabled={device[deviceKey] !== 90}
+                    enabled={device[deviceKey as keyof typeof device] !== 90}
                     iconName={GLOBAL_ICONS.angleRight}
                     iconSize={20}
                     onLongPress={() => _handleLongPress('plus')}
