@@ -67,7 +67,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-    const renderItem = ({ item }: string) => (
+    const renderItem = ({ item }: any) => (
         <ControlSlider
             addActionType={item.addActionType}
             circularTitle={item.title}
