@@ -29,11 +29,6 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
     const handleSubtract = () => {
         dispatch({ type: subtractActionType });
     };
-    const _handleTextInputValue = (value: any, item: string) => {
-        if (value[item as keyof typeof value] === undefined) {
-            return (item = '');
-        }
-    };
 
     useEffect(() => {
         if (
@@ -99,7 +94,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                 >
                     <TextInput
                         style={styles.textInputContainer}
-                        value={_handleTextInputValue(device, deviceKey)}
+                        value={device[deviceKey].toString()}
                     />
                 </LinearGradient>
                 <MainButton

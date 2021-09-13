@@ -16,7 +16,7 @@ const DATA = [
         title: 'Axis 1',
         addActionType: HomeActionTypes.ADD_AXIS1,
         subtractActionType: HomeActionTypes.SUBTRACT_AXIS1,
-        deveKey: 'axialRadius1',
+        devKey: 'axialRadius1',
     },
     {
         id: 'db8',
