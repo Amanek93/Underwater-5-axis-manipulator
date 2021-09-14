@@ -18,7 +18,7 @@ type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const InfoView = observer(function WelcomView({ navigation }: Props) {
+const InfoView = observer(function WelcomeView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {

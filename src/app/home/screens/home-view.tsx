@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { GLOBAL_COLORS } from '@ui';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 
 import ControlSlider from '@home/components/ControlSlider';
 import Header from '../../ui/components/Header';
@@ -56,7 +56,7 @@ const DATA = [
 ];
 
 type Props = {
-    navigation: DrawerNavigationProp<any>;
+    navigation: DrawerNavigationProp<never>;
 };
 
 const HomeView = observer(function WelcomeView({ navigation }: Props) {
@@ -67,13 +67,16 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
+
     const renderItem = ({ item }: any) => (
-        <ControlSlider
-            addActionType={item.addActionType}
-            circularTitle={item.title}
-            deviceKey={item.devKey}
-            subtractActionType={item.subtractActionType}
-        />
+        <View style={styles.renderItemContainer}>
+            <ControlSlider
+                addActionType={item.addActionType}
+                circularTitle={item.title}
+                deviceKey={item.devKey}
+                subtractActionType={item.subtractActionType}
+            />
+        </View>
     );
 
     return (
@@ -83,12 +86,16 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer} />
                 <View style={styles.rightContentContainer}>
+                    <View style={styles.rightContentTitleContainer}>
+                        <Text style={styles.textTitle}>Control Sliders Box</Text>
+                    </View>
                     <View style={styles.rightContentRotaryContainer}>
                         <FlatList
                             data={DATA}
                             keyExtractor={item => item.id}
                             numColumns={2}
                             renderItem={renderItem}
+                            style={styles.flatListContainer}
                         />
                     </View>
                     <View style={styles.rightContentButtonContainer}>
@@ -124,20 +131,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
     },
+    flatListContainer: {
+        height: '100%',
+        width: '100%',
+    },
     leftContentContainer: {
-        backgroundColor: `#ff0000`,
+        //backgroundColor: `#ff0000`,
         flex: 10,
     },
     mainButton: {
         width: 100,
     },
+    renderItemContainer: {
+        width: 230,
+    },
     rightContentButtonContainer: {
         alignItems: 'center',
-        backgroundColor: `#ffc0cb`,
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'space-between',
-        width: '60%',
+        width: '80%',
     },
     rightContentContainer: {
         alignItems: 'center',
@@ -148,7 +161,23 @@ const styles = StyleSheet.create({
     },
     rightContentRotaryContainer: {
         alignItems: 'center',
-        flex: 9,
+        flex: 8,
+        justifyContent: 'center',
+        width: '100%',
+    },
+    rightContentTitleContainer: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    textTitle: {
+        color: GLOBAL_COLORS.primary,
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: GLOBAL_FONTSIZES.title,
+        fontWeight: 'bold' as const,
+        justifyContent: 'center',
+        letterSpacing: 0.09,
+        textAlign: 'center',
         width: '100%',
     },
 });

@@ -12,8 +12,8 @@ export default class CircularSlider extends PureComponent {
             { stop: '0%', color: '#1890ff' },
             { stop: '100%', color: '#f5222d' },
         ], // 渐变色
-        min: 0, // 最小值
-        max: 100, // 最大值
+        min: -90, // 最小值
+        max: 90, // 最大值
         buttonRadius: 12, // 按钮半径
         buttonBorderColor: '#fff', // 按钮边框颜色
         buttonStrokeWidth: 1, // 按钮线宽

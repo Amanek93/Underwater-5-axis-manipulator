@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import CustomizedDrawer from '@navigation/components/CustomizedDrawer';
 import DiagnosticView from '@diagnostic/screens/diagnostic-view';
-import HelpView from '@help//screens/help-view';
+import HelpView from '@help/screens/help-view';
 import HomeView from '@home/screens/home-view';
 import InfoView from '@info/screens/info-view';
 import LiveStreamView from '@liveStream/screens/liveStream-view';
@@ -24,7 +24,7 @@ const HomeStack = () => {
             drawerStyle={{
                 width: 175,
             }}
-            // drawerType={"permanent"}
+            //drawerType={"permanent"}
             initialRouteName="Home"
         >
             <Drawer.Screen component={HomeView} name="HomeView" />

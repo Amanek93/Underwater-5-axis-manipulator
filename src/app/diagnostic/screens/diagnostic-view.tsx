@@ -17,7 +17,7 @@ type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const DiagnosticView = observer(function WelcomView({ navigation }: Props) {
+const DiagnosticView = observer(function WelcomeView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {

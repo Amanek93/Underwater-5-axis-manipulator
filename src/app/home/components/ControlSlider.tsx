@@ -1,10 +1,10 @@
 import CircularSlider from '../../ui/components/CircularSlide';
 import LinearGradient from 'react-native-linear-gradient';
 import MainButton from '../../ui/components/MainButton';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
 import { HomeActionTypes, getDevice } from '@home';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 type Props = {
@@ -22,12 +22,17 @@ let timer: any;
 const ControlSlider = ({ circularTitle, addActionType, subtractActionType, deviceKey }: Props) => {
     const device = useSelector(getDevice);
     const dispatch = useDispatch();
+    const [circularSliderValue, setCircularSliderValue] = useState<number>(
+        device[deviceKey as keyof typeof device],
+    );
 
     const handleAdd = () => {
         dispatch({ type: addActionType });
+        setCircularSliderValue(device[deviceKey as keyof typeof device]);
     };
     const handleSubtract = () => {
         dispatch({ type: subtractActionType });
+        setCircularSliderValue(device[deviceKey as keyof typeof device]);
     };
 
     useEffect(() => {
@@ -41,7 +46,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
         }
     }, [device[deviceKey as keyof typeof device], handleAdd]);
 
-    const _handleLongPress = (type: string) => {
+    const handleLongPress = (type: string) => {
         timer = setInterval(() => {
             if (type === 'plus') {
                 handleAdd();
@@ -54,7 +59,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
         clearInterval(timer);
     }
     return (
-        <View style={styles.progressCircleContainer}>
+        <SafeAreaView style={styles.progressCircleContainer}>
             <CircularSlider
                 buttonBorderColor="#3FE3EB"
                 buttonFillColor="#fff"
@@ -67,7 +72,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                 ]}
                 max={90}
                 min={-90}
-                onChage={device[deviceKey as keyof typeof device]}
+                onChage={() => setCircularSliderValue(device[deviceKey as keyof typeof device])}
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}
@@ -80,7 +85,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                     enabled={device[deviceKey as keyof typeof device] !== -90}
                     iconName={GLOBAL_ICONS.angleLeft}
                     iconSize={20}
-                    onLongPress={() => _handleLongPress('minus')}
+                    onLongPress={() => handleLongPress('minus')}
                     onPress={handleSubtract}
                     onPressOut={cleanup}
                     style={styles.countButton}
@@ -94,20 +99,20 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                 >
                     <TextInput
                         style={styles.textInputContainer}
-                        value={device[deviceKey].toString()}
+                        value={device[deviceKey as keyof typeof device].toString()}
                     />
                 </LinearGradient>
                 <MainButton
                     enabled={device[deviceKey as keyof typeof device] !== 90}
                     iconName={GLOBAL_ICONS.angleRight}
                     iconSize={20}
-                    onLongPress={() => _handleLongPress('plus')}
+                    onLongPress={() => handleLongPress('plus')}
                     onPress={handleAdd}
                     onPressOut={cleanup}
                     style={styles.countButton}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     },
     progressCircleContainer: {
         alignItems: 'center',
-        height: 250,
+        height: 230,
         justifyContent: 'center',
         transform: [
             {

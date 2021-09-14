@@ -17,7 +17,7 @@ type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const LiveStreamView = observer(function WelcomView({ navigation }: Props) {
+const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
