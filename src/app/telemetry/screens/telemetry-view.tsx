@@ -31,7 +31,8 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <NavigationToggleButton
-                            onPress={() => navigation.toggleDrawer()}
+                            onPress={() =>
+                                navigation.toggleDrawer()}
                             title="nawigacja"
                         />
                     </View>
