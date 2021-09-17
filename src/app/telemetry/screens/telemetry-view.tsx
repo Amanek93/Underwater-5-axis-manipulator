@@ -143,31 +143,31 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     flatListButton: {
+        alignItems: 'center',
         backgroundColor: 'red',
         borderRadius: 10,
         borderWidth: 2,
         flexDirection: 'row',
         height: 100,
-        width: 400,
         justifyContent: 'center',
-        alignItems:'center',
+        width: 400,
     },
     flatListContainer: {
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
     },
-    iconContainer: {
-        flex:1,
-        backgroundColor: 'blue',
-    },
     flatListText: {
-        flex:5,
         backgroundColor: 'green',
+        flex: 5,
     },
     icon: {
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    iconContainer: {
+        backgroundColor: 'blue',
+        flex: 1,
     },
     leftBottomContentContainer: {
         backgroundColor: 'purple',
