@@ -3,7 +3,6 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts';
 import { StyleSheet, Text, View } from 'react-native';
 
-
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 
 const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];

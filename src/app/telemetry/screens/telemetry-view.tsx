@@ -1,7 +1,6 @@
 import * as React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from '@ui/components/Icon';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
@@ -11,11 +10,11 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui
 
 // eslint-disable-next-line import/no-unresolved
 import Chart from '@telemetry/components/Chart';
+import FlatListButton from '@telemetry/components/FlatListButton';
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
 const FlatListData = [
     {
         id: 'key1',
@@ -47,7 +46,8 @@ type Props = {
 };
 
 const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
+    const [isSelected, setIsSelected] = useState<boolean>(true);
     const [value, setValue] = useState('Axis 1');
     const [items, setItems] = useState([
         { label: 'Axis 1', value: 'Axis 1' },
@@ -65,21 +65,16 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-
+    const handleFlatListButton = () => {
+        setIsSelected(!isSelected);
+    };
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity style={styles.flatListButton}>
-            <View style={styles.iconContainer}>
-                <Icon
-                    color={GLOBAL_COLORS.icon}
-                    name={GLOBAL_ICONS.recycle}
-                    size={42}
-                    style={styles.icon}
-                />
-            </View>
-            <View style={styles.flatListText}>
-                <Text>{item.title}</Text>
-            </View>
-        </TouchableOpacity>
+        <FlatListButton
+            enabled={isSelected}
+            iconName={GLOBAL_ICONS.home}
+            onPress={() => handleFlatListButton}
+            title={item.title}
+        />
     );
 
     return (
@@ -102,7 +97,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                         </View>
                     </View>
                     <View style={styles.leftMiddleContentContainer}>
-                        <Chart arrData={data} />
+                        <Chart/>
                     </View>
                     <View style={styles.leftBottomContentContainer} />
                 </View>
@@ -142,35 +137,14 @@ const styles = StyleSheet.create({
     dropDownPickerContainer: {
         width: '80%',
     },
-    flatListButton: {
-        alignItems: 'center',
-        backgroundColor: 'red',
-        borderRadius: 10,
-        borderWidth: 2,
-        flexDirection: 'row',
-        height: 100,
-        justifyContent: 'center',
-        width: 400,
-    },
     flatListContainer: {
         alignItems: 'center',
         justifyContent: 'center',
+        paddingBottom: 20,
         width: '100%',
     },
-    flatListText: {
-        backgroundColor: 'green',
-        flex: 5,
-    },
-    icon: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    iconContainer: {
-        backgroundColor: 'blue',
-        flex: 1,
-    },
     leftBottomContentContainer: {
-        backgroundColor: 'purple',
+        backgroundColor: `#1e90ff`,
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
         flex: 1,
@@ -206,7 +180,6 @@ const styles = StyleSheet.create({
     },
     rightTitleContentContainer: {
         alignItems: 'center',
-        backgroundColor: 'yellow',
         flex: 1,
         justifyContent: 'center',
     },

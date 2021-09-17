@@ -108,6 +108,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
                             onPress={() => console.log('button2')}
                             style={styles.mainButton}
                             title="clear"
+                            enabled={false}
                         />
                         <MainButton
                             onPress={() => console.log('button3')}
