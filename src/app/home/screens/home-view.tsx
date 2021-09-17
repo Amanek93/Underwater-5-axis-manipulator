@@ -132,8 +132,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flatListContainer: {
-        height: '100%',
-        width: '100%',
+        flex: 1,
     },
     leftContentContainer: {
         //backgroundColor: `#ff0000`,
@@ -155,7 +154,8 @@ const styles = StyleSheet.create({
     rightContentContainer: {
         alignItems: 'center',
         backgroundColor: GLOBAL_COLORS.leftViewContainer,
-        borderRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderTopLeftRadius: 20,
         flex: 5,
         justifyContent: 'center',
     },
