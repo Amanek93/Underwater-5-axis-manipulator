@@ -13,9 +13,11 @@ type Props = {
     title?: string | number;
     style?: StyleProp<ViewStyle>;
     onPress?(): void;
+    activeId?: number;
+    indexId?: number;
 };
 
-const FlatListButton = ({ color, iconName, iconSize, enabled, title, style, onPress}: Props) => (
+const FlatListButton = ({ color, iconName, iconSize, enabled, title, style, onPress, activeId, indexId}: Props) => (
     <TouchableOpacity
         disabled={enabled === false}
         onPress={onPress}
@@ -25,7 +27,7 @@ const FlatListButton = ({ color, iconName, iconSize, enabled, title, style, onPr
             { backgroundColor: color ? color : GLOBAL_COLORS.extra },
         ]}
     >
-        {enabled === false ? (
+        {activeId === indexId ? (
             <View style={styles.greyButton}>
                 <View style={styles.iconContainer}>
                     <Icon

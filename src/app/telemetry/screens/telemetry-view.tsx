@@ -17,27 +17,27 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 const FlatListData = [
     {
-        id: 'key1',
+        id: 0,
         title: 'Voltage',
     },
     {
-        id: 'key2',
+        id: 1,
         title: 'Amperage',
     },
     {
-        id: 'key3',
+        id: 2,
         title: 'Speed',
     },
     {
-        id: 'key4',
+        id: 3,
         title: 'Power',
     },
     {
-        id: 'key5',
+        id: 4,
         title: 'Translation',
     },
     {
-        id: 'key6',
+        id: 5,
         title: 'Torque',
     },
 ];
@@ -47,7 +47,8 @@ type Props = {
 
 const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     const [open, setOpen] = useState<boolean>(false);
-    const [isSelected, setIsSelected] = useState<boolean>(false);
+    const [isSelected, setIsSelected] = useState<boolean>(true);
+    const [isActive, setIsActive] = useState<number>(-1)
     const [value, setValue] = useState('Axis 1');
     const [items, setItems] = useState([
         { label: 'Axis 1', value: 'Axis 1' },
@@ -65,15 +66,20 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-    const handleFlatListButton = () => {
+    const handleFlatListButton = ({item, index}: any) => {
         setIsSelected(!isSelected);
+        setIsActive(index);
+        console.log(item.id);
+        console.log(isActive)
     };
-    const renderItem = ({ item }: any) => (
+    const renderItem = ({ item, index }: any) => (
         <FlatListButton
-            enabled={isSelected}
+            enabled={true}
             iconName={GLOBAL_ICONS.home}
-            onPress={() => handleFlatListButton}
+            onPress={() => handleFlatListButton({item, index})}
             title={item.title}
+            activeId={isActive}
+            indexId={item.id}
         />
     );
 
@@ -114,7 +120,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                                     height: '100%',
                                 }}
                                 data={FlatListData}
-                                keyExtractor={item => item.id}
+                                keyExtractor={item => item.id.toString()}
                                 renderItem={renderItem}
                             />
                         </View>
