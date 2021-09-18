@@ -33,7 +33,6 @@ const HelpView = observer(function WelcomeView({ navigation }: Props) {
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
                     <NavigationToggleButton
                         onPress={() => navigation.toggleDrawer()}
-                        title="nawigacja"
                     />
                 </View>
                 <View style={styles.contentContainer}>

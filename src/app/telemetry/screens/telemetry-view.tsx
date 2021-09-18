@@ -47,7 +47,7 @@ type Props = {
 
 const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     const [open, setOpen] = useState<boolean>(false);
-    const [isSelected, setIsSelected] = useState<boolean>(true);
+    const [isSelected, setIsSelected] = useState<boolean>(false);
     const [value, setValue] = useState('Axis 1');
     const [items, setItems] = useState([
         { label: 'Axis 1', value: 'Axis 1' },

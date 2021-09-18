@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Icon from '../../ui/components/Icon';
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '../../ui';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import LinearGradient from 'react-native-linear-gradient';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 type Props = {
     color?: string;
-    iconName?: IconProp;
+    iconName?: IconProp | undefined;
     iconSize?: 18 | 20 | 22 | 26 | 30 | 34 | 38 | 42 | 46 | 50;
     enabled?: boolean;
     title?: string | number;
@@ -15,7 +15,7 @@ type Props = {
     onPress?(): void;
 };
 
-const FlatListButton = ({ color, iconName, iconSize, enabled, title, style, onPress }: Props) => (
+const FlatListButton = ({ color, iconName, iconSize, enabled, title, style, onPress}: Props) => (
     <TouchableOpacity
         disabled={enabled === false}
         onPress={onPress}

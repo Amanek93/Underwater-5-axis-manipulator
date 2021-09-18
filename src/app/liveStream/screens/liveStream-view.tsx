@@ -6,10 +6,8 @@ import { useEffect } from 'react';
 
 // import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
-import NavigationBar from '@ui/components/NavigationBar';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
@@ -36,7 +34,7 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
                     <Text>Live Stream</Text>
                 </View>
             </View>
-            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} title="nawigacja" />
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 });
