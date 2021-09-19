@@ -27,7 +27,7 @@ const FlatListButton = ({ color, iconName, iconSize, enabled, title, style, onPr
             { backgroundColor: color ? color : GLOBAL_COLORS.extra },
         ]}
     >
-        {activeId === indexId ? (
+        {activeId === indexId ?(
             <View style={styles.greyButton}>
                 <View style={styles.iconContainer}>
                     <Icon

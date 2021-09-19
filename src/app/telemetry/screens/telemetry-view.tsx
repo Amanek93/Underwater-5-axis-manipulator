@@ -14,31 +14,36 @@ import FlatListButton from '@telemetry/components/FlatListButton';
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-
 const FlatListData = [
     {
         id: 0,
         title: 'Voltage',
+        data: [1,2,3,4,5,6,7,8,9,],
     },
     {
         id: 1,
         title: 'Amperage',
+        data: [1,2,3,4,5,6,7,8,9,],
     },
     {
         id: 2,
         title: 'Speed',
+        data: [1,2,3,4,5,6,7,8,9,],
     },
     {
         id: 3,
         title: 'Power',
+        data: [1,2,3,4,5,6,7,8,9,],
     },
     {
         id: 4,
         title: 'Translation',
+        data: [1,2,3,4,5,6,723,8,9,],
     },
     {
         id: 5,
         title: 'Torque',
+        data: [1,22,3,4,5,16,7,8,9,],
     },
 ];
 type Props = {
@@ -48,7 +53,9 @@ type Props = {
 const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     const [open, setOpen] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(true);
-    const [isActive, setIsActive] = useState<number>(-1)
+    const [chartData, setChartData] = useState<object>([]);
+    const [isActive, setIsActive] = useState<number>(0);
+    const [chartTitle, setChartTitle] = useState<string>('');
     const [value, setValue] = useState('Axis 1');
     const [items, setItems] = useState([
         { label: 'Axis 1', value: 'Axis 1' },
@@ -69,8 +76,8 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     const handleFlatListButton = ({item, index}: any) => {
         setIsSelected(!isSelected);
         setIsActive(index);
-        console.log(item.id);
-        console.log(isActive)
+        setChartData(item.data);
+        setChartTitle(item.title);
     };
     const renderItem = ({ item, index }: any) => (
         <FlatListButton
@@ -103,7 +110,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                         </View>
                     </View>
                     <View style={styles.leftMiddleContentContainer}>
-                        <Chart/>
+                        <Chart dataProps={chartData} title={chartTitle}/>
                     </View>
                     <View style={styles.leftBottomContentContainer} />
                 </View>

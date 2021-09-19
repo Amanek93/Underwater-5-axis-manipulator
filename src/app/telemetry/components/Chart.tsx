@@ -5,26 +5,30 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Defs, LinearGradient, Stop } from 'react-native-svg';
 
-const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+
 const contentInset = { top: 0, bottom: 0 };
-const Chart = () => {
+type Props = {
+    dataProps: object;
+    title: string;
+}
+const Chart = ({dataProps, title}: Props) => {
     const Gradient = () => (
-        <Defs key="gradient">
-            <LinearGradient id="gradient" x1="0" x2="100%" y="0%" y2="0%">
-                <Stop offset="0%" stopColor="rgb(134, 65, 244)" />
-                <Stop offset="100%" stopColor="rgb(66, 194, 244)" />
+        <Defs key='gradient'>
+            <LinearGradient id='gradient' x1='0' x2='100%'  y2='0%'>
+                <Stop offset='0%' stopColor={GLOBAL_COLORS.secondary} />
+                <Stop offset='100%' stopColor={GLOBAL_COLORS.primary} />
             </LinearGradient>
         </Defs>
     );
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text style={styles.textTitle}> Axis 1 Chart</Text>
+                <Text style={styles.textTitle}>{`${title} chart`}</Text>
             </View>
             <View style={styles.chartGrafhContainer}>
                 <YAxis
                     contentInset={contentInset}
-                    data={data}
+                    data={dataProps}
                     formatLabel={(value: number) => `${value}ºC`}
                     numberOfTicks={5}
                     style={styles.yAxisContainer}
@@ -35,7 +39,7 @@ const Chart = () => {
                 />
                 <View style={styles.chartContainer}>
                     <LineChart
-                        data={data}
+                        data={dataProps}
                         style={styles.chartValueContainer}
                         svg={{
                             strokeWidth: 5,
@@ -49,7 +53,7 @@ const Chart = () => {
             </View>
             <XAxis
                 contentInset={{ left: 10, right: 10 }}
-                data={data}
+                data={dataProps}
                 formatLabel={(index: number) => index}
                 style={styles.xAxisContainer}
                 svg={{ fontSize: 20, fill: GLOBAL_COLORS.darkText }}
