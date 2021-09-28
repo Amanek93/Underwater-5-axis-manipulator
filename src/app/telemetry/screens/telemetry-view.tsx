@@ -12,6 +12,7 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui
 import Chart from '@telemetry/components/Chart';
 import FlatListButton from '@telemetry/components/FlatListButton';
 import Header from '../../ui/components/Header';
+import MainButton from "@ui/components/MainButton";
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 const FlatListData = [
@@ -112,7 +113,12 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                     <View style={styles.leftMiddleContentContainer}>
                         <Chart dataProps={chartData} title={chartTitle}/>
                     </View>
-                    <View style={styles.leftBottomContentContainer} />
+                    <View style={styles.leftBottomContentContainer} >
+                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
+                    </View>
                 </View>
                 <View style={styles.rightContentContainer}>
                     <View style={styles.rightTitleContentContainer}>
@@ -142,6 +148,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    timeButton: {
+        width: 160,
+        height: 56,
+    },
     contentContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -157,10 +167,14 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     leftBottomContentContainer: {
+        flexDirection: 'row',
         backgroundColor: `#1e90ff`,
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
         flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 70,
     },
     leftContentContainer: {
         flex: 10,

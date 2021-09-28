@@ -74,8 +74,10 @@ const styles = StyleSheet.create({
         width: '90%',
     },
     chartValueContainer: {
-        backgroundColor: 'white',
+        borderWidth:2,
+        borderRadius: 10,
         flex: 5,
+        margin: 15,
     },
     container: {
         alignItems: 'center',
@@ -98,14 +100,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     xAxisContainer: {
-        backgroundColor: GLOBAL_COLORS.secondary,
         borderRadius: 20,
         flex: 1,
         textAlign: 'center',
         width: '80%',
     },
     yAxisContainer: {
-        backgroundColor: GLOBAL_COLORS.secondary,
         borderRadius: 20,
     },
 });
