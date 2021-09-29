@@ -37,6 +37,7 @@ const FlatListData = [
         data: [1,2,3,4,5,6,7,8,9,],
     },
     {
+
         id: 4,
         title: 'Translation',
         data: [1,2,3,4,5,6,723,8,9,],
@@ -156,9 +157,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
     },
-    dropDownPicker: {},
+    dropDownPicker: {
+    },
     dropDownPickerContainer: {
         width: '80%',
+        position: 'absolute',
     },
     flatListContainer: {
         alignItems: 'center',
@@ -184,11 +187,12 @@ const styles = StyleSheet.create({
         flex: 7,
     },
     leftTopContentContainer: {
-        alignItems: 'center',
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
         flex: 1,
-        justifyContent: 'center',
+        top: 50,
+        left: 120,
+        zIndex: 5,
     },
     rightContentContainer: {
         alignItems: 'center',
