@@ -2,26 +2,54 @@ import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '../const';
+import Icon from '@ui/components/Icon';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type Props = {
     color?: string;
+    iconName?: IconProp;
+    iconSize?: 18 | 20 | 22 | 26 | 30 | 34 | 38 | 42 | 46 | 50;
     enabled?: boolean;
-    title: string;
+    title?: string | number;
+    onLongPress?(): void;
+    onPressOut?(): void;
     style?: StyleProp<ViewStyle>;
     onPress(): void;
 };
 
-const MainButton = ({ color, enabled = true, onPress, style, title }: Props) => {
+const MainButton = ({
+    color,
+    iconName,
+    iconSize,
+    enabled,
+    onPress,
+    onLongPress,
+    onPressOut,
+    style,
+    title,
+}: Props) => {
     return (
         <TouchableOpacity
+            delayLongPress={500}
             disabled={enabled === false}
+            onLongPress={onLongPress}
             onPress={onPress}
+            onPressOut={onPressOut}
             style={[styles.button, style, { backgroundColor: color ? color : GLOBAL_COLORS.extra }]}
         >
             {enabled === false ? (
                 <View style={styles.greyButton}>
-                    <Text style={styles.text}>{title}</Text>
+                    {iconName ? (
+                        <Icon
+                            color={GLOBAL_COLORS.icon}
+                            name={iconName}
+                            size={iconSize}
+                            style={styles.icon}
+                        />
+                    ) : (
+                        <Text style={styles.text}>{title}</Text>
+                    )}
                 </View>
             ) : !color ? (
                 <LinearGradient
@@ -31,11 +59,29 @@ const MainButton = ({ color, enabled = true, onPress, style, title }: Props) => 
                     style={styles.gradient}
                     useAngle
                 >
-                    <Text style={styles.text}>{title}</Text>
+                    {iconName ? (
+                        <Icon
+                            color={GLOBAL_COLORS.icon}
+                            name={iconName}
+                            size={iconSize}
+                            style={styles.icon}
+                        />
+                    ) : (
+                        <Text style={styles.text}>{title}</Text>
+                    )}
                 </LinearGradient>
             ) : (
                 <View style={[styles.greyButton, { backgroundColor: color }]}>
-                    <Text style={styles.text}>{title}</Text>
+                    {iconName ? (
+                        <Icon
+                            color={GLOBAL_COLORS.icon}
+                            name={iconName}
+                            size={iconSize}
+                            style={styles.icon}
+                        />
+                    ) : (
+                        <Text style={styles.text}>{title}</Text>
+                    )}
                 </View>
             )}
         </TouchableOpacity>
@@ -71,6 +117,10 @@ const styles = StyleSheet.create({
         height: 56,
         justifyContent: 'center',
         width: '100%',
+    },
+    icon: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     text: {
         color: GLOBAL_COLORS.text,

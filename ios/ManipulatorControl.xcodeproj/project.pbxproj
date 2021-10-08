@@ -19,11 +19,11 @@
 		6C14F87EEF4F4B20A7DFA0FF /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7B3ABAAE5F8475E89D6D56D /* Roboto-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B1743760A2B348E08617988D /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5505FC97A3484D71AFC0AB84 /* RobotoCondensed-Bold.ttf */; };
-		C7724522D002B5A850BAD699 /* libPods-ManipulatorControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8050BF21ADB55B75DF7E462 /* libPods-ManipulatorControl.a */; };
+		BFF8A9B55017A84AE480FC17 /* libPods-ManipulatorControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53BAC39221279FDA61C8FA59 /* libPods-ManipulatorControl.a */; };
 		CD0DB72750404AA085881318 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A5896DA035449E08B94E73A /* RobotoCondensed-BoldItalic.ttf */; };
 		CDE98053DF2341BBAF00D0B2 /* RobotoCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83298CA0C400464EB1A71107 /* RobotoCondensed-LightItalic.ttf */; };
-		F8D8A8D550302DCD10B99F9A /* libPods-ManipulatorControl-ManipulatorControlTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A31D8E8BC247A19B53AD2705 /* libPods-ManipulatorControl-ManipulatorControlTests.a */; };
 		FE9101CFD2BC4889A2E3290C /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E428C2219164D129DBEB843 /* RobotoCondensed-Regular.ttf */; };
+		FFA78EC17366D455B7BF2BBE /* libPods-ManipulatorControl-ManipulatorControlTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DEEC9D41B4C5021AAA82E9F1 /* libPods-ManipulatorControl-ManipulatorControlTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +40,6 @@
 		00E356EE1AD99517003FC87E /* ManipulatorControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManipulatorControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ManipulatorControlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ManipulatorControlTests.m; sourceTree = "<group>"; };
-		06989C3F1986019186409D93 /* Pods-ManipulatorControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl.release.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl.release.xcconfig"; sourceTree = "<group>"; };
 		0A3D9D4A2690D95600C51BCC /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		0F0B211E91844DDB83FB5558 /* RobotoCondensed.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = RobotoCondensed.ttf; path = ../src/assets/fonts/RobotoCondensed.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ManipulatorControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManipulatorControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,20 +49,21 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ManipulatorControl/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ManipulatorControl/main.m; sourceTree = "<group>"; };
 		1E428C2219164D129DBEB843 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoCondensed-Regular.ttf"; path = "../src/assets/fonts/RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
+		25BD20DEE128BC942F159404 /* Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C54D382645B23436B04B46C /* Pods-ManipulatorControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl.debug.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl.debug.xcconfig"; sourceTree = "<group>"; };
+		53BAC39221279FDA61C8FA59 /* libPods-ManipulatorControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ManipulatorControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5505FC97A3484D71AFC0AB84 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoCondensed-Bold.ttf"; path = "../src/assets/fonts/RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
 		6E1EB60C27AF48C3915F09B6 /* RobotoCondensed-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoCondensed-Light.ttf"; path = "../src/assets/fonts/RobotoCondensed-Light.ttf"; sourceTree = "<group>"; };
 		775B55D61D2449AD84F101DD /* RobotoCondensed-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoCondensed-Italic.ttf"; path = "../src/assets/fonts/RobotoCondensed-Italic.ttf"; sourceTree = "<group>"; };
 		7A5896DA035449E08B94E73A /* RobotoCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoCondensed-BoldItalic.ttf"; path = "../src/assets/fonts/RobotoCondensed-BoldItalic.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ManipulatorControl/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83298CA0C400464EB1A71107 /* RobotoCondensed-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoCondensed-LightItalic.ttf"; path = "../src/assets/fonts/RobotoCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
-		A31D8E8BC247A19B53AD2705 /* libPods-ManipulatorControl-ManipulatorControlTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ManipulatorControl-ManipulatorControlTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FC856AA120F2AAEF5B60B2A /* Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B899F2C66B6E4660A75EA00A /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		C8050BF21ADB55B75DF7E462 /* libPods-ManipulatorControl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ManipulatorControl.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEEC9D41B4C5021AAA82E9F1 /* libPods-ManipulatorControl-ManipulatorControlTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ManipulatorControl-ManipulatorControlTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7B3ABAAE5F8475E89D6D56D /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		E928F44186810B8A4DA0E5C2 /* Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EF6BA07BEFFCD709FDF38322 /* Pods-ManipulatorControl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl.debug.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl.debug.xcconfig"; sourceTree = "<group>"; };
-		F60E79742679C743086DB512 /* Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig"; sourceTree = "<group>"; };
+		F8DE3C6A2846003A7742B8D1 /* Pods-ManipulatorControl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ManipulatorControl.release.xcconfig"; path = "Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8D8A8D550302DCD10B99F9A /* libPods-ManipulatorControl-ManipulatorControlTests.a in Frameworks */,
+				FFA78EC17366D455B7BF2BBE /* libPods-ManipulatorControl-ManipulatorControlTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7724522D002B5A850BAD699 /* libPods-ManipulatorControl.a in Frameworks */,
+				BFF8A9B55017A84AE480FC17 /* libPods-ManipulatorControl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,8 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				C8050BF21ADB55B75DF7E462 /* libPods-ManipulatorControl.a */,
-				A31D8E8BC247A19B53AD2705 /* libPods-ManipulatorControl-ManipulatorControlTests.a */,
+				53BAC39221279FDA61C8FA59 /* libPods-ManipulatorControl.a */,
+				DEEC9D41B4C5021AAA82E9F1 /* libPods-ManipulatorControl-ManipulatorControlTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,10 +178,10 @@
 		D65D2212B057AFC1AF7647D0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EF6BA07BEFFCD709FDF38322 /* Pods-ManipulatorControl.debug.xcconfig */,
-				06989C3F1986019186409D93 /* Pods-ManipulatorControl.release.xcconfig */,
-				E928F44186810B8A4DA0E5C2 /* Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig */,
-				F60E79742679C743086DB512 /* Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig */,
+				2C54D382645B23436B04B46C /* Pods-ManipulatorControl.debug.xcconfig */,
+				F8DE3C6A2846003A7742B8D1 /* Pods-ManipulatorControl.release.xcconfig */,
+				8FC856AA120F2AAEF5B60B2A /* Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig */,
+				25BD20DEE128BC942F159404 /* Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -193,12 +193,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ManipulatorControlTests" */;
 			buildPhases = (
-				A0883F8F70B7D14262FAF4E7 /* [CP] Check Pods Manifest.lock */,
+				E1DE37E555602A57C75AD975 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				88EBCCA955DEE369A5B62BBD /* [CP] Embed Pods Frameworks */,
-				A47FE0E9C221F54F063C5F16 /* [CP] Copy Pods Resources */,
+				81963AACC0A1CBE383E9C335 /* [CP] Embed Pods Frameworks */,
+				B5A8EACDEA1F48FE0F79482B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,14 +214,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ManipulatorControl" */;
 			buildPhases = (
-				92356FC19EC0D1FFCC8C94B5 /* [CP] Check Pods Manifest.lock */,
+				AC3EFC7AF83919FC68BD17E2 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				2FA7B48CDDEB1A8790F56069 /* [CP] Embed Pods Frameworks */,
-				BDAE52086A28FC1FE60148D0 /* [CP] Copy Pods Resources */,
+				9AC0D05656ACA479BA1FE97C /* [CP] Embed Pods Frameworks */,
+				6358C8A51CA5E97234FB9364 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -312,24 +312,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		2FA7B48CDDEB1A8790F56069 /* [CP] Embed Pods Frameworks */ = {
+		6358C8A51CA5E97234FB9364 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		88EBCCA955DEE369A5B62BBD /* [CP] Embed Pods Frameworks */ = {
+		81963AACC0A1CBE383E9C335 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -346,7 +346,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		92356FC19EC0D1FFCC8C94B5 /* [CP] Check Pods Manifest.lock */ = {
+		9AC0D05656ACA479BA1FE97C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC3EFC7AF83919FC68BD17E2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -368,7 +385,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A0883F8F70B7D14262FAF4E7 /* [CP] Check Pods Manifest.lock */ = {
+		B5A8EACDEA1F48FE0F79482B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1DE37E555602A57C75AD975 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -388,40 +422,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A47FE0E9C221F54F063C5F16 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl-ManipulatorControlTests/Pods-ManipulatorControl-ManipulatorControlTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BDAE52086A28FC1FE60148D0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ManipulatorControl/Pods-ManipulatorControl-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -476,7 +476,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E928F44186810B8A4DA0E5C2 /* Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig */;
+			baseConfigurationReference = 8FC856AA120F2AAEF5B60B2A /* Pods-ManipulatorControl-ManipulatorControlTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -503,7 +503,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F60E79742679C743086DB512 /* Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig */;
+			baseConfigurationReference = 25BD20DEE128BC942F159404 /* Pods-ManipulatorControl-ManipulatorControlTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -527,7 +527,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF6BA07BEFFCD709FDF38322 /* Pods-ManipulatorControl.debug.xcconfig */;
+			baseConfigurationReference = 2C54D382645B23436B04B46C /* Pods-ManipulatorControl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -554,7 +554,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06989C3F1986019186409D93 /* Pods-ManipulatorControl.release.xcconfig */;
+			baseConfigurationReference = F8DE3C6A2846003A7742B8D1 /* Pods-ManipulatorControl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

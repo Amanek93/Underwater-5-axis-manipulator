@@ -27,7 +27,7 @@ export type DefaultTranslationDictionary = typeof pl;
 
 const systemLanguage = userLocales[0].languageTag;
 
-I18n.defaultLocale = 'en';
+I18n.defaultLocale = 'pl';
 I18n.fallbacks = true;
 I18n.translations = { en, pl };
 I18n.locale = systemLanguage;
