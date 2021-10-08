@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 
 // import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
@@ -31,7 +30,6 @@ const SettingsView = observer(function WelcomeView({ navigation }: Props) {
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
                     <NavigationToggleButton
                         onPress={() => navigation.toggleDrawer()}
-                        title="nawigacja"
                     />
                 </View>
                 <View style={styles.contentContainer}>

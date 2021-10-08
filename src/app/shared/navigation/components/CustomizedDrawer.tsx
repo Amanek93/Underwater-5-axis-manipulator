@@ -94,7 +94,6 @@ const DATA: Array<{
 const windowHeight = Dimensions.get('window').height;
 
 const CustomizedDrawer = () => {
-    //deklaruję hooka nawigacyjnego
     const navigation = useNavigation<DrawerNavigationProp<any>>();
 
     const [activeIndex, setIsActive] = useState(0);
@@ -129,7 +128,7 @@ const CustomizedDrawer = () => {
         [activeIndex],
     );
 
-    const renderItem = ({ item, index }: any) => {
+    const renderItem = ({ item }: any) => {
         return (
             <TouchableOpacity
                 onPress={() => {
