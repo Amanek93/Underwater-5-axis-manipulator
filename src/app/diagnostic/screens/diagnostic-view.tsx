@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 // import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 
-
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -29,17 +28,9 @@ const DiagnosticView = observer(function WelcomeView({ navigation }: Props) {
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
-                        // title="nawigacja"
-                    />
-                </View>
-                <View style={styles.contentContainer}>
-                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-                    <Text>diagnostic</Text>
-                </View>
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }} />
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 });

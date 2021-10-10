@@ -8,6 +8,8 @@ const helpIcon = require('../icons/Headphones.png');
 const powerIcon = require('../icons/Power.png');
 const logoutIcon = require('../icons/Exit.png');
 const arrowIcon = require('../icons/Arrow.png');
+const toggleButtonIcon = require('../icons/toggleButton.png');
+const toggleButtonDetailsIcon = require('../icons/toggleButtonDetail.png');
 
 export {
     homeIcon,
@@ -20,4 +22,6 @@ export {
     settingsIcon,
     telemetryIcon,
     arrowIcon,
+    toggleButtonIcon,
+    toggleButtonDetailsIcon,
 };

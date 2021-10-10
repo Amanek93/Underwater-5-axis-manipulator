@@ -62,7 +62,6 @@ const SettingsView = ({ navigation }: Props) => {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer}>
                     <FlatList
@@ -73,6 +72,7 @@ const SettingsView = ({ navigation }: Props) => {
                 </View>
                 <View style={styles.rightContentContainer} />
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 };

@@ -82,7 +82,6 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer} />
                 <View style={styles.rightContentContainer}>
@@ -105,10 +104,10 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
                             title="save"
                         />
                         <MainButton
+                            enabled={false}
                             onPress={() => console.log('button2')}
                             style={styles.mainButton}
                             title="clear"
-                            enabled={false}
                         />
                         <MainButton
                             onPress={() => console.log('button3')}
@@ -118,6 +117,7 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
                     </View>
                 </View>
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 });
