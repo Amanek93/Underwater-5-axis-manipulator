@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-// import i18n from '@shared/language/i18n';
 import Header from '@ui/components/Header';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
+
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { GLOBAL_COLORS } from '@ui';
 
 type Props = {
@@ -74,7 +74,6 @@ const SettingsView = ({ navigation }: Props) => {
                         renderItem={renderItem}
                     />
                 </View>
-
                 <View style={styles.rightContentContainer} />
             </View>
         </SafeAreaView>

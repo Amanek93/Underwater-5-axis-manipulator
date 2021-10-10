@@ -11,9 +11,8 @@ export const GLOBAL_COLORS = {
     textSecondary: darkMode ? '#747e90' : '#747e90',
     icon: darkMode ? '#FFFFFF' : '#FFFFFF',
     darkIcon: darkMode ? '#000000' : '#000000',
-    stopBackground: darkMode? '#b22222' : '#b22222',
-    disconnectedTickColor: darkMode? '#b22222' : '#b22222',
-    connectedTickColor: darkMode? '#228b22' : '#228b22',
-    leftViewContainer: darkMode? '#dcdcdc' : '#dcdcdc',
-
+    stopBackground: darkMode ? '#b22222' : '#b22222',
+    disconnectedTickColor: darkMode ? '#b22222' : '#b22222',
+    connectedTickColor: darkMode ? '#228b22' : '#228b22',
+    leftViewContainer: darkMode ? '#dcdcdc' : '#dcdcdc',
 };
