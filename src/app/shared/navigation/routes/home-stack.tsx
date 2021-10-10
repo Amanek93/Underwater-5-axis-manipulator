@@ -22,7 +22,8 @@ const HomeStack = () => {
                 itemStyle: { width: 140, height: 80 },
             }}
             drawerStyle={{
-                width: 175,
+                width: 128,
+                backgroundColor: 'transparent',
             }}
             //drawerType={"permanent"}
             initialRouteName="Home"

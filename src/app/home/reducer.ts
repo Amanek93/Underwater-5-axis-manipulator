@@ -11,6 +11,12 @@ interface deviceParameters {
     axialRadius4: number;
     axialRadius5: number;
     speed: number;
+    device: DeviceParameters;
+}
+
+interface DeviceParameters {
+    value1: number;
+    value2: number;
 }
 
 const initialState: HomeState = {
@@ -21,6 +27,7 @@ const initialState: HomeState = {
         axialRadius4: 0,
         axialRadius5: 0,
         speed: 0,
+
     },
 };
 

@@ -68,7 +68,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                 ]}
                 max={90}
                 min={-90}
-                onChage={() => setCircularSliderValue(device[deviceKey as keyof typeof device])}
+                onChange={() => setCircularSliderValue(device[deviceKey as keyof typeof device])}
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}

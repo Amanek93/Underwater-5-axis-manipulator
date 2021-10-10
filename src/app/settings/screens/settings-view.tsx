@@ -1,20 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text, View } from 'react-native';
-import { observer } from 'mobx-react-lite';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-// import i18n from '@shared/language/i18n';
+import Header from '@ui/components/Header';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 
-import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { GLOBAL_COLORS } from '@ui';
 
 type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const SettingsView = observer(function WelcomeView({ navigation }: Props) {
+const DATA = [
+    {
+        title: 'język',
+        description: 'wybór języka aplikacji',
+    },
+    {
+        title: 'tryb',
+        description: 'tryb jasny lub ciemny',
+    },
+    {
+        title: 'dźwięk',
+        description: 'tryb jasny lub ciemny',
+    },
+    {
+        title: 'wyloguj',
+        description: 'tryb jasny lub ciemny',
+    },
+];
+
+const SettingsView = ({ navigation }: Props) => {
+    const [activeSettingIndex, setActiveSettingIndex] = useState<number>(0);
+
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -23,23 +44,41 @@ const SettingsView = observer(function WelcomeView({ navigation }: Props) {
         [navigation],
     );
 
+    const handleButtonPress = (index: number) => {
+        setActiveSettingIndex(index);
+    };
+
+    const renderItem = ({ item, index }: any) => {
+        return (
+            <TouchableOpacity
+                onPress={() => handleButtonPress(index)}
+                style={{
+                    backgroundColor: activeSettingIndex === index ? 'white' : 'blue',
+                    height: 50,
+                }}
+            >
+                <Text>{item.title}</Text>
+            </TouchableOpacity>
+        );
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
+            <View style={styles.contentContainer}>
+                <View style={styles.leftContentContainer}>
+                    <FlatList
+                        data={DATA}
+                        keyExtractor={item => item.title}
+                        renderItem={renderItem}
                     />
                 </View>
-                <View style={styles.contentContainer}>
-                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-                    <Text>settings</Text>
-                </View>
+                <View style={styles.rightContentContainer} />
             </View>
         </SafeAreaView>
     );
-});
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -47,24 +86,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     contentContainer: {
-        backgroundColor: 'purple',
-        height: '100%',
-        width: '100%',
+        flex: 1,
+        flexDirection: 'row',
     },
-    logo: {
-        alignItems: 'center',
-        justifyContent: 'center',
+    leftContentContainer: {
+        backgroundColor: 'red',
+        flex: 1,
     },
-    logoContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    navigationBarContainer: {
-        justifyContent: 'flex-start',
-    },
-    text: {
-        color: GLOBAL_COLORS.text,
-        fontSize: GLOBAL_FONTSIZES.header,
+    rightContentContainer: {
+        backgroundColor: GLOBAL_COLORS.leftViewContainer,
+        flex: 1,
     },
 });
 

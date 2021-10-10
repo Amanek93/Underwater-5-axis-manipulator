@@ -9,7 +9,6 @@ import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 
 
 import Header from '../../ui/components/Header';
-
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
