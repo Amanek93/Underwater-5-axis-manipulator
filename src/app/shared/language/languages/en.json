@@ -5,10 +5,33 @@
   },
   "screens": {
     "loginView": {
-      "test": "HI"
+      "login": "LOGIN",
+      "password": "PASSWORD",
+      "wrongLogin": "Bad login!",
+      "wrongPassword": "Wrong password!",
+      "wrongLoginOrPassword": "Incorrect password or login!"
     },
+
     "homeView": {
       "test": "test"
-    }
+    },
+    "header": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "reset": "Reset",
+      "stop": "Stop",
+      "home": "Home",
+      "memory": "Memory",
+
+    },
+    "navigationBar": {
+      "home": "HOME",
+      "liveStream": "LIVE STREAM",
+      "settings": "SETTINGS",
+      "telemetry": "TELEMETRY",
+      "diagnostic": "DIAGNOSTIC",
+      "info": "INFO",
+      "help": "HELP"
+    },
   }
 }
