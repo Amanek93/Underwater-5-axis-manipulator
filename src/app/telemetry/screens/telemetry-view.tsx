@@ -6,10 +6,8 @@ import { useEffect } from 'react';
 
 // import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
-import NavigationBar from '@ui/components/NavigationBar';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
@@ -17,7 +15,7 @@ type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const TelemetryView = observer(function WelcomView({ navigation }: Props) {
+const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -29,16 +27,14 @@ const TelemetryView = observer(function WelcomView({ navigation }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
-                        title="nawigacja"
-                    />
-                </View>
-                <View style={styles.contentContainer}>
-                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-                    <Text>telemetry</Text>
+            <View style={styles.contentContainer}>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <NavigationToggleButton
+                            onPress={() => navigation.toggleDrawer()}
+                            title="nawigacja"
+                        />
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
@@ -48,7 +44,7 @@ const TelemetryView = observer(function WelcomView({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: GLOBAL_COLORS.primary,
-        flex: 1,
+
     },
     contentContainer: {
         backgroundColor: 'blue',

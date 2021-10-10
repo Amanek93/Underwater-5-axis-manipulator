@@ -1,26 +1,65 @@
 import CircularSlider from '../../ui/components/CircularSlide';
+import LinearGradient from 'react-native-linear-gradient';
 import MainButton from '../../ui/components/MainButton';
-import React, { useState } from 'react';
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '../../ui';
-import { HomeActionTypes } from '../actions';
-import { StyleSheet, Text, View } from 'react-native';
-import { getSpeed } from '../selectors';
+import React, { useEffect, useState } from 'react';
+import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
+import { HomeActionTypes, getDevice } from '@home';
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+
 import { useDispatch, useSelector } from 'react-redux';
+type Props = {
+    circularTitle?: string;
+    addValue?: string;
+    subtractValue?: string;
+    dispatchName?: symbol;
+    addActionType?: HomeActionTypes;
+    subtractActionType?: HomeActionTypes;
+    deviceKey: string;
+};
 
-type Props = {};
+let timer: any;
 
-const ControlSlider = ({}: Props) => {
-    const [count, setCount] = useState<number>(0);
-
-    const speed = useSelector(getSpeed);
+const ControlSlider = ({ circularTitle, addActionType, subtractActionType, deviceKey }: Props) => {
+    const device = useSelector(getDevice);
     const dispatch = useDispatch();
+    const [circularSliderValue, setCircularSliderValue] = useState<number>(
+        device[deviceKey as keyof typeof device],
+    );
 
-    const handleAddSpeed = () => {
-        dispatch({ type: HomeActionTypes.ADD_SPEED });
+    const handleAdd = () => {
+        dispatch({ type: addActionType });
+        setCircularSliderValue(device[deviceKey as keyof typeof device]);
+    };
+    const handleSubtract = () => {
+        dispatch({ type: subtractActionType });
+        setCircularSliderValue(device[deviceKey as keyof typeof device]);
     };
 
+    useEffect(() => {
+        if (
+            device[deviceKey as keyof typeof device] === -90 ||
+            device[deviceKey as keyof typeof device] === 90
+        ) {
+            cleanup();
+            if (device[deviceKey as keyof typeof device] === 90)
+                console.warn('You have reached your limit!');
+        }
+    }, [device[deviceKey as keyof typeof device], handleAdd]);
+
+    const handleLongPress = (type: string) => {
+        timer = setInterval(() => {
+            if (type === 'plus') {
+                handleAdd();
+            } else if (type === 'minus') {
+                handleSubtract();
+            }
+        }, 100);
+    };
+    function cleanup() {
+        clearInterval(timer);
+    }
     return (
-        <View style={styles.progressCircleContainer}>
+        <SafeAreaView style={styles.progressCircleContainer}>
             <CircularSlider
                 buttonBorderColor="#3FE3EB"
                 buttonFillColor="#fff"
@@ -33,37 +72,47 @@ const ControlSlider = ({}: Props) => {
                 ]}
                 max={90}
                 min={-90}
-                onChange={(count: number) => setCount(count)}
+                onChange={() => setCircularSliderValue(device[deviceKey as keyof typeof device])}
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}
-                value={count}
+                value={device[deviceKey as keyof typeof device]}
             >
-                <Text style={styles.text}>Axis 1</Text>
+                <Text style={styles.text}>{circularTitle}</Text>
             </CircularSlider>
             <View style={styles.countContainer}>
                 <MainButton
+                    enabled={device[deviceKey as keyof typeof device] !== -90}
                     iconName={GLOBAL_ICONS.angleLeft}
                     iconSize={20}
-                    onPress={handleAddSpeed}
+                    onLongPress={() => handleLongPress('minus')}
+                    onPress={handleSubtract}
+                    onPressOut={cleanup}
                     style={styles.countButton}
                 />
+                <LinearGradient
+                    angle={45}
+                    angleCenter={{ x: 0.6, y: 0.5 }}
+                    colors={[GLOBAL_COLORS.secondary, GLOBAL_COLORS.extra]}
+                    style={styles.gradient}
+                    useAngle
+                >
+                    <TextInput
+                        style={styles.textInputContainer}
+                        value={device[deviceKey as keyof typeof device].toString()}
+                    />
+                </LinearGradient>
                 <MainButton
-                    enabled
-                    onPress={() => {
-                        console.log('elo');
-                    }}
-                    style={styles.countMeter}
-                    title={speed}
-                />
-                <MainButton
+                    enabled={device[deviceKey as keyof typeof device] !== 90}
                     iconName={GLOBAL_ICONS.angleRight}
                     iconSize={20}
-                    onPress={() => setCount(count + 1)}
+                    onLongPress={() => handleLongPress('plus')}
+                    onPress={handleAdd}
+                    onPressOut={cleanup}
                     style={styles.countButton}
                 />
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -77,28 +126,51 @@ const styles = StyleSheet.create({
         width: 70,
     },
     countContainer: {
-        backgroundColor: 'red',
+        alignItems: 'center',
         bottom: 90,
         flexDirection: 'row',
         height: 40,
         justifyContent: 'space-between',
         width: 250,
     },
-    countMeter: {
-        height: 40,
+    gradient: {
+        alignItems: 'center',
+        backgroundColor: GLOBAL_COLORS.secondary,
+        borderRadius: 56,
+        height: 56,
+        justifyContent: 'center',
         width: 100,
     },
     progressCircleContainer: {
         alignItems: 'center',
+        height: 230,
         justifyContent: 'center',
+        transform: [
+            {
+                scale: 0.8,
+            },
+        ],
     },
     text: {
-        color: GLOBAL_COLORS.text,
+        bottom: 20,
+        color: GLOBAL_COLORS.primary,
         fontFamily: GLOBAL_FONTS.ROBOTO,
         fontSize: GLOBAL_FONTSIZES.header,
         fontWeight: 'bold' as const,
         letterSpacing: 0.09,
         textAlign: 'center',
+    },
+    textInputContainer: {
+        alignItems: 'center',
+        color: GLOBAL_COLORS.text,
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: GLOBAL_FONTSIZES.header,
+        fontWeight: 'bold' as const,
+        height: 56,
+        justifyContent: 'center',
+        letterSpacing: 0.09,
+        textAlign: 'center',
+        width: 100,
     },
 });
 

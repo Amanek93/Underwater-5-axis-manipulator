@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // import i18n from '@shared/language/i18n';
 import Header from '@ui/components/Header';
+import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
+import { StackNavigationProp } from '@react-navigation/stack';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { GLOBAL_COLORS } from '@ui';

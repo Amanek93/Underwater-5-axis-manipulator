@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -8,7 +7,53 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES } from '@ui';
 
 import ControlSlider from '@home/components/ControlSlider';
 import Header from '../../ui/components/Header';
+import MainButton from '@ui/components/MainButton';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import { HomeActionTypes } from '@home';
+const DATA = [
+    {
+        id: 'bd7',
+        title: 'Axis 1',
+        addActionType: HomeActionTypes.ADD_AXIS1,
+        subtractActionType: HomeActionTypes.SUBTRACT_AXIS1,
+        devKey: 'axialRadius1',
+    },
+    {
+        id: 'db8',
+        title: 'Axis 2',
+        addActionType: HomeActionTypes.ADD_AXIS2,
+        subtractActionType: HomeActionTypes.SUBTRACT_AXIS2,
+        devKey: 'axialRadius2',
+    },
+    {
+        id: 'db9',
+        title: 'Axis 3',
+        addActionType: HomeActionTypes.ADD_AXIS3,
+        subtractActionType: HomeActionTypes.SUBTRACT_AXIS3,
+        devKey: 'axialRadius3',
+    },
+    {
+        id: 'db10',
+        title: 'Axis 4',
+        addActionType: HomeActionTypes.ADD_AXIS4,
+        subtractActionType: HomeActionTypes.SUBTRACT_AXIS4,
+        devKey: 'axialRadius4',
+    },
+    {
+        id: 'db11',
+        title: 'Axis 5',
+        addActionType: HomeActionTypes.ADD_AXIS5,
+        subtractActionType: HomeActionTypes.SUBTRACT_AXIS5,
+        devKey: 'axialRadius5',
+    },
+    {
+        id: 'db12',
+        title: 'Speed',
+        addActionType: HomeActionTypes.ADD_SPEED,
+        subtractActionType: HomeActionTypes.SUBTRACT_SPEED,
+        devKey: 'speed',
+    },
+];
 
 type Props = {
     navigation: DrawerNavigationProp<never>;
@@ -23,6 +68,17 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
         [navigation],
     );
 
+    const renderItem = ({ item }: any) => (
+        <View style={styles.renderItemContainer}>
+            <ControlSlider
+                addActionType={item.addActionType}
+                circularTitle={item.title}
+                deviceKey={item.devKey}
+                subtractActionType={item.subtractActionType}
+            />
+        </View>
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <Header />
@@ -30,7 +86,35 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer} />
                 <View style={styles.rightContentContainer}>
-                    <ControlSlider />
+                    <View style={styles.rightContentTitleContainer}>
+                        <Text style={styles.textTitle}>Control Sliders Box</Text>
+                    </View>
+                    <View style={styles.rightContentRotaryContainer}>
+                        <FlatList
+                            data={DATA}
+                            keyExtractor={item => item.id}
+                            numColumns={2}
+                            renderItem={renderItem}
+                            style={styles.flatListContainer}
+                        />
+                    </View>
+                    <View style={styles.rightContentButtonContainer}>
+                        <MainButton
+                            onPress={() => console.log('button1')}
+                            style={styles.mainButton}
+                            title="save"
+                        />
+                        <MainButton
+                            onPress={() => console.log('button2')}
+                            style={styles.mainButton}
+                            title="clear"
+                        />
+                        <MainButton
+                            onPress={() => console.log('button3')}
+                            style={styles.mainButton}
+                            title=""
+                        />
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
@@ -43,61 +127,59 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     contentContainer: {
-        backgroundColor: 'white',
+        backgroundColor: `#ffffff`,
         flexDirection: 'row',
         flex: 1,
     },
-    contentContainerStyle: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    countButton: {
-        height: 40,
-        width: 70,
-    },
-    countContainer: {
-        backgroundColor: 'red',
-        bottom: 90,
-        flexDirection: 'row',
-        height: 40,
-        justifyContent: 'space-between',
-        width: 250,
-    },
-    countMeter: {
-        height: 40,
-        width: 100,
-    },
-    icon: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    incrementButton: {
-        height: 40,
-        width: 60,
+    flatListContainer: {
+        height: '100%',
+        width: '100%',
     },
     leftContentContainer: {
-        backgroundColor: 'red',
+        //backgroundColor: `#ff0000`,
         flex: 10,
     },
-    navigationBarContainer: {
-        justifyContent: 'flex-start',
+    mainButton: {
+        width: 100,
     },
-    progressCircleContainer: {
+    renderItemContainer: {
+        width: 230,
+    },
+    rightContentButtonContainer: {
         alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-between',
+        width: '80%',
     },
     rightContentContainer: {
+        alignItems: 'center',
         backgroundColor: GLOBAL_COLORS.leftViewContainer,
-        borderRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderTopLeftRadius: 20,
         flex: 5,
+        justifyContent: 'center',
     },
-    text: {
-        color: GLOBAL_COLORS.text,
+    rightContentRotaryContainer: {
+        alignItems: 'center',
+        flex: 8,
+        justifyContent: 'center',
+        width: '100%',
+    },
+    rightContentTitleContainer: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    textTitle: {
+        color: GLOBAL_COLORS.primary,
         fontFamily: GLOBAL_FONTS.ROBOTO,
-        fontSize: GLOBAL_FONTSIZES.header,
+        fontSize: GLOBAL_FONTSIZES.title,
         fontWeight: 'bold' as const,
+        justifyContent: 'center',
         letterSpacing: 0.09,
         textAlign: 'center',
+        width: '100%',
     },
 });
 

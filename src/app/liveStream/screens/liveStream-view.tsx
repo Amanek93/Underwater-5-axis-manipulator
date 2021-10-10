@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
@@ -17,7 +17,7 @@ type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const LiveStreamView = observer(function WelcomView({ navigation }: Props) {
+const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {

@@ -1,25 +1,24 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 
 // import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
+//import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
-import NavigationBar from '@ui/components/NavigationBar';
+//import NavigationBar from '@ui/components/NavigationBar';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-const screenKey = 5;
 
 type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const InfoView = observer(function WelcomView({ navigation }: Props) {
+const InfoView = observer(function WelcomeView({ navigation }: Props) {
     useEffect(
         () =>
             navigation.addListener('beforeRemove', e => {
@@ -35,7 +34,7 @@ const InfoView = observer(function WelcomView({ navigation }: Props) {
                 <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
                     <NavigationToggleButton
                         onPress={() => navigation.toggleDrawer()}
-                        title="nawigacja"
+                        //title="nawigacja"
                     />
                 </View>
                 <View style={styles.contentContainer}>

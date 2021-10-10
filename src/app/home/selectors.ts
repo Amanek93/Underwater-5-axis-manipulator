@@ -6,4 +6,4 @@ import { HomeState } from './reducer';
 
 export const getHomeState = (state: AppState): HomeState => state.home;
 
-export const getSpeed = createSelector(getHomeState, prop('speed'));
+export const getDevice = createSelector(getHomeState, prop('device'));
