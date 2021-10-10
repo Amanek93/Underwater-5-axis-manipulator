@@ -96,7 +96,6 @@ const LoginView = ({ navigation }: Props) => {
                     onPress={() => {
                         animate();
                         animate1();
-                        console.log(translateY);
                     }}
                     style={styles.animationButton}
                     title={i18n.t('screens.loginView.login')}
