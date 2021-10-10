@@ -1,18 +1,18 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
     Animated,
     Dimensions,
     FlatList,
     Image,
-    SafeAreaView,
     StyleSheet,
+    Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { GLOBAL_COLORS } from '@ui/const';
+import { GLOBAL_COLORS, GLOBAL_FONTS } from '@ui/const';
 import {
     arrowIcon,
     diagnosticIcon,
@@ -31,6 +31,7 @@ const DATA: Array<{
     iconColor: string;
     title: string;
     navigationId: string;
+    text?: string;
     isActive: boolean;
     keyId: number;
     topSeparator: boolean;
@@ -46,6 +47,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 0,
         topSeparator: true,
+        text: 'Strona Główna',
     },
     {
         icon: liveCameraIcon,
@@ -56,6 +58,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 1,
         topSeparator: false,
+        text: 'Sterowanie LIVE',
     },
     {
         icon: telemetryIcon,
@@ -66,6 +69,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 2,
         topSeparator: false,
+        text: 'Telemetria',
     },
     {
         icon: diagnosticIcon,
@@ -76,6 +80,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 3,
         topSeparator: false,
+        text: 'Diagnostyka',
     },
     {
         icon: settingsIcon,
@@ -86,6 +91,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 4,
         topSeparator: true,
+        text: 'Ustawienia',
     },
     {
         icon: infoIcon,
@@ -96,6 +102,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 5,
         topSeparator: false,
+        text: 'Informacja',
     },
     {
         icon: helpIcon,
@@ -106,6 +113,7 @@ const DATA: Array<{
         isActive: false,
         keyId: 6,
         topSeparator: false,
+        text: 'Pomoc',
     },
     {
         icon: powerIcon,
@@ -117,6 +125,7 @@ const DATA: Array<{
         keyId: 7,
         topSeparator: true,
         logoutIcon: true,
+        text: 'WYLOGUJ',
     },
     {
         icon: arrowIcon,
@@ -131,27 +140,61 @@ const DATA: Array<{
     },
 ];
 
-const iconsCount = DATA.length;
+const itemsCount = DATA.length;
 const windowHeight = Dimensions.get('window').height;
 
 const CustomizedDrawer = () => {
     const navigation = useNavigation<DrawerNavigationProp<any>>();
+    const animateWidth = useRef(new Animated.Value(128)).current;
+    const animateItemWidth = useRef(new Animated.Value(76)).current;
+    const rotateValue = useRef(new Animated.Value(0)).current;
+    const animateMoveValue = useRef(new Animated.Value(0)).current;
 
     const [moreOptions, setMoreOptions] = useState<boolean>(false);
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState<boolean>(false);
     const [activeIndex, setIsActive] = useState<number>(0);
-    const translateX = useRef(new Animated.Value(0)).current;
 
     const show = () => {
-        Animated.timing(translateX, {
-            toValue: 0,
+        Animated.timing(animateWidth, {
+            toValue: 400,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(animateItemWidth, {
+            toValue: 350,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(animateMoveValue, {
+            toValue: 280,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(rotateValue, {
+            toValue: 3.2,
             useNativeDriver: false,
             duration: 300,
         }).start();
     };
 
     const hide = () => {
-        Animated.timing(translateX, {
-            toValue: 15,
+        Animated.timing(animateWidth, {
+            toValue: 128,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(animateItemWidth, {
+            toValue: 76,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(animateMoveValue, {
+            toValue: 0,
+            useNativeDriver: false,
+            duration: 100,
+        }).start();
+        Animated.timing(rotateValue, {
+            toValue: 0,
             useNativeDriver: false,
             duration: 300,
         }).start();
@@ -159,91 +202,150 @@ const CustomizedDrawer = () => {
 
     const handleButton = useCallback(
         item => {
-            show();
-            setTimeout(() => {
-                hide();
-            }, 600);
             setTimeout(() => {
                 navigation.navigate(item.navigationId);
             }, 300);
         },
         [activeIndex],
     );
+
+    useEffect(() => {
+        console.log(moreOptions);
+    }, [moreOptions]);
+
+    useEffect(() => {
+        if (moreOptions) {
+            setTimeout(() => setShowAdditionalInfo(true), 200);
+        } else setShowAdditionalInfo(false);
+    }, [moreOptions]);
     const renderItem = ({ item }: any) => {
         return (
-            <View
+            <Animated.View
                 style={[
                     styles.itemContainer,
+                    { width: animateWidth },
                     item.topSeparator && styles.separator,
-                    item.logoutIcon && { height: (windowHeight / iconsCount) * 1.2 },
                 ]}
             >
                 <TouchableOpacity
                     onPress={() => {
                         setIsActive(item.keyId);
                         if (item.moreButton) {
-                            setMoreOptions(true);
+                            if (moreOptions) hide();
+                            else show();
+                            setMoreOptions(prevState => !prevState);
                         } else {
+                            hide();
                             handleButton(item);
                         }
                     }}
-                    style={[
-                        { borderRadius: 23 },
-                        item.logoutIcon && styles.logoutButtonContainer,
-                        item.keyId === activeIndex && styles.pressedButtonContainer,
-                    ]}
                 >
                     {item.keyId === activeIndex ? (
-                        <View style={styles.iconContainer}>
-                            <Image
-                                resizeMode="contain"
-                                source={item.icon}
-                                style={styles.iconCont}
-                            />
-                        </View>
+                        <Animated.View
+                            style={{
+                                paddingHorizontal: 16,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                height: 76,
+                                width: animateItemWidth,
+                                justifyContent: moreOptions ? 'flex-start' : 'center',
+                                backgroundColor:
+                                    moreOptions && !item.logoutIcon
+                                        ? 'transparent'
+                                        : 'rgba(5, 120, 227, 0.4)',
+                                borderRadius: 23,
+                            }}
+                        >
+                            <Animated.View
+                                style={{
+                                    transform: [
+                                        { translateX: item.moreButton ? animateMoveValue : 0 },
+                                    ],
+                                }}
+                            >
+                                <Animated.View
+                                    style={{
+                                        transform: [
+                                            {
+                                                rotate: item.moreButton ? rotateValue : 0,
+                                            },
+                                        ],
+                                    }}
+                                >
+                                    <Image
+                                        resizeMode="contain"
+                                        source={item.icon}
+                                        style={styles.icon}
+                                    />
+                                </Animated.View>
+                            </Animated.View>
+                            {showAdditionalInfo && (
+                                <Text style={styles.textStyle}>{item.text}</Text>
+                            )}
+                        </Animated.View>
                     ) : (
-                        <View style={styles.iconContainer}>
-                            <Image
-                                resizeMode="contain"
-                                source={item.icon}
-                                style={styles.iconCont}
-                            />
-                        </View>
+                        <Animated.View
+                            style={{
+                                paddingHorizontal: 16,
+                                flexDirection: 'row',
+                                height: 76,
+                                width: animateItemWidth,
+                                alignItems: 'center',
+                                justifyContent: moreOptions ? 'flex-start' : 'center',
+                                backgroundColor: !item.logoutIcon
+                                    ? 'transparent'
+                                    : 'rgba(212, 215, 223, 0.35)',
+                                borderRadius: 23,
+                            }}
+                        >
+                            <Image resizeMode="contain" source={item.icon} style={styles.icon} />
+                            {showAdditionalInfo && (
+                                <Text style={styles.textStyle}>{item.text}</Text>
+                            )}
+                        </Animated.View>
                     )}
                 </TouchableOpacity>
-            </View>
+            </Animated.View>
         );
     };
     return (
-        <SafeAreaView style={styles.statusBarContainer}>
-            <View style={styles.logoContainer}>
+        <Animated.View style={[styles.mainContainer, { width: animateWidth }]}>
+            <View
+                style={[
+                    styles.logoContainer,
+                    {
+                        alignSelf: moreOptions ? 'flex-start' : 'center',
+                        paddingLeft: moreOptions ? 20 : 0,
+                    },
+                ]}
+            >
                 <Image
                     resizeMode="contain"
                     source={require('../../../../assets/images/ocean-tech-logo.png')}
                     style={styles.imageContainer}
                 />
             </View>
-            <FlatList
-                data={DATA}
-                keyExtractor={item => item.keyId.toString()}
-                numColumns={1}
-                renderItem={renderItem}
-            />
-        </SafeAreaView>
+            <View style={styles.flatListContainer}>
+                <FlatList
+                    data={DATA}
+                    keyExtractor={item => item.keyId.toString()}
+                    numColumns={1}
+                    renderItem={renderItem}
+                />
+            </View>
+        </Animated.View>
     );
 };
 
 const styles = StyleSheet.create({
-    iconCont: {
-        alignItems: 'center',
-        justifyContent: 'center',
+    flatListContainer: {
+        flex: 6,
     },
-    iconContainer: {
+    icon: {
         alignItems: 'center',
-        alignSelf: 'center',
-        height: (windowHeight - 370) / iconsCount,
+        height: 42,
         justifyContent: 'center',
-        width: (windowHeight - 370) / iconsCount,
+        width: 42,
     },
     imageContainer: {
         alignItems: 'center',
@@ -252,36 +354,35 @@ const styles = StyleSheet.create({
         maxWidth: 83,
     },
     itemContainer: {
-        backgroundColor: 'rgba(3, 26, 66, 1)',
-        height: (windowHeight - 220) / iconsCount,
+        alignItems: 'center',
+        height: (windowHeight * 6) / 7 / itemsCount,
         justifyContent: 'center',
-        width: (windowHeight - 220) / iconsCount,
     },
     logoContainer: {
         alignItems: 'center',
-        height: windowHeight / 7,
+        flex: 1,
         justifyContent: 'center',
     },
-    logoutButtonContainer: {
-        backgroundColor: 'rgba(212, 215, 223, 0.35)',
-        borderRadius: 42,
-        height: (windowHeight - 100) / iconsCount,
-        justifyContent: 'center',
-    },
-    pressedButtonContainer: {
-        backgroundColor: 'rgba(5, 120, 227, 0.4)',
-    },
-    separator: {
-        borderTopColor: 'white',
-        borderTopWidth: 2,
-    },
-    statusBarContainer: {
+    mainContainer: {
         alignItems: 'center',
         backgroundColor: 'rgba(3, 26, 66, 1)',
         borderRadius: 55,
         height: '100%',
         justifyContent: 'center',
         width: 128,
+    },
+    separator: {
+        borderTopColor: 'white',
+        borderTopWidth: 2,
+    },
+    textStyle: {
+        alignSelf: 'center',
+        color: 'white',
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: 25,
+        fontWeight: '400',
+        lineHeight: 29,
+        marginLeft: 70,
     },
 });
 
