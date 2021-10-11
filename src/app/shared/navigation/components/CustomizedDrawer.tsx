@@ -103,7 +103,7 @@ const CustomizedDrawer = () => {
         Animated.timing(translateX, {
             toValue: 0,
             useNativeDriver: false,
-            duration: 300,
+            duration: 100,
         }).start();
     };
 
@@ -111,7 +111,7 @@ const CustomizedDrawer = () => {
         Animated.timing(translateX, {
             toValue: 15,
             useNativeDriver: false,
-            duration: 300,
+            duration: 100,
         }).start();
     };
 

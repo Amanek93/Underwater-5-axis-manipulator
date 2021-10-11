@@ -10,8 +10,9 @@ const contentInset = { top: 0, bottom: 0 };
 type Props = {
     dataProps: object;
     title: string;
+    unit: string;
 }
-const Chart = ({dataProps, title}: Props) => {
+const Chart = ({dataProps, title, unit}: Props) => {
     const Gradient = () => (
         <Defs key='gradient'>
             <LinearGradient id='gradient' x1='0' x2='100%'  y2='0%'>
@@ -26,10 +27,12 @@ const Chart = ({dataProps, title}: Props) => {
                 <Text style={styles.textTitle}>{`${title} chart`}</Text>
             </View>
             <View style={styles.chartGrafhContainer}>
+                <View style={styles.yAxisContainerBox}>
+                <Text style={styles.text}>{unit}</Text>
                 <YAxis
                     contentInset={contentInset}
                     data={dataProps}
-                    formatLabel={(value: number) => `${value}ºC`}
+                    formatLabel={(value: number) => value}
                     numberOfTicks={5}
                     style={styles.yAxisContainer}
                     svg={{
@@ -37,6 +40,7 @@ const Chart = ({dataProps, title}: Props) => {
                         fontSize: 20,
                     }}
                 />
+                </View>
                 <View style={styles.chartContainer}>
                     <LineChart
                         data={dataProps}
@@ -51,6 +55,7 @@ const Chart = ({dataProps, title}: Props) => {
                     </LineChart>
                 </View>
             </View>
+            <View style={styles.xAxisContainerBox}>
             <XAxis
                 contentInset={{ left: 10, right: 10 }}
                 data={dataProps}
@@ -58,13 +63,17 @@ const Chart = ({dataProps, title}: Props) => {
                 style={styles.xAxisContainer}
                 svg={{ fontSize: 20, fill: GLOBAL_COLORS.darkText }}
             />
+                <View style={styles.xAxisText}>
+                <Text style={styles.text}>[s]</Text>
+                </View>
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     chartContainer: {
-        flex: 1,
+        flex: 20,
     },
     chartGrafhContainer: {
         alignItems: 'center',
@@ -73,11 +82,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '90%',
     },
+    yAxisContainerBox: {
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+    },
     chartValueContainer: {
         borderWidth:2,
         borderRadius: 10,
         flex: 5,
-        margin: 15,
+        margin: (GLOBAL_FONTSIZES.title + 3),
     },
     container: {
         alignItems: 'center',
@@ -101,12 +116,34 @@ const styles = StyleSheet.create({
     },
     xAxisContainer: {
         borderRadius: 20,
-        flex: 1,
         textAlign: 'center',
-        width: '80%',
+        justifyContent: 'space-between',
+        top: 20,
+        width: '100%',
     },
     yAxisContainer: {
         borderRadius: 20,
+    },
+    text: {
+        color: GLOBAL_COLORS.darkText,
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: GLOBAL_FONTSIZES.header,
+        justifyContent: 'center',
+        letterSpacing: 0.09,
+        textAlign: 'center',
+        width: 100,
+    },
+    xAxisContainerBox: {
+        flexDirection: 'row',
+        borderRadius: 20,
+        flex: 1,
+        textAlign: 'center',
+        width: '80%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        bottom: 20,
+    },
+    xAxisText: {
     },
 });
 export default Chart;

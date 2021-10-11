@@ -5,7 +5,7 @@ import { useIsDrawerOpen } from '@react-navigation/drawer';
 import Icon from '@ui/components/Icon';
 import { GLOBAL_COLORS, GLOBAL_ICONS } from '@ui';
 
-const NAVIGATION_BAR_WIDTH = 140;
+const NAVIGATION_BAR_WIDTH = 175;
 
 type Props = {
     onPress(): void;
@@ -17,7 +17,7 @@ const NavigationToggleButton = ({ onPress }: Props) => {
 
     const show = () => {
         Animated.timing(progress, {
-            duration: 300,
+            duration: 2,
             toValue: 1,
             useNativeDriver: false,
         }).start();
@@ -25,7 +25,7 @@ const NavigationToggleButton = ({ onPress }: Props) => {
 
     const hide = () => {
         Animated.timing(progress, {
-            duration: 300,
+            duration: 2,
             toValue: 0,
             useNativeDriver: false,
         }).start();
@@ -47,7 +47,7 @@ const NavigationToggleButton = ({ onPress }: Props) => {
 
     const opacity = progress.interpolate({
         inputRange: [0, 1],
-        outputRange: [0.6, 1],
+        outputRange: [0.6, 0.5],
     });
 
     return (

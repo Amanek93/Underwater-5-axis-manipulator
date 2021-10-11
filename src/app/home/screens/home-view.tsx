@@ -82,7 +82,9 @@ const HomeView = observer(function WelcomeView({ navigation }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
+            <NavigationToggleButton
+                onPress={() => navigation.toggleDrawer()}
+            />
             <View style={styles.contentContainer}>
                 <View style={styles.leftContentContainer} />
                 <View style={styles.rightContentContainer}>
@@ -181,6 +183,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%',
     },
+
 });
 
 export default HomeView;
