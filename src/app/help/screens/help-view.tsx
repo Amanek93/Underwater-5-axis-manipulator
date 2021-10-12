@@ -4,9 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 
-// import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 import Header from '../../ui/components/Header';
 
@@ -30,16 +28,12 @@ const HelpView = observer(function WelcomeView({ navigation }: Props) {
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
-                    />
-                </View>
                 <View style={styles.contentContainer}>
                     <Image source={require('../../../assets/images/images.png')} />
                     <Text>Help</Text>
                 </View>
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 });
