@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Header from '@ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
-import { GLOBAL_COLORS } from '@ui';
+import { GLOBAL_COLORS, GLOBAL_FONTS } from '@ui';
 
 type Props = {
     navigation: DrawerNavigationProp<any>;
@@ -50,11 +50,18 @@ const SettingsView = ({ navigation }: Props) => {
             <TouchableOpacity
                 onPress={() => handleButtonPress(index)}
                 style={{
-                    backgroundColor: activeSettingIndex === index ? 'white' : 'blue',
-                    height: 50,
+                    backgroundColor:
+                        activeSettingIndex === index ? 'rgba(5, 120, 227, 0.4)' : 'transparent',
+                    height: 130,
+                    marginTop: 30,
+                    borderRadius: 23,
+                    padding: 20,
+                    flexDirection: 'row',
+                    alignItems: 'center',
                 }}
             >
-                <Text>{item.title}</Text>
+                <Text style={styles.itemDotText}>·</Text>
+                <Text style={styles.itemText}>{item.title}</Text>
             </TouchableOpacity>
         );
     };
@@ -79,19 +86,38 @@ const SettingsView = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: GLOBAL_COLORS.primary,
+        backgroundColor: 'white',
         flex: 1,
     },
     contentContainer: {
         flex: 1,
         flexDirection: 'row',
     },
+    itemDotText: {
+        color: 'white',
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: 70,
+        fontWeight: 'bold',
+        paddingRight: 20,
+        textAlign: 'center',
+    },
+    itemText: {
+        color: 'white',
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: 48,
+    },
     leftContentContainer: {
-        backgroundColor: 'red',
+        alignItems: 'center',
+        backgroundColor: 'rgba(65, 81, 113, 0.69)',
+        borderBottomLeftRadius: 77,
+        borderTopLeftRadius: 77,
         flex: 1,
+        paddingTop: '5%',
     },
     rightContentContainer: {
-        backgroundColor: GLOBAL_COLORS.leftViewContainer,
+        backgroundColor: 'rgba(65, 81, 113, 0.8)',
+        borderBottomRightRadius: 77,
+        borderTopRightRadius: 77,
         flex: 1,
     },
 });

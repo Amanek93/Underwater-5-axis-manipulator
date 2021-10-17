@@ -127,20 +127,21 @@ const DATA: Array<{
         logoutIcon: true,
         text: 'WYLOGUJ',
     },
-    {
-        icon: arrowIcon,
-        iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.help',
-        title: 'help',
-        navigationId: 'HelpView',
-        isActive: false,
-        keyId: 8,
-        topSeparator: true,
-        moreButton: true,
-    },
 ];
 
-const itemsCount = DATA.length;
+const footer = {
+    icon: arrowIcon,
+    iconColor: GLOBAL_COLORS.icon,
+    //title: 'screen.navigationBar.help',
+    title: 'help',
+    navigationId: 'HelpView',
+    isActive: false,
+    keyId: 8,
+    topSeparator: true,
+    moreButton: true,
+};
+
+const itemsCount = DATA.length + 1;
 const windowHeight = Dimensions.get('window').height;
 
 const CustomizedDrawer = () => {
@@ -191,13 +192,14 @@ const CustomizedDrawer = () => {
         Animated.timing(animateMoveValue, {
             toValue: 0,
             useNativeDriver: false,
-            duration: 100,
+            duration: 300,
         }).start();
         Animated.timing(rotateValue, {
             toValue: 0,
             useNativeDriver: false,
             duration: 300,
         }).start();
+        setShowAdditionalInfo(false);
     };
 
     const handleButton = useCallback(
@@ -210,10 +212,15 @@ const CustomizedDrawer = () => {
     );
 
     useEffect(() => {
+        console.log(moreOptions);
+    }, [moreOptions]);
+
+    useEffect(() => {
         if (moreOptions) {
             setTimeout(() => setShowAdditionalInfo(true), 200);
         } else setShowAdditionalInfo(false);
     }, [moreOptions]);
+
     const renderItem = ({ item }: any) => {
         return (
             <Animated.View
@@ -226,14 +233,8 @@ const CustomizedDrawer = () => {
                 <TouchableOpacity
                     onPress={() => {
                         setIsActive(item.keyId);
-                        if (item.moreButton) {
-                            if (moreOptions) hide();
-                            else show();
-                            setMoreOptions(prevState => !prevState);
-                        } else {
-                            hide();
-                            handleButton(item);
-                        }
+                        hide();
+                        handleButton(item);
                     }}
                 >
                     {item.keyId === activeIndex ? (
@@ -245,36 +246,13 @@ const CustomizedDrawer = () => {
                                 height: 76,
                                 width: animateItemWidth,
                                 justifyContent: moreOptions ? 'flex-start' : 'center',
-                                backgroundColor:
-                                    moreOptions && !item.logoutIcon
-                                        ? 'transparent'
-                                        : 'rgba(5, 120, 227, 0.4)',
+                                backgroundColor: item.logoutIcon
+                                    ? 'transparent'
+                                    : 'rgba(5, 120, 227, 0.4)',
                                 borderRadius: 23,
                             }}
                         >
-                            <Animated.View
-                                style={{
-                                    transform: [
-                                        { translateX: item.moreButton ? animateMoveValue : 0 },
-                                    ],
-                                }}
-                            >
-                                <Animated.View
-                                    style={{
-                                        transform: [
-                                            {
-                                                rotate: item.moreButton ? rotateValue : 0,
-                                            },
-                                        ],
-                                    }}
-                                >
-                                    <Image
-                                        resizeMode="contain"
-                                        source={item.icon}
-                                        style={styles.icon}
-                                    />
-                                </Animated.View>
-                            </Animated.View>
+                            <Image resizeMode="contain" source={item.icon} style={styles.icon} />
                             {showAdditionalInfo && (
                                 <Text style={styles.textStyle}>{item.text}</Text>
                             )}
@@ -304,6 +282,62 @@ const CustomizedDrawer = () => {
             </Animated.View>
         );
     };
+
+    const renderFooter = (item: any) => {
+        return (
+            <Animated.View
+                style={[
+                    styles.itemContainer,
+                    { width: animateWidth },
+                    item.topSeparator && styles.separator,
+                ]}
+            >
+                <TouchableOpacity
+                    onPress={() => {
+                        if (moreOptions) hide();
+                        else show();
+                        setMoreOptions(prevState => !prevState);
+                    }}
+                >
+                    <Animated.View
+                        style={{
+                            paddingHorizontal: 16,
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            height: 76,
+                            width: animateItemWidth,
+                            justifyContent: 'flex-start',
+                            backgroundColor: 'transparent',
+                            borderRadius: 23,
+                        }}
+                    >
+                        <Animated.View
+                            style={{
+                                transform: [{ translateX: animateMoveValue }],
+                            }}
+                        >
+                            <Animated.View
+                                style={{
+                                    transform: [
+                                        {
+                                            rotate: rotateValue,
+                                        },
+                                    ],
+                                }}
+                            >
+                                <Image
+                                    resizeMode="contain"
+                                    source={item.icon}
+                                    style={styles.icon}
+                                />
+                            </Animated.View>
+                        </Animated.View>
+                    </Animated.View>
+                </TouchableOpacity>
+            </Animated.View>
+        );
+    };
+
     return (
         <Animated.View style={[styles.mainContainer, { width: animateWidth }]}>
             <View
@@ -323,6 +357,7 @@ const CustomizedDrawer = () => {
             </View>
             <View style={styles.flatListContainer}>
                 <FlatList
+                    ListFooterComponent={renderFooter(footer)}
                     data={DATA}
                     keyExtractor={item => item.keyId.toString()}
                     numColumns={1}
@@ -383,4 +418,3 @@ const styles = StyleSheet.create({
 });
 
 export default CustomizedDrawer;
-
