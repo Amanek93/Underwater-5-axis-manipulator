@@ -16,7 +16,7 @@ type Props = {
     placeholderTextColor?: string;
     selectionColor?: string;
     onPressHideSecureText?(): void;
-    wrognPassword?: boolean;
+    wrongPassword?: boolean;
     showText?: string;
     wrongPasswordMessage?: string;
     style?: StyleProp<ViewStyle>;
@@ -32,7 +32,7 @@ const InputText = ({
     onSubmitEditing,
     secureTextEntry,
     onPressHideSecureText,
-    wrognPassword,
+    wrongPassword,
     showText,
     wrongPasswordMessage,
     style,
@@ -44,7 +44,7 @@ const InputText = ({
                 <Text style={styles.textContainer}>{title}</Text>
             </View>
             <View style={styles.inputContainer}>
-                {wrognPassword === false ?
+                {wrongPassword === false ?
                     <>
                     <TextInput
                         autoCapitalize="none"

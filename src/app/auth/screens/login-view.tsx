@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Image, StyleSheet, Text, View } from 'react-native';
+import { Animated, Image, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
-import DropDownPicker from 'react-native-dropdown-picker';
-
 import i18n from '@shared/language/i18n';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES} from '@ui';
 
 import InputText from '@ui/components/InputText';
 import BlueButton from "@ui/components/BlueButton";
+import DropDownPickerList from "@auth/screens/components/DropDownPickerList";
 
 
 type Props = {
@@ -65,21 +64,21 @@ const LoginView = ({ navigation }: Props) => {
     const translateAnimated = () => {
         Animated.timing(translateX, {
             toValue: -800,
-            useNativeDriver: true,
+            useNativeDriver: false,
             duration: 1000,
         }).start();
     };
     const translateAnimated2 = () => {
         Animated.timing(tX2, {
             toValue: -400,
-            useNativeDriver: true,
+            useNativeDriver: false,
             duration: 1000,
         }).start();
     };
     const scaleAnimated = () => {
         Animated.spring(scale, {
             toValue:1,
-            useNativeDriver: true,
+            useNativeDriver: false,
             velocity: 2,
             speed: 0.1,
         }).start();
@@ -94,7 +93,7 @@ const LoginView = ({ navigation }: Props) => {
             navigation.navigate('Home', {screen: 'HomeView'});
         } else if (!isValid.password) setWrongPassword(!wrongPassword)
     }, [isValid.user, isValid.password, navigation]);
-    useEffect ( ()=> {
+    useEffect ( () => {
         if (user != value) setUser(value);
     },[user, value]);
 
@@ -109,45 +108,14 @@ const LoginView = ({ navigation }: Props) => {
             <Animated.View style={[styles.loginContentContainer, {transform:[{translateX: translateX}]}]}>
                 <View style={styles.loginContainer}>
                     <View style={styles.login}>
-                        <DropDownPicker
+                        <DropDownPickerList
                             items={items}
                             open={open}
                             setItems={setItems}
                             setOpen={setOpen}
-                            setValue={setValue}
-                            style={styles.dropDownPicker}
                             value={value}
-                            itemSeparatorStyle={{
-                                backgroundColor: 'white',
-                                margin: 12,
-                            }}
-                            dropDownContainerStyle={{
-                                backgroundColor: 'rgba(37, 55, 91, 1)',
-                                width: 374,
-                                height: 193,
-                                left: 75,
-                                borderWidth: 2,
-                                borderColor: 'white',
-                                top:133,
-                            }}
-                            itemSeparator={true}
-                            textStyle={{
-                                fontSize: 20,
-                                color: 'white',
-                            }}
-                            showArrowIcon={true}
-                            arrowIconStyle={{
-                                width: 30,
-                                height: 30,
-                            }}
-                            tickIconStyle={{
-                                width: 30,
-                                height: 30,
-                            }}
+                            setValue={setValue}
                         />
-                            <View style={styles.crossOutTitleContainer}>
-                                <Text style={styles.textContainer}>{i18n.t('screens.loginView.user')}</Text>
-                            </View>
                         <View style={styles.avatarContainer}>
                             {value === 'User 1' ?
                                 <Image
@@ -178,7 +146,7 @@ const LoginView = ({ navigation }: Props) => {
                             onPressHideSecureText={handleHideSecureText}
                             labelValue={password}
                             borderCl={'red'}
-                            wrognPassword={wrongPassword}
+                            wrongPassword={wrongPassword}
                             wrongPasswordMessage={i18n.t('screens.loginView.wrongPassword')}
                             onChangeText={(userPassword: string) => {
                                 setPassword(userPassword);
@@ -197,78 +165,6 @@ const LoginView = ({ navigation }: Props) => {
                     </View>
                 </View>
             </Animated.View>
-            {/*<Animated.View style={[styles.logoContainer, { transform: [{ translateY }] }]}>*/}
-            {/*    <Image*/}
-            {/*        source={require('../../../assets/images/ocean-tech-logo.png')}*/}
-            {/*        style={styles.logo}*/}
-            {/*    />*/}
-            {/*</Animated.View>*/}
-            {/*<View style={styles.animationButtonContainer}>*/}
-            {/*    <MainButton*/}
-            {/*        onPress={() => {*/}
-            {/*            animate();*/}
-            {/*            animate1();*/}
-            {/*            console.log(translateY);*/}
-            {/*        }}*/}
-            {/*        style={styles.animationButton}*/}
-            {/*        title={i18n.t('screens.loginView.login')}*/}
-            {/*    />*/}
-            {/*</View>*/}
-            {/*<Animated.View style={[styles.animatdContainer, { transform: [{ translateY }] }]}>*/}
-            {/*    <View style={styles.inputTextContainer}>*/}
-            {/*        <InputText*/}
-            {/*            bgColor="white"*/}
-            {/*            labelValue={user}*/}
-            {/*            onChangeText={userName => {*/}
-            {/*                setUser(userName);*/}
-            {/*            }}*/}
-            {/*            title={i18n.t('screens.loginView.login')}*/}
-            {/*        />*/}
-            {/*        <View style={styles.textValidationContainer}>*/}
-            {/*            {!isValid.user && isSubmit && (*/}
-            {/*                <Text style={styles.validationText}>*/}
-            {/*                    {i18n.t('screens.loginView.wrongLogin')}*/}
-            {/*                </Text>*/}
-            {/*            )}*/}
-            {/*        </View>*/}
-            {/*        <InputText*/}
-            {/*            bgColor="white"*/}
-            {/*            labelValue={password}*/}
-            {/*            onChangeText={(userPassword: string) => {*/}
-            {/*                setPassword(userPassword);*/}
-            {/*            }}*/}
-            {/*            secureTextEntry*/}
-            {/*            title={i18n.t('screens.loginView.password')}*/}
-            {/*        />*/}
-            {/*        <View style={styles.textValidationContainer}>*/}
-            {/*            {!isValid.password && isValid.user && isSubmit && (*/}
-            {/*                <Text style={styles.validationText}>*/}
-            {/*                    {i18n.t('screens.loginView.wrongPassword')}*/}
-            {/*                </Text>*/}
-            {/*            )}*/}
-            {/*            {!isValid.password && !isValid.user && isSubmit && (*/}
-            {/*                <Text style={styles.validationText}>*/}
-            {/*                    {i18n.t('screens.loginView.wrongLoginOrPassword')}*/}
-            {/*                </Text>*/}
-            {/*            )}*/}
-            {/*        </View>*/}
-            {/*    </View>*/}
-            {/*    <View style={styles.buttonContainer}>*/}
-            {/*        <MainButton*/}
-            {/*            onPress={() => handleValid()}*/}
-            {/*            style={styles.mainBotton}*/}
-            {/*            title={i18n.t('screens.loginView.login')}*/}
-            {/*        />*/}
-            {/*    </View>*/}
-            {/*    <View style={styles.supportContainer}>*/}
-            {/*        <TouchableOpacity style={{ width: 50, height: 50 }}>*/}
-            {/*            <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.exclamationCircle} />*/}
-            {/*        </TouchableOpacity>*/}
-            {/*        <TouchableOpacity style={{ width: 50, height: 50 }}>*/}
-            {/*            <Icon color={GLOBAL_COLORS.icon} name={GLOBAL_ICONS.houseUser} />*/}
-            {/*        </TouchableOpacity>*/}
-            {/*    </View>*/}
-            {/*</Animated.View>*/}
         </SafeAreaView>
     );
 };
@@ -276,7 +172,7 @@ const LoginView = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     avatarContainer: {
         position: 'absolute',
-        left: 510,
+        right: 0,
         top: -60,
         width: 200,
         height: 200,
@@ -355,8 +251,8 @@ const styles = StyleSheet.create({
         height:20,
         left: 130,
         top: 38,
-        zIndex:5000,
-        elevation:5000,
+        zIndex:5,
+        elevation:5,
         position: 'absolute',
     },
     textContainer: {

@@ -5,7 +5,7 @@ import {GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES} from "../const";
 
 type Props = {
     title: string | number;
-    onPress?(): void;
+    onPress(): void;
     onLongPress?(): void;
     onLongPress?(): void;
     enabled?: boolean;
