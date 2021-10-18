@@ -12,7 +12,7 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui
 import Chart from '@telemetry/components/Chart';
 import FlatListButton from '@telemetry/components/FlatListButton';
 import Header from '../../ui/components/Header';
-import MainButton from "@ui/components/MainButton";
+import MainButton from '@ui/components/MainButton';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 const FlatListData = [
@@ -41,7 +41,6 @@ const FlatListData = [
         units: '[W]',
     },
     {
-
         id: 4,
         title: 'Translation',
         data: [1,2,3,4,5,6,723,8,9,],
@@ -82,7 +81,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-    const handleFlatListButton = ({item, index}: any) => {
+    const handleFlatListButton = ({ item, index }: any) => {
         setIsSelected(!isSelected);
         setIsActive(index);
         setChartData(item.data);
@@ -91,12 +90,12 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     };
     const renderItem = ({ item, index }: any) => (
         <FlatListButton
-            enabled={true}
-            iconName={GLOBAL_ICONS.home}
-            onPress={() => handleFlatListButton({item, index})}
-            title={item.title}
             activeId={isActive}
+            enabled
+            iconName={GLOBAL_ICONS.home}
             indexId={item.id}
+            onPress={() => handleFlatListButton({ item, index })}
+            title={item.title}
         />
     );
 
@@ -151,6 +150,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                     </View>
                 </View>
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 });
@@ -159,19 +159,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    timeButton: {
-        width: 160,
-        height: 56,
-    },
     contentContainer: {
         flex: 1,
         flexDirection: 'row',
     },
-    dropDownPicker: {
-    },
+    dropDownPicker: {},
     dropDownPickerContainer: {
-        width: '80%',
         position: 'absolute',
+        width: '80%',
     },
     flatListContainer: {
         alignItems: 'center',
@@ -180,12 +175,12 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     leftBottomContentContainer: {
-        flexDirection: 'row',
+        alignItems: 'center',
         backgroundColor: `#1e90ff`,
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
+        flexDirection: 'row',
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 70,
     },
@@ -200,8 +195,8 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
         flex: 1,
-        top: 50,
         left: 120,
+        top: 50,
         zIndex: 5,
     },
     rightContentContainer: {
@@ -233,6 +228,10 @@ const styles = StyleSheet.create({
         letterSpacing: 0.09,
         textAlign: 'center',
         width: '100%',
+    },
+    timeButton: {
+        height: 56,
+        width: 160,
     },
 });
 
