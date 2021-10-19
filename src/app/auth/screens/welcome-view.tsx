@@ -58,10 +58,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         resizeMode: 'stretch',
-        transform: [{
-            scale:2,
-        }]
-
+        width: 600,
+        height: 302,
     },
     logoContainer: {
         alignItems: 'center',

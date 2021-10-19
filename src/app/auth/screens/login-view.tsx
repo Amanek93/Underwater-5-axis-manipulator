@@ -24,7 +24,7 @@ const LoginView = ({ navigation }: Props) => {
     });
     const [wrongPassword, setWrongPassword] = useState<boolean>(true);
     const [value, setValue] = useState('User 1');
-    const [items, setItems] = useState([
+    const [userArray, setUserArray] = useState([
         { label: 'User 1', value: 'User 1', password: 'user1', role: 'admin' },
         { label: 'User 2', value: 'User 2', password: 'user2', role: 'user' },
         { label: 'User 3', value: 'User 3', password: 'user3', role: 'user' },
@@ -33,25 +33,21 @@ const LoginView = ({ navigation }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
 
     const handleValid = () => {
-        const findIndex = items.findIndex(x => x.label === user);
+        const findIndex = userArray.findIndex(x => x.label === user);
         if (findIndex !== -1) {
-            if (items[findIndex].password === password) {
+            if (userArray[findIndex].password === password) {
                 setIsValid({
                     user: true,
                     password: true,
                 });
             } else {
+
                 setIsValid({
                     user: true,
                     password: false,
 
                 });
             }
-        } else {
-            setIsValid({
-                user: false,
-                password: false,
-            });
         }
     };
     const handleHideSecureText = () => {
@@ -109,30 +105,41 @@ const LoginView = ({ navigation }: Props) => {
                 <View style={styles.loginContainer}>
                     <View style={styles.login}>
                         <DropDownPickerList
-                            items={items}
+                            items={userArray}
                             open={open}
-                            setItems={setItems}
+                            setItems={setUserArray}
                             setOpen={setOpen}
                             value={value}
                             setValue={setValue}
                         />
-                        <View style={styles.avatarContainer}>
-                            {value === 'User 1' ?
+                        { (() => {
+                            switch(value) {
+                            case 'User 1':
+                            return(
+                            <View style={styles.avatarContainer}>
                                 <Image
-                                    style={styles.avatarImage}
-                                    source={require('@assets/images/malphite.png')}/>
-                                : <View/>}
-                            {value === 'User 2' ?
+                                style={styles.avatarImage}
+                                source={require('@assets/images/malphite.png')}/>
+                            </View>
+                            )
+                            case 'User 2':
+                            return(
+                            <View style={styles.avatarContainer}>
                                 <Image
-                                    style={styles.avatarImage}
-                                    source={require('@assets/images/darius.png')}/>
-                                : <View/>}
-                            {value === 'User 3' ?
+                                style={styles.avatarImage}
+                                source={require('@assets/images/darius.png')}/>
+                            </View>
+                            )
+                            case 'User 3':
+                            return (
+                            <View style={styles.avatarContainer}>
                                 <Image
-                                    style={styles.avatarImage}
-                                    source={require('@assets/images/mundo.png')}/>
-                                : <View/>}
-                        </View>
+                                style={styles.avatarImage}
+                                source={require('@assets/images/mundo.png')}/>
+                            </View>
+                            )
+                        }
+                        })()}
                         <View style={styles.dropDownContainer}>
                         </View>
                         <View style={styles.inputTextContainer}>
