@@ -41,7 +41,6 @@ const LoginView = ({ navigation }: Props) => {
                     password: true,
                 });
             } else {
-
                 setIsValid({
                     user: true,
                     password: false,
