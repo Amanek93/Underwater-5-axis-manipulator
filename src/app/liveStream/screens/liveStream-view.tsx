@@ -10,6 +10,7 @@ import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 import Header from '../../ui/components/Header';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import JoystickPad from "@liveStream/components/JoystickPad";
 
 type Props = {
     navigation: DrawerNavigationProp<any>;
@@ -27,11 +28,18 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }} />
+            <View style={{}}>
                 <View style={styles.contentContainer}>
                     {/*<Image source={require('../../../assets/images/images.png')}/>*/}
                     <Text>Live Stream</Text>
+                    <JoystickPad
+                        resetOnRelease={true}
+                        autoCenter={true}
+                        axisPadContainer={{top: 400,}}
+                        onValue={({ x, y}) => {
+                            // values are between -1 and 1
+                            console.log(x, y);
+                        }} />
                 </View>
             </View>
             <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
@@ -41,13 +49,17 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: GLOBAL_COLORS.primary,
-        flex: 1,
+        backgroundColor: 'white',
+        width: '100%',
+        height: '100%',
     },
     contentContainer: {
-        backgroundColor: 'grey',
-        height: '100%',
+        backgroundColor: 'pink',
         width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex:1,
     },
     logo: {
         alignItems: 'center',
