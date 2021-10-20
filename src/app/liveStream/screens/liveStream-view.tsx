@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 
@@ -8,9 +8,10 @@ import { useEffect } from 'react';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 
 import Header from '../../ui/components/Header';
+import JoystickPad from '@liveStream/components/JoystickPad';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import Pad from '@liveStream/components/Pad';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import JoystickPad from "@liveStream/components/JoystickPad";
 
 type Props = {
     navigation: DrawerNavigationProp<any>;
@@ -29,17 +30,21 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={{}}>
+                {/*<View style={styles.contentContainer}>*/}
+                {/*    /!*<Image source={require('../../../assets/images/images.png')}/>*!/*/}
+                {/*    <Text>Live Stream</Text>*/}
+                {/*    <JoystickPad*/}
+                {/*        autoCenter*/}
+                {/*        axisPadContainer={{ top: 400 }}*/}
+                {/*        onValue={({ x, y }) => {*/}
+                {/*            // values are between -1 and 1*/}
+                {/*            console.log(x, y);*/}
+                {/*        }}*/}
+                {/*        resetOnRelease*/}
+                {/*    />*/}
+                {/*</View>*/}
                 <View style={styles.contentContainer}>
-                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-                    <Text>Live Stream</Text>
-                    <JoystickPad
-                        resetOnRelease={true}
-                        autoCenter={true}
-                        axisPadContainer={{top: 400,}}
-                        onValue={({ x, y}) => {
-                            // values are between -1 and 1
-                            console.log(x, y);
-                        }} />
+                    <Pad />
                 </View>
             </View>
             <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
@@ -50,16 +55,16 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        width: '100%',
         height: '100%',
+        width: '100%',
     },
     contentContainer: {
+        alignItems: 'center',
         backgroundColor: 'pink',
-        width: '100%',
+        flex: 1,
         height: '100%',
         justifyContent: 'center',
-        alignItems: 'center',
-        flex:1,
+        width: '100%',
     },
     logo: {
         alignItems: 'center',
