@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         width: '100%',
     },
+
 });
 
 export default HomeView;

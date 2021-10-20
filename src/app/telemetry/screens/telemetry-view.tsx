@@ -19,32 +19,38 @@ const FlatListData = [
     {
         id: 0,
         title: 'Voltage',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        data: [1,100,2,],
+        units: '[V]',
     },
     {
         id: 1,
         title: 'Amperage',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        data: [1,2,3,4,5,6,7,8,9,],
+        units: '[A]',
     },
     {
         id: 2,
         title: 'Speed',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        data: [1,2,3,4,5,6,7,8,9,],
+        units: '[m/s]',
     },
     {
         id: 3,
         title: 'Power',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        data: [1,2,3,4,5,6,7,8,9,],
+        units: '[W]',
     },
     {
         id: 4,
         title: 'Translation',
-        data: [1, 2, 3, 4, 5, 6, 723, 8, 9],
+        data: [1,2,3,4,5,6,723,8,9,],
+        units: '[mm]',
     },
     {
         id: 5,
         title: 'Torque',
-        data: [1, 22, 3, 4, 5, 16, 7, 8, 9],
+        data: [1,22,3,4,5,16,7,8,9,],
+        units: '[Nm]',
     },
 ];
 type Props = {
@@ -57,6 +63,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     const [chartData, setChartData] = useState<object>([]);
     const [isActive, setIsActive] = useState<number>(0);
     const [chartTitle, setChartTitle] = useState<string>('');
+    const [chartUnit, setChartUnit] = useState<string>('')
     const [value, setValue] = useState('Axis 1');
     const [items, setItems] = useState([
         { label: 'Axis 1', value: 'Axis 1' },
@@ -79,6 +86,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
         setIsActive(index);
         setChartData(item.data);
         setChartTitle(item.title);
+        setChartUnit(item.units);
     };
     const renderItem = ({ item, index }: any) => (
         <FlatListButton
@@ -95,6 +103,9 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
         <SafeAreaView style={styles.container}>
             <Header />
             <View style={styles.contentContainer}>
+                <NavigationToggleButton
+                    onPress={() => navigation.toggleDrawer()}
+                />
                 <View style={styles.leftContentContainer}>
                     <View style={styles.leftTopContentContainer}>
                         <View style={styles.dropDownPickerContainer}>
@@ -110,29 +121,13 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                         </View>
                     </View>
                     <View style={styles.leftMiddleContentContainer}>
-                        <Chart dataProps={chartData} title={chartTitle} />
+                        <Chart unit={chartUnit} dataProps={chartData} title={chartTitle}/>
                     </View>
-                    <View style={styles.leftBottomContentContainer}>
-                        <MainButton
-                            onPress={() => console.log('elo1')}
-                            style={styles.timeButton}
-                            title="Secound"
-                        />
-                        <MainButton
-                            onPress={() => console.log('elo1')}
-                            style={styles.timeButton}
-                            title="Secound"
-                        />
-                        <MainButton
-                            onPress={() => console.log('elo1')}
-                            style={styles.timeButton}
-                            title="Secound"
-                        />
-                        <MainButton
-                            onPress={() => console.log('elo1')}
-                            style={styles.timeButton}
-                            title="Secound"
-                        />
+                    <View style={styles.leftBottomContentContainer} >
+                        <MainButton onPress={()=>console.log('elo1')} title={'Seconds'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Minutes'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Hours'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Days'} style={styles.timeButton}/>
                     </View>
                 </View>
                 <View style={styles.rightContentContainer}>

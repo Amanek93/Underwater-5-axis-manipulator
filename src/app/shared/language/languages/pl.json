@@ -5,11 +5,14 @@
   },
   "screens": {
     "loginView": {
-      "login": "LOGIN",
-      "password": "HASŁO",
+      "user": "Nazwa",
+      "password": "Hasło",
+      "placeholderPassword": "Podaj hasło!",
+      "show": "Pokaż",
       "wrongLogin": "Zły login!",
       "wrongPassword": "Złe hasło!",
-      "wrongLoginOrPassword": "Złe hasło lub login!"
+      "wrongLoginOrPassword": "Złe hasło lub login!",
+      "login": "ZALOGUJ SIĘ",
     },
     "navigationBar": {
       "home": "HOME",
