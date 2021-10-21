@@ -38,14 +38,19 @@ const Pad = () => {
 const styles = StyleSheet.create({
     box: {
         backgroundColor: 'blue',
-        borderRadius: 5,
-        height: 150,
-        width: 150,
+        borderRadius: 50,
+        height: 100,
+        width: 100,
     },
     container: {
         alignItems: 'center',
         flex: 1,
         justifyContent: 'center',
+        top: 200,
+        height: 250,
+        width: 250,
+        borderRadius: 250/2,
+        backgroundColor: 'grey'
     },
     titleText: {
         fontSize: 14,
