@@ -5,13 +5,15 @@
   },
   "screens": {
     "loginView": {
-      "login": "LOGIN",
+      "user": "User ID",
       "password": "PASSWORD",
+      "placeholderPassword": "Your password!",
+      "show": "Show",
       "wrongLogin": "Bad login!",
       "wrongPassword": "Wrong password!",
-      "wrongLoginOrPassword": "Incorrect password or login!"
+      "wrongLoginOrPassword": "Incorrect password or login!",
+      "login": "LOGIN"
     },
-
     "homeView": {
       "test": "test"
     },
@@ -22,7 +24,6 @@
       "stop": "Stop",
       "home": "Home",
       "memory": "Memory",
-
     },
     "navigationBar": {
       "home": "HOME",

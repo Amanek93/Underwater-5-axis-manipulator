@@ -174,7 +174,7 @@ const CustomizedDrawer = () => {
         Animated.timing(rotateValue, {
             toValue: 3.2,
             useNativeDriver: false,
-            duration: 300,
+            duration: 100,
         }).start();
     };
 
@@ -197,7 +197,7 @@ const CustomizedDrawer = () => {
         Animated.timing(rotateValue, {
             toValue: 0,
             useNativeDriver: false,
-            duration: 300,
+            duration: 100,
         }).start();
         setShowAdditionalInfo(false);
     };

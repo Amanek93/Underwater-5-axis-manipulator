@@ -56,16 +56,14 @@ const styles = StyleSheet.create({
     },
     logo: {
         alignItems: 'center',
-        backgroundColor: 'transparent',
-        justifyContent: 'flex-start',
-
+        justifyContent: 'center',
+        resizeMode: 'stretch',
+        width: 600,
+        height: 302,
     },
     logoContainer: {
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        padding: 10,
-        position: 'absolute',
-        top: 350,
+        justifyContent: 'center',
     },
     text: {
         color: GLOBAL_COLORS.text,
