@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import SignalComponent from '@diagnostic/components/Signal';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GLOBAL_FONTS } from '@ui';
-import { errorIcon, messageIcon, warningsIcon } from '../../../assets/icons';
+import { checkIcon } from '../../../assets/icons';
+import { useState } from 'react';
 
 export enum SignalType {
     info = 'info',
@@ -18,39 +20,41 @@ export type Signal = {
 type Props = { data: Array<Signal> };
 
 const ConsoleWindow = ({ data }: Props) => {
-    const renderSignal = ({ item }: any) => {
-        const parseIcon = (type: SignalType) => {
-            switch (type) {
-                case SignalType.info:
-                    return messageIcon;
-                case SignalType.error:
-                    return errorIcon;
-                case SignalType.warning:
-                    return warningsIcon;
-                default:
-                    return null;
-            }
-        };
+    const flatList = React.useRef(null);
+    const [isScrollEnabled, setIsScrollEnabled] = useState<boolean>(true);
+    const signalHeight = 40;
 
-        return (
-            <View style={styles.signalContainer}>
-                <Image
-                    resizeMode="contain"
-                    source={parseIcon(item.type)}
-                    style={styles.signalIcon}
-                />
-                <Text style={styles.signalTextDate}>{item.date}</Text>
-                <Text style={styles.signalTextTitle}>{item.title}</Text>
-            </View>
-        );
+    const renderSignal = ({ item }) => <SignalComponent item={item} />;
+
+    const handleScrollToEnd = () => {
+        if (isScrollEnabled) flatList?.current?.scrollToEnd();
     };
 
     return (
         <View style={styles.container}>
+            <TouchableOpacity
+                onPress={() => {
+                    setIsScrollEnabled(prevState => !prevState);
+                }}
+                style={styles.scrollButton}
+            >
+                <View style={styles.checkboxContainer}>
+                    {isScrollEnabled && (
+                        <Image resizeMode="contain" source={checkIcon} style={styles.checkIcon} />
+                    )}
+                </View>
+                <Text style={styles.scrollButtonText}>Autoprzewijanie</Text>
+            </TouchableOpacity>
             <FlatList
-                contentContainerStyle={{ flexDirection: 'column-reverse' }}
                 data={data}
-                inverted
+                getItemLayout={(data, index) => ({
+                    length: signalHeight,
+                    offset: signalHeight * index,
+                    index,
+                })}
+                keyExtractor={(item, index) => String(index)}
+                onContentSizeChange={handleScrollToEnd}
+                ref={flatList}
                 renderItem={renderSignal}
             />
         </View>
@@ -58,26 +62,37 @@ const ConsoleWindow = ({ data }: Props) => {
 };
 
 const styles = StyleSheet.create({
+    checkIcon: {
+        height: 16,
+        width: 16,
+    },
+    checkboxContainer: {
+        alignItems: 'center',
+        borderColor: 'rgba(0, 0, 0, 0.69)',
+        borderRadius: 6,
+        borderWidth: 0.5,
+        height: 25,
+        justifyContent: 'center',
+        marginRight: 15,
+        width: 25,
+    },
     container: {
         flex: 3,
         margin: '4%',
         marginLeft: '8%',
+        marginTop: '1%',
     },
-    signalContainer: {
+    scrollButton: {
         alignItems: 'center',
-        borderBottomColor: 'gray',
-        borderBottomWidth: 1,
         flexDirection: 'row',
-        height: 40,
-        paddingHorizontal: '2%',
-        width: '100%',
+        width: 200,
     },
-    signalIcon: {
-        height: 16,
-        width: 16,
+    scrollButtonText: {
+        fontFamily: GLOBAL_FONTS.ROBOTO,
+        fontSize: 16,
+        paddingLeft: 10,
+        paddingVertical: 19,
     },
-    signalTextDate: { fontFamily: GLOBAL_FONTS.ROBOTO, paddingHorizontal: 10 },
-    signalTextTitle: { fontFamily: GLOBAL_FONTS.ROBOTO },
 });
 
 export default ConsoleWindow;

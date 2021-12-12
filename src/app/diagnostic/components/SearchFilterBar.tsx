@@ -2,6 +2,7 @@ import * as React from 'react';
 import LogContainer from '@diagnostic/components/LogContainer';
 import RemoveButton from '@diagnostic/components/RemoveButton';
 import SearchInput from '../../ui/components/SearchInput';
+import useDebounce from '@shared/utils/debounce';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GLOBAL_FONTS } from '@ui';
 import { Signal, SignalType } from '@diagnostic/components/ConsoleWindow';
@@ -15,18 +16,18 @@ import {
 } from '../../../assets/icons';
 
 type Props = {
-    infoCount: number;
-    warningCount: number;
-    errorCount: number;
     onFilterSignalData: Dispatch<SetStateAction<Array<Signal>>>;
+    onExtraFilterSignalData: Dispatch<SetStateAction<Array<Signal>>>;
+    onSignalData: Dispatch<SetStateAction<Array<Signal>>>;
+    onSearchByText: Dispatch<SetStateAction<boolean>>;
     signalData: Array<Signal>;
 };
 
 const SearchFilterBar = ({
-    infoCount,
-    warningCount,
-    errorCount,
     onFilterSignalData,
+    onExtraFilterSignalData,
+    onSignalData,
+    onSearchByText,
     signalData,
 }: Props) => {
     const [searchText, onChangeSearchText] = useState<string>('');
@@ -34,7 +35,19 @@ const SearchFilterBar = ({
     const [errorsActive, setErrorsActive] = useState<boolean>(false);
     const [warningsActive, setWarningsActive] = useState<boolean>(false);
     const [infoActive, setInfoActive] = useState<boolean>(false);
+    const debouncedSearchValue = useDebounce(searchText, 800);
 
+    const signalCounter = (type: SignalType) => {
+        if (signalData.length > 0) {
+            return signalData.filter(function (item) {
+                return item.type === type;
+            }).length;
+        } else return 0;
+    };
+
+    const errorCount = signalCounter(SignalType.error);
+    const infoCount = signalCounter(SignalType.info);
+    const warningCount = signalCounter(SignalType.warning);
     const summarySignalCount = infoCount + warningCount + errorCount;
 
     const handleFilterSignalData = (
@@ -46,6 +59,14 @@ const SearchFilterBar = ({
             item => item.type === type1 || item.type === type2 || item.type === type3,
         );
         onFilterSignalData(newSignalData);
+    };
+
+    const handleExtraFilterSignalData = value => {
+        onSearchByText(true);
+        const newSignalData = signalData.filter(item => {
+            return item ? item.title.toLowerCase().includes(value.toLowerCase()) : null;
+        });
+        onExtraFilterSignalData(newSignalData);
     };
 
     const handleLogButton = (type: string) => {
@@ -80,6 +101,16 @@ const SearchFilterBar = ({
         }
     };
 
+    const handleRemoveSignalData = () => {
+        onSignalData([]);
+    };
+
+    useEffect(() => {
+        console.log(debouncedSearchValue);
+        if (debouncedSearchValue === '') onSearchByText(false);
+        else handleExtraFilterSignalData(debouncedSearchValue);
+    }, [debouncedSearchValue]);
+
     useEffect(() => {
         handleAllLogs();
     }, [allLogsActive]);
@@ -93,7 +124,8 @@ const SearchFilterBar = ({
         if (warningsActive) filters.push(SignalType.warning);
         else filters.push(null);
 
-        handleFilterSignalData(filters[0], filters[1], filters[2]);
+        //TODO: fix it - delete if
+        if (debouncedSearchValue === '') handleFilterSignalData(filters[0], filters[1], filters[2]);
     }, [infoActive, errorsActive, warningsActive, signalData]);
 
     return (
@@ -101,6 +133,7 @@ const SearchFilterBar = ({
             <View style={styles.searchContainer}>
                 <Text style={styles.title}>Diagnostyka</Text>
                 <SearchInput
+                    bgColor="transparent"
                     labelValue={searchText}
                     onChangeText={onChangeSearchText}
                     placeHolder="Szukaj błędu..."
@@ -108,7 +141,7 @@ const SearchFilterBar = ({
                 />
                 <RemoveButton
                     color="rgba(255, 0, 0, 0.5)"
-                    onPress={() => console.log('remove logs')}
+                    onPress={handleRemoveSignalData}
                     title="Wyczyść logi"
                 />
             </View>

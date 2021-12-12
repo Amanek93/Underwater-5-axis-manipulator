@@ -51,13 +51,11 @@ const DATA = [
 
 const DiagnosticView = ({ navigation }: Props) => {
     const [signalData, setSignalData] = useState<Array<Signal>>(DATA);
-    const [filteredSignalData, setFilteredSignalData] = useState<Array<Signal>>(DATA);
+    const [filteredSignalData, setFilteredSignalData] = useState<Array<Signal>>([]);
+    const [extraFilteredSignalData, setExtraFilteredSignalData] = useState<Array<Signal>>([]);
+    const [searchByText, setSearchByText] = useState<boolean>(false);
 
-    const signalCounter = (type: SignalType) => {
-        return signalData.filter(function (item) {
-            return item.type === type;
-        }).length;
-    };
+    //TODO: dodać kolejny poziom filtrowania danych po filtrowaniu checkboxami, zeby filtrowac po wyszukiwanym tekscie
 
     useEffect(() => {
         const signalGenerator = setInterval(() => {
@@ -68,40 +66,24 @@ const DiagnosticView = ({ navigation }: Props) => {
                 title: 'Brak połączenia z urządzeniem',
             };
             setSignalData(prevArray => [...prevArray, signal]);
-        }, 2000);
+        }, 1000);
         return () => {
             clearInterval(signalGenerator);
         };
     }, []);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         const currentTime = moment().format('MM-DD-YYYY HH:mm:ss');
-    //         const signal = {
-    //             type: SignalType.error,
-    //             date: currentTime,
-    //             title: 'Brak połączenia z urządzeniem',
-    //         };
-    //         setSignalData(prevArray => [...prevArray, signal]);
-    //     }, 2000);
-    // }, [signalData, setSignalData]);
-
-    // useEffect(() => {
-    //     console.log('refresh');
-    // }, [signalData, setSignalData]);
-
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <SearchFilterBar
-                errorCount={signalCounter(SignalType.error)}
-                infoCount={signalCounter(SignalType.info)}
+                onExtraFilterSignalData={setExtraFilteredSignalData}
                 onFilterSignalData={setFilteredSignalData}
+                onSearchByText={setSearchByText}
+                onSignalData={setSignalData}
                 signalData={signalData}
-                warningCount={signalCounter(SignalType.warning)}
             />
             <View style={styles.spacer} />
-            <ConsoleWindow data={filteredSignalData} />
+            <ConsoleWindow data={searchByText ? extraFilteredSignalData : filteredSignalData} />
             <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
