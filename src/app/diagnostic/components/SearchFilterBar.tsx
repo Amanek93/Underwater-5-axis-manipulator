@@ -5,8 +5,8 @@ import SearchInput from '../../ui/components/SearchInput';
 import useDebounce from '@shared/utils/debounce';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GLOBAL_FONTS } from '@ui';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Signal, SignalType } from '@diagnostic/components/ConsoleWindow';
-import { StyleSheet, Text, View } from 'react-native';
 import {
     errorIcon,
     foldersIcon,
@@ -14,6 +14,7 @@ import {
     messageIcon,
     warningsIcon,
 } from '../../../assets/icons';
+import { windowWidth } from '@ui/components/Header';
 
 type Props = {
     onFilterSignalData: Dispatch<SetStateAction<Array<Signal>>>;
@@ -147,45 +148,51 @@ const SearchFilterBar = ({
                     title="Wyczyść logi"
                 />
             </View>
-            <View style={styles.filterContainer}>
-                <LogContainer
-                    count={summarySignalCount}
-                    isActive={allLogsActive}
-                    onPress={() => handleLogButton('all')}
-                    sourceIcon={foldersIcon}
-                    title="Wszystkie"
-                    withBorder
-                />
-                <LogContainer
-                    count={errorCount}
-                    isActive={errorsActive}
-                    isCheckbox
-                    onPress={() => handleLogButton('errors')}
-                    sourceIcon={errorIcon}
-                    title="Błędy"
-                />
-                <LogContainer
-                    count={warningCount}
-                    isActive={warningsActive}
-                    isCheckbox
-                    onPress={() => handleLogButton('warnings')}
-                    sourceIcon={warningsIcon}
-                    title="Ostrzeżenia"
-                />
-                <LogContainer
-                    count={infoCount}
-                    isActive={infoActive}
-                    isCheckbox
-                    onPress={() => handleLogButton('info')}
-                    sourceIcon={messageIcon}
-                    title="Komunikaty"
-                />
-                <LogContainer
-                    onPress={() => handleLogButton('history')}
-                    sourceIcon={historyIcon}
-                    title="HISTORIA"
-                />
-            </View>
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.scrollFilterContainer}
+            >
+                <View style={styles.filterContainer}>
+                    <LogContainer
+                        count={summarySignalCount}
+                        isActive={allLogsActive}
+                        onPress={() => handleLogButton('all')}
+                        sourceIcon={foldersIcon}
+                        title="Wszystkie"
+                        withBorder
+                    />
+                    <LogContainer
+                        count={errorCount}
+                        isActive={errorsActive}
+                        isCheckbox
+                        onPress={() => handleLogButton('errors')}
+                        sourceIcon={errorIcon}
+                        title="Błędy"
+                    />
+                    <LogContainer
+                        count={warningCount}
+                        isActive={warningsActive}
+                        isCheckbox
+                        onPress={() => handleLogButton('warnings')}
+                        sourceIcon={warningsIcon}
+                        title="Ostrzeżenia"
+                    />
+                    <LogContainer
+                        count={infoCount}
+                        isActive={infoActive}
+                        isCheckbox
+                        onPress={() => handleLogButton('info')}
+                        sourceIcon={messageIcon}
+                        title="Komunikaty"
+                    />
+                    <LogContainer
+                        onPress={() => handleLogButton('history')}
+                        sourceIcon={historyIcon}
+                        title="HISTORIA"
+                    />
+                </View>
+            </ScrollView>
         </View>
     );
 };
@@ -196,11 +203,12 @@ const styles = StyleSheet.create({
     },
     filterContainer: {
         alignItems: 'center',
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 40,
+        // width: windowWidth,
     },
+    scrollFilterContainer: { flex: 1, width: windowWidth },
     searchContainer: {
         alignItems: 'center',
         borderBottomColor: 'rgba(0, 0, 0, 0.34)',
