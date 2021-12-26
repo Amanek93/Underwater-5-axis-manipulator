@@ -55,8 +55,6 @@ const DiagnosticView = ({ navigation }: Props) => {
     const [extraFilteredSignalData, setExtraFilteredSignalData] = useState<Array<Signal>>([]);
     const [searchByText, setSearchByText] = useState<boolean>(false);
 
-    //TODO: dodać kolejny poziom filtrowania danych po filtrowaniu checkboxami, zeby filtrowac po wyszukiwanym tekscie
-
     useEffect(() => {
         const signalGenerator = setInterval(() => {
             const currentTime = moment().format('MM-DD-YYYY HH:mm:ss');

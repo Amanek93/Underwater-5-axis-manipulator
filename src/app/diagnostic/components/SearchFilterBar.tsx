@@ -103,10 +103,12 @@ const SearchFilterBar = ({
 
     const handleRemoveSignalData = () => {
         onSignalData([]);
+        onExtraFilterSignalData([]);
+        onSearchByText(false);
+        onChangeSearchText('');
     };
 
     useEffect(() => {
-        console.log(debouncedSearchValue);
         if (debouncedSearchValue === '') onSearchByText(false);
         else handleExtraFilterSignalData(debouncedSearchValue);
     }, [debouncedSearchValue]);

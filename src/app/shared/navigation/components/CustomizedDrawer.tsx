@@ -212,10 +212,6 @@ const CustomizedDrawer = () => {
     );
 
     useEffect(() => {
-        console.log(moreOptions);
-    }, [moreOptions]);
-
-    useEffect(() => {
         if (moreOptions) {
             setTimeout(() => setShowAdditionalInfo(true), 200);
         } else setShowAdditionalInfo(false);
