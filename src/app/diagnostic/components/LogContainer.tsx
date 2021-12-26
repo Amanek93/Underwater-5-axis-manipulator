@@ -25,6 +25,7 @@ const LogContainer = ({
     isCheckbox,
     withBorder,
 }: Props) => {
+    const isCount = count !== undefined && count >= 0;
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -43,18 +44,15 @@ const LogContainer = ({
             )}
             <Image resizeMode="contain" source={sourceIcon} style={styles.icon} />
             <Text style={styles.title}>{title}</Text>
-            {count && (
-                <View
-                    style={[
-                        styles.counterContainer,
-                        isActive && { backgroundColor: 'rgba(65, 81, 113, 1)' },
-                    ]}
-                >
-                    <Text style={[styles.counterText, isActive && { color: 'white' }]}>
-                        {count}
-                    </Text>
-                </View>
-            )}
+            <View
+                style={[
+                    styles.counterContainer,
+                    !isCount && { backgroundColor: 'transparent' },
+                    isActive && { backgroundColor: 'rgba(65, 81, 113, 1)' },
+                ]}
+            >
+                <Text style={[styles.counterText, isActive && { color: 'white' }]}>{count}</Text>
+            </View>
         </TouchableOpacity>
     );
 };
