@@ -18,6 +18,9 @@ const warningsIcon = require('../icons/warnings.png');
 const errorIcon = require('../icons/error_circle.png');
 const foldersIcon = require('../icons/folders.png');
 const checkIcon = require('../icons/check.png');
+const germanyFlag = require('../icons/germany-flag-round-icon-32.png');
+const polandFlag = require('../icons/poland-flag-round-icon-32.png');
+const englandFlag = require('../icons/england-flag-round-icon-32.png');
 
 export {
     homeIcon,
@@ -40,4 +43,7 @@ export {
     errorIcon,
     foldersIcon,
     checkIcon,
+    germanyFlag,
+    polandFlag,
+    englandFlag,
 };

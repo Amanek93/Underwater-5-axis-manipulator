@@ -12,7 +12,15 @@
       "wrongLogin": "Zły login!",
       "wrongPassword": "Złe hasło!",
       "wrongLoginOrPassword": "Złe hasło lub login!",
-      "login": "ZALOGUJ SIĘ",
+      "login": "ZALOGUJ SIĘ"
+    },
+    "settingsView": {
+      "language": "język",
+      "sound": "dźwięk",
+      "darkMode": "tryb ciemny",
+      "polish": "polski",
+      "english": "angielski",
+      "germany": "niemiecki"
     },
     "navigationBar": {
       "home": "HOME",

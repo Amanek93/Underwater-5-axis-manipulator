@@ -14,6 +14,14 @@
       "wrongLoginOrPassword": "Incorrect password or login!",
       "login": "LOGIN"
     },
+    "settingsView": {
+      "language": "language",
+      "sound": "sound",
+      "darkMode": "dark mode",
+      "polish": "Polish",
+      "english": "English",
+      "germany": "Germany"
+    },
     "homeView": {
       "test": "test"
     },
@@ -23,7 +31,7 @@
       "reset": "Reset",
       "stop": "Stop",
       "home": "Home",
-      "memory": "Memory",
+      "memory": "Memory"
     },
     "navigationBar": {
       "home": "HOME",
@@ -33,6 +41,6 @@
       "diagnostic": "DIAGNOSTIC",
       "info": "INFO",
       "help": "HELP"
-    },
+    }
   }
 }
