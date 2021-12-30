@@ -3,7 +3,7 @@ import SignalComponent from '@diagnostic/components/Signal';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GLOBAL_FONTS } from '@ui';
 import { checkIcon } from '../../../assets/icons';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export enum SignalType {
     info = 'info',
@@ -20,15 +20,17 @@ export type Signal = {
 type Props = { data: Array<Signal> };
 
 const ConsoleWindow = ({ data }: Props) => {
-    const flatList = React.useRef(null);
+    const flatList = useRef<any>(null);
     const [isScrollEnabled, setIsScrollEnabled] = useState<boolean>(true);
     const signalHeight = 40;
 
-    const renderSignal = ({ item }) => <SignalComponent item={item} />;
+    const renderSignal = useCallback(({ item }) => <SignalComponent item={item} />, []);
 
     const handleScrollToEnd = () => {
         if (isScrollEnabled) flatList?.current?.scrollToEnd();
     };
+
+    const keyExtractor = useCallback((item, index) => String(index), []);
 
     return (
         <View style={styles.container}>
@@ -52,7 +54,7 @@ const ConsoleWindow = ({ data }: Props) => {
                     offset: signalHeight * index,
                     index,
                 })}
-                keyExtractor={(item, index) => String(index)}
+                keyExtractor={keyExtractor}
                 onContentSizeChange={handleScrollToEnd}
                 ref={flatList}
                 renderItem={renderSignal}

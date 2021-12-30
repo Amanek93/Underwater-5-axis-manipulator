@@ -24,7 +24,7 @@ const SettingsView = ({ navigation }: Props) => {
     const [openLanguageDropdown, setOpenLanguageDropdown] = useState<boolean>(false);
     const [currentLanguage, setCurrentLanguage] = useState(I18n.currentLocale());
     const baseTranslationPath = 'screens.settingsView';
-    const animateMoveDropdownValue = useRef(new Animated.Value(0)).current;
+    const animateMoveDropdownValue = useRef<any>(new Animated.Value(0)).current;
 
     const LANGUAGES = [
         {
@@ -68,7 +68,7 @@ const SettingsView = ({ navigation }: Props) => {
         },
     ];
 
-    const handleOpenLanguageDropdown = status => {
+    const handleOpenLanguageDropdown = (status: boolean | ((prevState: boolean) => boolean)) => {
         if (status) {
             Animated.timing(animateMoveDropdownValue, {
                 toValue: -(180 / 2) + 5,
