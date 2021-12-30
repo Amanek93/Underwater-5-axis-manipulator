@@ -43,15 +43,18 @@
       "stop": "Stop",
       "home": "Home",
       "memory": "Memory"
-    },
+    }
+  },
+  "components": {
     "navigationBar": {
-      "home": "HOME",
-      "liveStream": "LIVE STREAM",
-      "settings": "SETTINGS",
-      "telemetry": "TELEMETRY",
-      "diagnostic": "DIAGNOSTIC",
-      "info": "INFO",
-      "help": "HELP"
+      "home": "Home",
+      "liveControl": "Control LIVE",
+      "telemetry": "Telemetry",
+      "diagnostic": "Diagnostic",
+      "settings": "Settings",
+      "info": "Info",
+      "help": "Help",
+      "logout": "LOGOUT"
     }
   }
 }

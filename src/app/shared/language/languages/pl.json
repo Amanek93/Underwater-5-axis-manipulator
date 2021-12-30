@@ -22,14 +22,16 @@
       "english": "angielski",
       "germany": "niemiecki"
     },
-    "navigationBar": {
-      "home": "HOME",
-      "liveStream": "TRYB WIDEO",
-      "settings": "USTAWIENIA",
-      "telemetry": "TELEMETRIA",
-      "diagnostic": "DIAGNOSTYKA",
-      "info": "INFO",
-      "help": "POMOC"
+    "diagnosticView": {
+      "diagnostic": "Diagnostyka",
+      "searchError": "Szukaj błędu...",
+      "clearLogs": "Wyczyść logi",
+      "all": "Wszystkie",
+      "errors": "Błędy",
+      "warnings": "Ostrzeżenia",
+      "info": "Komunikaty",
+      "history": "Historia",
+      "autoScroll": "autoprzewijanie"
     },
     "homeView": {
       "test": "test"
@@ -42,5 +44,17 @@
       "home": "Home",
       "memory": "Historia"
     }
-  }
+  },
+  "components": {
+    "navigationBar": {
+      "home": "Strona Główna",
+      "liveControl": "Sterowanie LIVE",
+      "telemetry": "Telemetria",
+      "diagnostic": "Diagnostyka",
+      "settings": "Ustawienia",
+      "info": "Informacja",
+      "help": "Pomoc",
+      "logout": "WYLOGUJ"
+    }
+}
 }
