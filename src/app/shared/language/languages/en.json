@@ -22,6 +22,17 @@
       "english": "English",
       "germany": "Germany"
     },
+    "diagnosticView": {
+      "diagnostic": "Diagnostic",
+      "searchError": "Search error...",
+      "clearLogs": "Clear logs",
+      "all": "All",
+      "errors": "Errors",
+      "warnings": "Warnings",
+      "info": "Info",
+      "history": "History",
+      "autoScroll": "auto scroll"
+    },
     "homeView": {
       "test": "test"
     },

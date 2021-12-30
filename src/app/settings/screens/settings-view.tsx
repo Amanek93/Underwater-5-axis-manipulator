@@ -22,7 +22,7 @@ const SettingsView = ({ navigation }: Props) => {
     const dispatch = useDispatch();
     const settings = useSelector((state: AppState) => state.settings);
     const [openLanguageDropdown, setOpenLanguageDropdown] = useState<boolean>(false);
-    const [currentLanguage, setCurrentLanguage] = useState(I18n.currentLocale());
+    const [currentLanguage, setCurrentLanguage] = useState('pl');
     const baseTranslationPath = 'screens.settingsView';
     const animateMoveDropdownValue = useRef<any>(new Animated.Value(0)).current;
 
@@ -97,6 +97,10 @@ const SettingsView = ({ navigation }: Props) => {
     useEffect(() => {
         dispatch(new ChangeLanguage(currentLanguage));
     }, [currentLanguage]);
+
+    useEffect(() => {
+        setCurrentLanguage(I18n.currentLocale());
+    }, []);
 
     const renderItem = ({ item }: any) => {
         return (

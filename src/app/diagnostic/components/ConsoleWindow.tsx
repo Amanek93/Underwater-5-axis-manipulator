@@ -1,5 +1,6 @@
 import * as React from 'react';
 import SignalComponent from '@diagnostic/components/Signal';
+import i18n from '@language/i18n';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GLOBAL_FONTS } from '@ui';
 import { checkIcon } from '../../../assets/icons';
@@ -18,6 +19,8 @@ export type Signal = {
 };
 
 type Props = { data: Array<Signal> };
+
+const baseTranslationPath = 'screens.diagnosticView';
 
 const ConsoleWindow = ({ data }: Props) => {
     const flatList = useRef<any>(null);
@@ -45,7 +48,9 @@ const ConsoleWindow = ({ data }: Props) => {
                         <Image resizeMode="contain" source={checkIcon} style={styles.checkIcon} />
                     )}
                 </View>
-                <Text style={styles.scrollButtonText}>Autoprzewijanie</Text>
+                <Text style={styles.scrollButtonText}>
+                    {i18n.t(`${baseTranslationPath}.autoScroll`)}
+                </Text>
             </TouchableOpacity>
             <FlatList
                 data={data}

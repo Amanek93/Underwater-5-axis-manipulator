@@ -43,7 +43,6 @@ I18n.pluralization['pl'] = pluralizer;
  */
 const currentLocaleApplied = () => {
     const availableTranslations = Object.keys(I18n.translations);
-    console.log('jezyki', availableTranslations);
 
     if (availableTranslations.includes(I18n.currentLocale())) {
         return I18n.currentLocale();

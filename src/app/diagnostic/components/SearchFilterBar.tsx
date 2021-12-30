@@ -2,6 +2,7 @@ import * as React from 'react';
 import LogContainer from '@diagnostic/components/LogContainer';
 import RemoveButton from '@diagnostic/components/RemoveButton';
 import SearchInput from '../../ui/components/SearchInput';
+import i18n from '@language/i18n';
 import useDebounce from '@shared/utils/debounce';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GLOBAL_FONTS } from '@ui';
@@ -23,6 +24,8 @@ type Props = {
     onSearchByText: Dispatch<SetStateAction<boolean>>;
     signalData: Array<Signal>;
 };
+
+const baseTranslationPath = 'screens.diagnosticView';
 
 const SearchFilterBar = ({
     onFilterSignalData,
@@ -134,18 +137,18 @@ const SearchFilterBar = ({
     return (
         <View style={styles.container}>
             <View style={styles.searchContainer}>
-                <Text style={styles.title}>Diagnostyka</Text>
+                <Text style={styles.title}>{i18n.t(`${baseTranslationPath}.diagnostic`)}</Text>
                 <SearchInput
                     bgColor="transparent"
                     labelValue={searchText}
                     onChangeText={onChangeSearchText}
-                    placeHolder="Szukaj błędu..."
+                    placeHolder={i18n.t(`${baseTranslationPath}.searchError`)}
                     placeHolderColor="rgba(0, 0, 0, 0.69)"
                 />
                 <RemoveButton
                     color="rgba(255, 0, 0, 0.5)"
                     onPress={handleRemoveSignalData}
-                    title="Wyczyść logi"
+                    title={i18n.t(`${baseTranslationPath}.clearLogs`)}
                 />
             </View>
             <ScrollView
@@ -159,7 +162,7 @@ const SearchFilterBar = ({
                         isActive={allLogsActive}
                         onPress={() => handleLogButton('all')}
                         sourceIcon={foldersIcon}
-                        title="Wszystkie"
+                        title={i18n.t(`${baseTranslationPath}.all`)}
                         withBorder
                     />
                     <LogContainer
@@ -168,7 +171,7 @@ const SearchFilterBar = ({
                         isCheckbox
                         onPress={() => handleLogButton('errors')}
                         sourceIcon={errorIcon}
-                        title="Błędy"
+                        title={i18n.t(`${baseTranslationPath}.errors`)}
                     />
                     <LogContainer
                         count={warningCount}
@@ -176,7 +179,7 @@ const SearchFilterBar = ({
                         isCheckbox
                         onPress={() => handleLogButton('warnings')}
                         sourceIcon={warningsIcon}
-                        title="Ostrzeżenia"
+                        title={i18n.t(`${baseTranslationPath}.warnings`)}
                     />
                     <LogContainer
                         count={infoCount}
@@ -184,12 +187,12 @@ const SearchFilterBar = ({
                         isCheckbox
                         onPress={() => handleLogButton('info')}
                         sourceIcon={messageIcon}
-                        title="Komunikaty"
+                        title={i18n.t(`${baseTranslationPath}.info`)}
                     />
                     <LogContainer
                         onPress={() => handleLogButton('history')}
                         sourceIcon={historyIcon}
-                        title="HISTORIA"
+                        title={i18n.t(`${baseTranslationPath}.history`)}
                     />
                 </View>
             </ScrollView>
