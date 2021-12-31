@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 
@@ -8,7 +8,9 @@ import { useEffect } from 'react';
 import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
 
 import Header from '../../ui/components/Header';
+import JoystickPad from '@liveStream/components/JoystickPad';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import Pad from '@liveStream/components/Pad';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 type Props = {
@@ -27,11 +29,22 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }} />
+            <View style={{}}>
+                {/*<View style={styles.contentContainer}>*/}
+                {/*    /!*<Image source={require('../../../assets/images/images.png')}/>*!/*/}
+                {/*    <Text>Live Stream</Text>*/}
+                {/*    <JoystickPad*/}
+                {/*        autoCenter*/}
+                {/*        axisPadContainer={{ top: 400 }}*/}
+                {/*        onValue={({ x, y }) => {*/}
+                {/*            // values are between -1 and 1*/}
+                {/*            console.log(x, y);*/}
+                {/*        }}*/}
+                {/*        resetOnRelease*/}
+                {/*    />*/}
+                {/*</View>*/}
                 <View style={styles.contentContainer}>
-                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-                    <Text>Live Stream</Text>
+                    <Pad />
                 </View>
             </View>
             <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
@@ -41,12 +54,16 @@ const LiveStreamView = observer(function WelcomeView({ navigation }: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: GLOBAL_COLORS.primary,
-        flex: 1,
+        backgroundColor: 'white',
+        height: '100%',
+        width: '100%',
     },
     contentContainer: {
-        backgroundColor: 'grey',
+        alignItems: 'center',
+        backgroundColor: 'pink',
+        flex: 1,
         height: '100%',
+        justifyContent: 'center',
         width: '100%',
     },
     logo: {

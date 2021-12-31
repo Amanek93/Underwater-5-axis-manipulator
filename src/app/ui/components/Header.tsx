@@ -9,8 +9,8 @@ import i18n from '@shared/language/i18n';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
+export const windowHeight = Dimensions.get('window').height;
+export const windowWidth = Dimensions.get('window').width;
 
 type Props = {
     resetHandler?(): void;

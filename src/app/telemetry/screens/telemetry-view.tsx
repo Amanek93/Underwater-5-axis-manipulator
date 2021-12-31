@@ -12,40 +12,45 @@ import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui
 import Chart from '@telemetry/components/Chart';
 import FlatListButton from '@telemetry/components/FlatListButton';
 import Header from '../../ui/components/Header';
-import MainButton from "@ui/components/MainButton";
+import MainButton from '@ui/components/MainButton';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 const FlatListData = [
     {
         id: 0,
         title: 'Voltage',
-        data: [1,2,3,4,5,6,7,8,9,],
+        data: [1,100,2,],
+        units: '[V]',
     },
     {
         id: 1,
         title: 'Amperage',
         data: [1,2,3,4,5,6,7,8,9,],
+        units: '[A]',
     },
     {
         id: 2,
         title: 'Speed',
         data: [1,2,3,4,5,6,7,8,9,],
+        units: '[m/s]',
     },
     {
         id: 3,
         title: 'Power',
         data: [1,2,3,4,5,6,7,8,9,],
+        units: '[W]',
     },
     {
-
         id: 4,
         title: 'Translation',
         data: [1,2,3,4,5,6,723,8,9,],
+        units: '[mm]',
     },
     {
         id: 5,
         title: 'Torque',
         data: [1,22,3,4,5,16,7,8,9,],
+        units: '[Nm]',
     },
 ];
 type Props = {
@@ -58,6 +63,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
     const [chartData, setChartData] = useState<object>([]);
     const [isActive, setIsActive] = useState<number>(0);
     const [chartTitle, setChartTitle] = useState<string>('');
+    const [chartUnit, setChartUnit] = useState<string>('')
     const [value, setValue] = useState('Axis 1');
     const [items, setItems] = useState([
         { label: 'Axis 1', value: 'Axis 1' },
@@ -75,28 +81,31 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
             }),
         [navigation],
     );
-    const handleFlatListButton = ({item, index}: any) => {
+    const handleFlatListButton = ({ item, index }: any) => {
         setIsSelected(!isSelected);
         setIsActive(index);
         setChartData(item.data);
         setChartTitle(item.title);
+        setChartUnit(item.units);
     };
     const renderItem = ({ item, index }: any) => (
         <FlatListButton
-            enabled={true}
-            iconName={GLOBAL_ICONS.home}
-            onPress={() => handleFlatListButton({item, index})}
-            title={item.title}
             activeId={isActive}
+            enabled
+            iconName={GLOBAL_ICONS.home}
             indexId={item.id}
+            onPress={() => handleFlatListButton({ item, index })}
+            title={item.title}
         />
     );
 
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
             <View style={styles.contentContainer}>
+                <NavigationToggleButton
+                    onPress={() => navigation.toggleDrawer()}
+                />
                 <View style={styles.leftContentContainer}>
                     <View style={styles.leftTopContentContainer}>
                         <View style={styles.dropDownPickerContainer}>
@@ -112,13 +121,13 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                         </View>
                     </View>
                     <View style={styles.leftMiddleContentContainer}>
-                        <Chart dataProps={chartData} title={chartTitle}/>
+                        <Chart unit={chartUnit} dataProps={chartData} title={chartTitle}/>
                     </View>
                     <View style={styles.leftBottomContentContainer} >
-                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
-                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
-                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
-                        <MainButton onPress={()=>console.log('elo1')} title={'Secound'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Seconds'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Minutes'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Hours'} style={styles.timeButton}/>
+                        <MainButton onPress={()=>console.log('elo1')} title={'Days'} style={styles.timeButton}/>
                     </View>
                 </View>
                 <View style={styles.rightContentContainer}>
@@ -141,6 +150,7 @@ const TelemetryView = observer(function WelcomeView({ navigation }: Props) {
                     </View>
                 </View>
             </View>
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
 });
@@ -149,19 +159,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    timeButton: {
-        width: 160,
-        height: 56,
-    },
     contentContainer: {
         flex: 1,
         flexDirection: 'row',
     },
-    dropDownPicker: {
-    },
+    dropDownPicker: {},
     dropDownPickerContainer: {
-        width: '80%',
         position: 'absolute',
+        width: '80%',
     },
     flatListContainer: {
         alignItems: 'center',
@@ -170,12 +175,12 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     leftBottomContentContainer: {
-        flexDirection: 'row',
+        alignItems: 'center',
         backgroundColor: `#1e90ff`,
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
+        flexDirection: 'row',
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'space-between',
         paddingHorizontal: 70,
     },
@@ -190,8 +195,8 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
         borderTopRightRadius: 20,
         flex: 1,
-        top: 50,
         left: 120,
+        top: 50,
         zIndex: 5,
     },
     rightContentContainer: {
@@ -223,6 +228,10 @@ const styles = StyleSheet.create({
         letterSpacing: 0.09,
         textAlign: 'center',
         width: '100%',
+    },
+    timeButton: {
+        height: 56,
+        width: 160,
     },
 });
 
