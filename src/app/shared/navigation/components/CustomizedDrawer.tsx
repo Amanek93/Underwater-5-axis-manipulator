@@ -11,6 +11,7 @@ import {
     View,
 } from 'react-native';
 
+import i18n from '@language/i18n';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { GLOBAL_COLORS, GLOBAL_FONTS } from '@ui/const';
 import {
@@ -41,98 +42,89 @@ const DATA: Array<{
     {
         icon: homeIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.home',
         title: 'home',
         navigationId: 'HomeView',
         isActive: false,
         keyId: 0,
         topSeparator: true,
-        text: 'Strona Główna',
+        text: 'components.navigationBar.home',
     },
     {
         icon: liveCameraIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.test.test',
         title: 'liveStream',
         navigationId: 'LiveStreamView',
         isActive: false,
         keyId: 1,
         topSeparator: false,
-        text: 'Sterowanie LIVE',
+        text: 'components.navigationBar.liveControl',
     },
     {
         icon: telemetryIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.telemetry',
         title: 'telemetry',
         navigationId: 'TelemetryView',
         isActive: false,
         keyId: 2,
         topSeparator: false,
-        text: 'Telemetria',
+        text: 'components.navigationBar.telemetry',
     },
     {
         icon: diagnosticIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.diagnostic',
         title: 'diagnostic',
         navigationId: 'DiagnosticView',
         isActive: false,
         keyId: 3,
         topSeparator: false,
-        text: 'Diagnostyka',
+        text: 'components.navigationBar.diagnostic',
     },
     {
         icon: settingsIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.settings',
         title: 'settings',
         navigationId: 'SettingsView',
         isActive: false,
         keyId: 4,
         topSeparator: true,
-        text: 'Ustawienia',
+        text: 'components.navigationBar.settings',
     },
     {
         icon: infoIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.info',
         title: 'info',
         navigationId: 'InfoView',
         isActive: false,
         keyId: 5,
         topSeparator: false,
-        text: 'Informacja',
+        text: 'components.navigationBar.info',
     },
     {
         icon: helpIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.help',
         title: 'help',
         navigationId: 'HelpView',
         isActive: false,
         keyId: 6,
         topSeparator: false,
-        text: 'Pomoc',
+        text: 'components.navigationBar.help',
     },
     {
         icon: powerIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.help',
         title: 'help',
         navigationId: 'HelpView',
         isActive: false,
         keyId: 7,
         topSeparator: true,
         logoutIcon: true,
-        text: 'WYLOGUJ',
+        text: 'components.navigationBar.logout',
     },
 ];
 
 const footer = {
     icon: arrowIcon,
     iconColor: GLOBAL_COLORS.icon,
-    //title: 'screen.navigationBar.help',
     title: 'help',
     navigationId: 'HelpView',
     isActive: false,
@@ -250,7 +242,7 @@ const CustomizedDrawer = () => {
                         >
                             <Image resizeMode="contain" source={item.icon} style={styles.icon} />
                             {showAdditionalInfo && (
-                                <Text style={styles.textStyle}>{item.text}</Text>
+                                <Text style={styles.textStyle}>{i18n.t(`${item.text}`)}</Text>
                             )}
                         </Animated.View>
                     ) : (
@@ -270,7 +262,7 @@ const CustomizedDrawer = () => {
                         >
                             <Image resizeMode="contain" source={item.icon} style={styles.icon} />
                             {showAdditionalInfo && (
-                                <Text style={styles.textStyle}>{item.text}</Text>
+                                <Text style={styles.textStyle}>{i18n.t(`${item.text}`)}</Text>
                             )}
                         </Animated.View>
                     )}

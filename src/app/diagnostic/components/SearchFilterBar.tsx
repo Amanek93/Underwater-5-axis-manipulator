@@ -2,11 +2,12 @@ import * as React from 'react';
 import LogContainer from '@diagnostic/components/LogContainer';
 import RemoveButton from '@diagnostic/components/RemoveButton';
 import SearchInput from '../../ui/components/SearchInput';
+import i18n from '@language/i18n';
 import useDebounce from '@shared/utils/debounce';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { GLOBAL_FONTS } from '@ui';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Signal, SignalType } from '@diagnostic/components/ConsoleWindow';
-import { StyleSheet, Text, View } from 'react-native';
 import {
     errorIcon,
     foldersIcon,
@@ -14,6 +15,7 @@ import {
     messageIcon,
     warningsIcon,
 } from '../../../assets/icons';
+import { windowWidth } from '@ui/components/Header';
 
 type Props = {
     onFilterSignalData: Dispatch<SetStateAction<Array<Signal>>>;
@@ -22,6 +24,8 @@ type Props = {
     onSearchByText: Dispatch<SetStateAction<boolean>>;
     signalData: Array<Signal>;
 };
+
+const baseTranslationPath = 'screens.diagnosticView';
 
 const SearchFilterBar = ({
     onFilterSignalData,
@@ -133,59 +137,65 @@ const SearchFilterBar = ({
     return (
         <View style={styles.container}>
             <View style={styles.searchContainer}>
-                <Text style={styles.title}>Diagnostyka</Text>
+                <Text style={styles.title}>{i18n.t(`${baseTranslationPath}.diagnostic`)}</Text>
                 <SearchInput
                     bgColor="transparent"
                     labelValue={searchText}
                     onChangeText={onChangeSearchText}
-                    placeHolder="Szukaj błędu..."
+                    placeHolder={i18n.t(`${baseTranslationPath}.searchError`)}
                     placeHolderColor="rgba(0, 0, 0, 0.69)"
                 />
                 <RemoveButton
                     color="rgba(255, 0, 0, 0.5)"
                     onPress={handleRemoveSignalData}
-                    title="Wyczyść logi"
+                    title={i18n.t(`${baseTranslationPath}.clearLogs`)}
                 />
             </View>
-            <View style={styles.filterContainer}>
-                <LogContainer
-                    count={summarySignalCount}
-                    isActive={allLogsActive}
-                    onPress={() => handleLogButton('all')}
-                    sourceIcon={foldersIcon}
-                    title="Wszystkie"
-                    withBorder
-                />
-                <LogContainer
-                    count={errorCount}
-                    isActive={errorsActive}
-                    isCheckbox
-                    onPress={() => handleLogButton('errors')}
-                    sourceIcon={errorIcon}
-                    title="Błędy"
-                />
-                <LogContainer
-                    count={warningCount}
-                    isActive={warningsActive}
-                    isCheckbox
-                    onPress={() => handleLogButton('warnings')}
-                    sourceIcon={warningsIcon}
-                    title="Ostrzeżenia"
-                />
-                <LogContainer
-                    count={infoCount}
-                    isActive={infoActive}
-                    isCheckbox
-                    onPress={() => handleLogButton('info')}
-                    sourceIcon={messageIcon}
-                    title="Komunikaty"
-                />
-                <LogContainer
-                    onPress={() => handleLogButton('history')}
-                    sourceIcon={historyIcon}
-                    title="HISTORIA"
-                />
-            </View>
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.scrollFilterContainer}
+            >
+                <View style={styles.filterContainer}>
+                    <LogContainer
+                        count={summarySignalCount}
+                        isActive={allLogsActive}
+                        onPress={() => handleLogButton('all')}
+                        sourceIcon={foldersIcon}
+                        title={i18n.t(`${baseTranslationPath}.all`)}
+                        withBorder
+                    />
+                    <LogContainer
+                        count={errorCount}
+                        isActive={errorsActive}
+                        isCheckbox
+                        onPress={() => handleLogButton('errors')}
+                        sourceIcon={errorIcon}
+                        title={i18n.t(`${baseTranslationPath}.errors`)}
+                    />
+                    <LogContainer
+                        count={warningCount}
+                        isActive={warningsActive}
+                        isCheckbox
+                        onPress={() => handleLogButton('warnings')}
+                        sourceIcon={warningsIcon}
+                        title={i18n.t(`${baseTranslationPath}.warnings`)}
+                    />
+                    <LogContainer
+                        count={infoCount}
+                        isActive={infoActive}
+                        isCheckbox
+                        onPress={() => handleLogButton('info')}
+                        sourceIcon={messageIcon}
+                        title={i18n.t(`${baseTranslationPath}.info`)}
+                    />
+                    <LogContainer
+                        onPress={() => handleLogButton('history')}
+                        sourceIcon={historyIcon}
+                        title={i18n.t(`${baseTranslationPath}.history`)}
+                    />
+                </View>
+            </ScrollView>
         </View>
     );
 };
@@ -196,11 +206,12 @@ const styles = StyleSheet.create({
     },
     filterContainer: {
         alignItems: 'center',
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 40,
+        // width: windowWidth,
     },
+    scrollFilterContainer: { flex: 1, width: windowWidth },
     searchContainer: {
         alignItems: 'center',
         borderBottomColor: 'rgba(0, 0, 0, 0.34)',
