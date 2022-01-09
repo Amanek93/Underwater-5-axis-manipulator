@@ -9,7 +9,7 @@ import I18n from 'i18n-js';
 import NavigationToggleButton from '@ui/components/NavigationToggleButton';
 import i18n from '@language/i18n';
 import { AppState } from '@app/store/models';
-import { ChangeLanguage, SettingsActionTypes } from '@settings';
+import { ChangeLanguage, SettingsActionTypes, getDisplayMode } from '@settings';
 import { GLOBAL_FONTS } from '@ui';
 import { englandFlag, germanyFlag, polandFlag } from '../../../assets/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +25,7 @@ const SettingsView = ({ navigation }: Props) => {
     const [currentLanguage, setCurrentLanguage] = useState('pl');
     const baseTranslationPath = 'screens.settingsView';
     const animateMoveDropdownValue = useRef<any>(new Animated.Value(0)).current;
+    const darkMode = useSelector(getDisplayMode);
 
     const LANGUAGES = [
         {
@@ -142,7 +143,12 @@ const SettingsView = ({ navigation }: Props) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+            style={[
+                styles.container,
+                { backgroundColor: darkMode ? 'rgba(3, 26, 66, 0.69)' : 'rgba(225, 225, 225, 1)' },
+            ]}
+        >
             <Header />
             <View style={styles.contentContainer}>
                 <FlatList data={DATA} keyExtractor={item => item.title} renderItem={renderItem} />

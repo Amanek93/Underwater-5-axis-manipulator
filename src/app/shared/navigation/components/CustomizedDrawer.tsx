@@ -164,7 +164,7 @@ const CustomizedDrawer = () => {
             duration: 300,
         }).start();
         Animated.timing(rotateValue, {
-            toValue: 3.2,
+            toValue: 1,
             useNativeDriver: false,
             duration: 100,
         }).start();
@@ -308,7 +308,10 @@ const CustomizedDrawer = () => {
                                 style={{
                                     transform: [
                                         {
-                                            rotate: rotateValue,
+                                            rotate: rotateValue.interpolate({
+                                                inputRange: [0, 1],
+                                                outputRange: ['0deg', '180deg'],
+                                            }),
                                         },
                                     ],
                                 }}
