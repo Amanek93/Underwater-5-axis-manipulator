@@ -27,7 +27,10 @@ const initialState: HomeState = {
         axialRadius4: 0,
         axialRadius5: 0,
         speed: 0,
-
+        device: {
+            value1: 0,
+            value2: 0,
+        }
     },
 };
 
@@ -45,6 +48,12 @@ export function reducer(state: HomeState = initialState, action: HomeAction): Ho
                 device: { ...state.device, speed: state.device.speed - 1 },
             };
 
+        case HomeActionTypes.NEW_VALUE_SPEED:
+            return {
+                ...state,
+                device: { ...state.device, speed: action.payload },
+            };
+
         case HomeActionTypes.RESET_SPEED:
             return {
                 ...state,
@@ -60,6 +69,12 @@ export function reducer(state: HomeState = initialState, action: HomeAction): Ho
             return {
                 ...state,
                 device: { ...state.device, axialRadius1: state.device.axialRadius1 - 1 },
+            };
+
+        case HomeActionTypes.NEW_VALUE_AXIS1:
+            return {
+                ...state,
+                device: { ...state.device, axialRadius1:  action.payload },
             };
 
         case HomeActionTypes.RESET_AXIS1:
@@ -80,6 +95,12 @@ export function reducer(state: HomeState = initialState, action: HomeAction): Ho
                 device: { ...state.device, axialRadius2: state.device.axialRadius2 - 1 },
             };
 
+        case HomeActionTypes.NEW_VALUE_AXIS2:
+            return {
+                ...state,
+                device: { ...state.device, axialRadius2: action.payload },
+            };
+
         case HomeActionTypes.RESET_AXIS2:
             return {
                 ...state,
@@ -95,6 +116,12 @@ export function reducer(state: HomeState = initialState, action: HomeAction): Ho
             return {
                 ...state,
                 device: { ...state.device, axialRadius3: state.device.axialRadius3 - 1 },
+            };
+
+        case HomeActionTypes.NEW_VALUE_AXIS3:
+            return {
+                ...state,
+                device: { ...state.device, axialRadius3: action.payload },
             };
 
         case HomeActionTypes.RESET_AXIS3:
@@ -114,6 +141,12 @@ export function reducer(state: HomeState = initialState, action: HomeAction): Ho
                 device: { ...state.device, axialRadius4: state.device.axialRadius4 - 1 },
             };
 
+        case HomeActionTypes.NEW_VALUE_AXIS4:
+            return {
+                ...state,
+                device: { ...state.device, axialRadius4: action.payload },
+            };
+
         case HomeActionTypes.RESET_AXIS4:
             return {
                 ...state,
@@ -129,6 +162,12 @@ export function reducer(state: HomeState = initialState, action: HomeAction): Ho
             return {
                 ...state,
                 device: { ...state.device, axialRadius5: state.device.axialRadius5 - 1 },
+            };
+
+        case HomeActionTypes.NEW_VALUE_AXIS5:
+            return {
+                ...state,
+                device: { ...state.device, axialRadius5: action.payload },
             };
 
         case HomeActionTypes.RESET_AXIS5:

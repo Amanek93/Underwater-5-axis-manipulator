@@ -16,4 +16,5 @@ export const GLOBAL_COLORS = {
     connectedTickColor: darkMode ? '#228b22' : '#228b22',
     leftViewContainer: darkMode ? '#dcdcdc' : '#dcdcdc',
     red: darkMode? '#ff0000' : '#ff0000',
+
 };

@@ -21,6 +21,7 @@
     "@fseehawer/react-circular-slider": "^2.3.5",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/slider": "^4.0.0",
     "@react-native-picker/picker": "^1.16.5",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/drawer": "^5.12.5",
