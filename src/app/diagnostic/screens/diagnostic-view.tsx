@@ -1,74 +1,103 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Text, View } from 'react-native';
-import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
-
-// import i18n from '@shared/language/i18n';
-import { GLOBAL_COLORS, GLOBAL_FONTSIZES } from '@ui';
-
-
-import Header from '../../ui/components/Header';
-
-import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import moment from 'moment';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, View } from 'react-native';
+import { useEffect, useState } from 'react';
+
+import ConsoleWindow, { Signal, SignalType } from '@diagnostic/components/ConsoleWindow';
+import Header from '../../ui/components/Header';
+import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import SearchFilterBar from '@diagnostic/components/SearchFilterBar';
 
 type Props = {
     navigation: DrawerNavigationProp<any>;
 };
 
-const DiagnosticView = observer(function WelcomeView({ navigation }: Props) {
-    useEffect(
-        () =>
-            navigation.addListener('beforeRemove', e => {
-                e.preventDefault();
-            }),
-        [navigation],
-    );
+const DATA = [
+    { type: SignalType.info, date: '21-10-2021 22:37:01', title: 'Urządzenie podłączone' },
+    {
+        type: SignalType.warning,
+        date: '21-10-2021',
+        title: 'Przed rozpoczęciem pracy, sprawdź stan baterii',
+    },
+    { type: SignalType.error, date: '21-10-2021', title: 'Awaria silnika osi X' },
+    { type: SignalType.error, date: '21-10-2021', title: 'Brak zasilania' },
+    { type: SignalType.info, date: '21-10-2021', title: 'Urządzenie podłączone' },
+    {
+        type: SignalType.warning,
+        date: '21-10-2021',
+        title: 'Przed rozpoczęciem pracy, sprawdź stan baterii',
+    },
+    { type: SignalType.error, date: '21-10-2021', title: 'Awaria silnika osi X' },
+    { type: SignalType.error, date: '21-10-2021', title: 'Brak zasilania' },
+    { type: SignalType.info, date: '21-10-2021', title: 'Urządzenie podłączone' },
+    {
+        type: SignalType.warning,
+        date: '21-10-2021',
+        title: 'Przed rozpoczęciem pracy, sprawdź stan baterii',
+    },
+    { type: SignalType.error, date: '21-10-2021', title: 'Awaria silnika osi X' },
+    { type: SignalType.error, date: '21-10-2021', title: 'Brak zasilania' },
+    { type: SignalType.info, date: '21-10-2021', title: 'Urządzenie podłączone' },
+    {
+        type: SignalType.warning,
+        date: '21-10-2021',
+        title: 'Przed rozpoczęciem pracy, sprawdź stan baterii',
+    },
+    { type: SignalType.error, date: '21-10-2021', title: 'Awaria silnika osi X' },
+    { type: SignalType.error, date: '21-10-2021', title: 'Brak zasilania' },
+];
+
+const DiagnosticView = ({ navigation }: Props) => {
+    const [signalData, setSignalData] = useState<Array<Signal>>(DATA);
+    const [filteredSignalData, setFilteredSignalData] = useState<Array<Signal>>([]);
+    const [extraFilteredSignalData, setExtraFilteredSignalData] = useState<Array<Signal>>([]);
+    const [searchByText, setSearchByText] = useState<boolean>(false);
+
+    useEffect(() => {
+        const signalGenerator = setInterval(() => {
+            const currentTime = moment().format('MM-DD-YYYY HH:mm:ss');
+            const signal = {
+                type: SignalType.error,
+                date: currentTime,
+                title: 'Brak połączenia z urządzeniem',
+            };
+            setSignalData(prevArray => [...prevArray, signal]);
+        }, 1000);
+        return () => {
+            clearInterval(signalGenerator);
+        };
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-                    <NavigationToggleButton
-                        onPress={() => navigation.toggleDrawer()}
-                        // title="nawigacja"
-                    />
-                </View>
-                <View style={styles.contentContainer}>
-                    {/*<Image source={require('../../../assets/images/images.png')}/>*/}
-                    <Text>diagnostic</Text>
-                </View>
-            </View>
+            <SearchFilterBar
+                onExtraFilterSignalData={setExtraFilteredSignalData}
+                onFilterSignalData={setFilteredSignalData}
+                onSearchByText={setSearchByText}
+                onSignalData={setSignalData}
+                signalData={signalData}
+            />
+            <View style={styles.spacer} />
+            <ConsoleWindow data={searchByText ? extraFilteredSignalData : filteredSignalData} />
+            <NavigationToggleButton onPress={() => navigation.toggleDrawer()} />
         </SafeAreaView>
     );
-});
+};
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: GLOBAL_COLORS.primary,
         flex: 1,
     },
-    contentContainer: {
-        backgroundColor: 'red',
-        height: '100%',
-        width: '100%',
-    },
-    logo: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    logoContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    navigationBarContainer: {
-        justifyContent: 'flex-start',
-    },
-    text: {
-        color: GLOBAL_COLORS.text,
-        fontSize: GLOBAL_FONTSIZES.header,
+    spacer: {
+        backgroundColor: 'rgba(106, 106, 106, 0.1)',
+        borderBottomColor: 'rgba(0, 0, 0, 0.34)',
+        borderBottomWidth: 2,
+        borderTopColor: 'rgba(0, 0, 0, 0.34)',
+        borderTopWidth: 2,
+        flex: 0.4,
     },
 });
 

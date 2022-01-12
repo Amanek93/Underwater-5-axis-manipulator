@@ -1,22 +1,30 @@
-import React, { useCallback, useRef, useState } from 'react';
-import i18n from '@shared/language/i18n';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
     Animated,
     Dimensions,
     FlatList,
     Image,
-    SafeAreaView,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 
-import Icon from '@ui/components/Icon';
-import NavigationToggleButton from '@ui/components/NavigationToggleButton';
+import i18n from '@language/i18n';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui/const';
+import { GLOBAL_COLORS, GLOBAL_FONTS } from '@ui/const';
+import {
+    arrowIcon,
+    diagnosticIcon,
+    helpIcon,
+    homeIcon,
+    infoIcon,
+    liveCameraIcon,
+    powerIcon,
+    settingsIcon,
+    telemetryIcon,
+} from '../../../../assets/icons';
 import { useNavigation } from '@react-navigation/native';
 
 const DATA: Array<{
@@ -24,104 +32,170 @@ const DATA: Array<{
     iconColor: string;
     title: string;
     navigationId: string;
+    text?: string;
     isActive: boolean;
     keyId: number;
+    topSeparator: boolean;
+    logoutIcon?: boolean;
+    moreButton?: boolean;
 }> = [
     {
-        icon: GLOBAL_ICONS.home,
+        icon: homeIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.home',
         title: 'home',
         navigationId: 'HomeView',
         isActive: false,
         keyId: 0,
+        topSeparator: true,
+        text: 'components.navigationBar.home',
     },
     {
-        icon: GLOBAL_ICONS.gamepad,
+        icon: liveCameraIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.test.test',
         title: 'liveStream',
         navigationId: 'LiveStreamView',
         isActive: false,
         keyId: 1,
+        topSeparator: false,
+        text: 'components.navigationBar.liveControl',
     },
     {
-        icon: GLOBAL_ICONS.cog,
+        icon: telemetryIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.settings',
-        title: 'settings',
-        navigationId: 'SettingsView',
-        isActive: false,
-        keyId: 2,
-    },
-    {
-        icon: GLOBAL_ICONS.telemetry,
-        iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.telemetry',
         title: 'telemetry',
         navigationId: 'TelemetryView',
         isActive: false,
-        keyId: 3,
+        keyId: 2,
+        topSeparator: false,
+        text: 'components.navigationBar.telemetry',
     },
     {
-        icon: GLOBAL_ICONS.stethoscope,
+        icon: diagnosticIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.diagnostic',
         title: 'diagnostic',
         navigationId: 'DiagnosticView',
         isActive: false,
-        keyId: 4,
+        keyId: 3,
+        topSeparator: false,
+        text: 'components.navigationBar.diagnostic',
     },
     {
-        icon: GLOBAL_ICONS.question,
+        icon: settingsIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.info',
+        title: 'settings',
+        navigationId: 'SettingsView',
+        isActive: false,
+        keyId: 4,
+        topSeparator: true,
+        text: 'components.navigationBar.settings',
+    },
+    {
+        icon: infoIcon,
+        iconColor: GLOBAL_COLORS.icon,
         title: 'info',
         navigationId: 'InfoView',
         isActive: false,
         keyId: 5,
+        topSeparator: false,
+        text: 'components.navigationBar.info',
     },
     {
-        icon: GLOBAL_ICONS.help,
+        icon: helpIcon,
         iconColor: GLOBAL_COLORS.icon,
-        //title: 'screen.navigationBar.help',
         title: 'help',
         navigationId: 'HelpView',
         isActive: false,
         keyId: 6,
+        topSeparator: false,
+        text: 'components.navigationBar.help',
+    },
+    {
+        icon: powerIcon,
+        iconColor: GLOBAL_COLORS.icon,
+        title: 'help',
+        navigationId: 'HelpView',
+        isActive: false,
+        keyId: 7,
+        topSeparator: true,
+        logoutIcon: true,
+        text: 'components.navigationBar.logout',
     },
 ];
+
+const footer = {
+    icon: arrowIcon,
+    iconColor: GLOBAL_COLORS.icon,
+    title: 'help',
+    navigationId: 'HelpView',
+    isActive: false,
+    keyId: 8,
+    topSeparator: true,
+    moreButton: true,
+};
+
+const itemsCount = DATA.length + 1;
 const windowHeight = Dimensions.get('window').height;
 
 const CustomizedDrawer = () => {
-    //deklaruję hooka nawigacyjnego
     const navigation = useNavigation<DrawerNavigationProp<any>>();
+    const animateWidth = useRef(new Animated.Value(128)).current;
+    const animateItemWidth = useRef(new Animated.Value(76)).current;
+    const rotateValue = useRef(new Animated.Value(0)).current;
+    const animateMoveValue = useRef(new Animated.Value(0)).current;
 
-    const [activeIndex, setIsActive] = useState(0);
-    const translateX = useRef(new Animated.Value(0)).current;
+    const [moreOptions, setMoreOptions] = useState<boolean>(false);
+    const [showAdditionalInfo, setShowAdditionalInfo] = useState<boolean>(false);
+    const [activeIndex, setIsActive] = useState<number>(0);
 
     const show = () => {
-        Animated.timing(translateX, {
-            toValue: 0,
+        Animated.timing(animateWidth, {
+            toValue: 400,
             useNativeDriver: false,
             duration: 300,
+        }).start();
+        Animated.timing(animateItemWidth, {
+            toValue: 350,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(animateMoveValue, {
+            toValue: 280,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(rotateValue, {
+            toValue: 3.2,
+            useNativeDriver: false,
+            duration: 100,
         }).start();
     };
 
     const hide = () => {
-        Animated.timing(translateX, {
-            toValue: 15,
+        Animated.timing(animateWidth, {
+            toValue: 128,
             useNativeDriver: false,
             duration: 300,
         }).start();
+        Animated.timing(animateItemWidth, {
+            toValue: 76,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(animateMoveValue, {
+            toValue: 0,
+            useNativeDriver: false,
+            duration: 300,
+        }).start();
+        Animated.timing(rotateValue, {
+            toValue: 0,
+            useNativeDriver: false,
+            duration: 100,
+        }).start();
+        setShowAdditionalInfo(false);
     };
 
     const handleButton = useCallback(
         item => {
-            show();
-            setTimeout(() => {
-                hide();
-            }, 600);
             setTimeout(() => {
                 navigation.navigate(item.navigationId);
             }, 300);
@@ -129,74 +203,139 @@ const CustomizedDrawer = () => {
         [activeIndex],
     );
 
-    const renderItem = ({ item, index }: any) => {
-        return (
-            <TouchableOpacity
-                onPress={() => {
-                    //DOPIERO TERAZ MOGĘ Z NIEGO KORZYSTAC
-                    setIsActive(item.keyId);
+    useEffect(() => {
+        if (moreOptions) {
+            setTimeout(() => setShowAdditionalInfo(true), 200);
+        } else setShowAdditionalInfo(false);
+    }, [moreOptions]);
 
-                    handleButton(item);
-                }}
-                style={
-                    item.keyId === activeIndex
-                        ? styles.pressedButtonContainer
-                        : styles.buttonContainer
-                }
+    const renderItem = ({ item }: any) => {
+        return (
+            <Animated.View
+                style={[
+                    styles.itemContainer,
+                    { width: animateWidth },
+                    item.topSeparator && styles.separator,
+                ]}
             >
-                <Animated.View
-                    style={[styles.animatedViewContainer, { transform: [{ translateX }] }]}
+                <TouchableOpacity
+                    onPress={() => {
+                        setIsActive(item.keyId);
+                        hide();
+                        handleButton(item);
+                    }}
                 >
-                    {item.keyId === activeIndex && (
-                        <View style={{ backgroundColor: 'grey', flex: 1 }} />
+                    {item.keyId === activeIndex ? (
+                        <Animated.View
+                            style={{
+                                paddingHorizontal: 16,
+                                alignItems: 'center',
+                                flexDirection: 'row',
+                                height: 76,
+                                width: animateItemWidth,
+                                justifyContent: moreOptions ? 'flex-start' : 'center',
+                                backgroundColor: item.logoutIcon
+                                    ? 'transparent'
+                                    : 'rgba(5, 120, 227, 0.4)',
+                                borderRadius: 23,
+                            }}
+                        >
+                            <Image resizeMode="contain" source={item.icon} style={styles.icon} />
+                            {showAdditionalInfo && (
+                                <Text style={styles.textStyle}>{i18n.t(`${item.text}`)}</Text>
+                            )}
+                        </Animated.View>
+                    ) : (
+                        <Animated.View
+                            style={{
+                                paddingHorizontal: 16,
+                                flexDirection: 'row',
+                                height: 76,
+                                width: animateItemWidth,
+                                alignItems: 'center',
+                                justifyContent: moreOptions ? 'flex-start' : 'center',
+                                backgroundColor: !item.logoutIcon
+                                    ? 'transparent'
+                                    : 'rgba(212, 215, 223, 0.35)',
+                                borderRadius: 23,
+                            }}
+                        >
+                            <Image resizeMode="contain" source={item.icon} style={styles.icon} />
+                            {showAdditionalInfo && (
+                                <Text style={styles.textStyle}>{i18n.t(`${item.text}`)}</Text>
+                            )}
+                        </Animated.View>
                     )}
-                </Animated.View>
-                {item.keyId === activeIndex ? (
-                    <Animated.View
-                        style={[styles.flatListButtonContainer, { transform: [{ translateX }] }]}
-                    >
-                        <View style={styles.iconContainer}>
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Icon
-                                    color={item.iconColor}
-                                    name={item.icon}
-                                    size={42}
-                                    style={styles.iconCont}
-                                />
-                            </View>
-                        </View>
-                        <View style={styles.flatListTextContainer}>
-                            <Text style={styles.text}>
-                                {i18n.t(`screens.navigationBar.${item.title}`)}
-                            </Text>
-                        </View>
-                    </Animated.View>
-                ) : (
-                    <View style={styles.flatListButtonContainer}>
-                        <View style={styles.iconContainer}>
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Icon
-                                    color={item.iconColor}
-                                    name={item.icon}
-                                    size={42}
-                                    style={styles.iconCont}
-                                />
-                            </View>
-                        </View>
-                        <View style={styles.flatListTextContainer}>
-                            <Text style={styles.text}>
-                                {i18n.t(`screens.navigationBar.${item.title}`)}
-                            </Text>
-                        </View>
-                    </View>
-                )}
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </Animated.View>
         );
     };
+
+    const renderFooter = (item: any) => {
+        return (
+            <Animated.View
+                style={[
+                    styles.itemContainer,
+                    { width: animateWidth },
+                    item.topSeparator && styles.separator,
+                ]}
+            >
+                <TouchableOpacity
+                    onPress={() => {
+                        if (moreOptions) hide();
+                        else show();
+                        setMoreOptions(prevState => !prevState);
+                    }}
+                >
+                    <Animated.View
+                        style={{
+                            paddingHorizontal: 16,
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            height: 76,
+                            width: animateItemWidth,
+                            justifyContent: 'flex-start',
+                            backgroundColor: 'transparent',
+                            borderRadius: 23,
+                        }}
+                    >
+                        <Animated.View
+                            style={{
+                                transform: [{ translateX: animateMoveValue }],
+                            }}
+                        >
+                            <Animated.View
+                                style={{
+                                    transform: [
+                                        {
+                                            rotate: rotateValue,
+                                        },
+                                    ],
+                                }}
+                            >
+                                <Image
+                                    resizeMode="contain"
+                                    source={item.icon}
+                                    style={styles.icon}
+                                />
+                            </Animated.View>
+                        </Animated.View>
+                    </Animated.View>
+                </TouchableOpacity>
+            </Animated.View>
+        );
+    };
+
     return (
-        <SafeAreaView style={styles.statusBarContainer}>
+        <Animated.View style={[styles.mainContainer, { width: animateWidth }]}>
             <View
-                style={{ height: windowHeight / 7, justifyContent: 'center', alignItems: 'center' }}
+                style={[
+                    styles.logoContainer,
+                    {
+                        alignSelf: moreOptions ? 'flex-start' : 'center',
+                        paddingLeft: moreOptions ? 20 : 0,
+                    },
+                ]}
             >
                 <Image
                     resizeMode="contain"
@@ -204,79 +343,66 @@ const CustomizedDrawer = () => {
                     style={styles.imageContainer}
                 />
             </View>
-
-            <FlatList
-                data={DATA}
-                keyExtractor={item => item.keyId.toString()}
-                numColumns={1}
-                renderItem={renderItem}
-            />
-            <NavigationToggleButton onPress={() => {}} />
-        </SafeAreaView>
+            <View style={styles.flatListContainer}>
+                <FlatList
+                    ListFooterComponent={renderFooter(footer)}
+                    data={DATA}
+                    keyExtractor={item => item.keyId.toString()}
+                    numColumns={1}
+                    renderItem={renderItem}
+                />
+            </View>
+        </Animated.View>
     );
 };
 
 const styles = StyleSheet.create({
-    animatedViewContainer: {
-        backgroundColor: GLOBAL_COLORS.secondary,
-        height: '100%',
-        right: 15,
-        width: 15,
+    flatListContainer: {
+        flex: 6,
     },
-    buttonContainer: {
-        backgroundColor: GLOBAL_COLORS.secondary,
-        flexDirection: 'row',
-        width: 160,
-    },
-    flatListButtonContainer: {
-        flex: 1,
-        height: (windowHeight - windowHeight / 7) / 7,
-        right: 5,
-        top: 10,
-    },
-
-    flatListTextContainer: {
+    icon: {
         alignItems: 'center',
-        flex: 0.5,
-        justifyContent: 'flex-start',
-    },
-    iconCont: {
-        alignItems: 'center',
-        flex: 0.5,
+        height: 42,
         justifyContent: 'center',
+        width: 42,
     },
-    iconContainer: {
-        alignItems: 'center',
-        flex: 0.5,
-        justifyContent: 'center',
-    },
-
     imageContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 175,
+        maxHeight: 42,
+        maxWidth: 83,
     },
-    pressedButtonContainer: {
-        backgroundColor: GLOBAL_COLORS.extra,
-        flexDirection: 'row',
-        width: 175,
-    },
-    statusBarContainer: {
+    itemContainer: {
         alignItems: 'center',
-        backgroundColor: GLOBAL_COLORS.secondary,
-        height: '100%',
+        height: (windowHeight * 6) / 7 / itemsCount,
         justifyContent: 'center',
     },
-    text: {
-        color: GLOBAL_COLORS.text,
+    logoContainer: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+    },
+    mainContainer: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(3, 26, 66, 1)',
+        borderRadius: 55,
+        height: '100%',
+        justifyContent: 'center',
+        width: 128,
+    },
+    separator: {
+        borderTopColor: 'white',
+        borderTopWidth: 2,
+    },
+    textStyle: {
+        alignSelf: 'center',
+        color: 'white',
         fontFamily: GLOBAL_FONTS.ROBOTO,
-        fontSize: GLOBAL_FONTSIZES.header,
-        fontWeight: 'bold' as const,
-        letterSpacing: 0.09,
-        textAlign: 'center',
-        width: 140,
+        fontSize: 25,
+        fontWeight: '400',
+        lineHeight: 29,
+        marginLeft: 70,
     },
 });
 
 export default CustomizedDrawer;
-

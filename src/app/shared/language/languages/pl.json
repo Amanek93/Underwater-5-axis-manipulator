@@ -5,20 +5,33 @@
   },
   "screens": {
     "loginView": {
-      "login": "LOGIN",
-      "password": "HASŁO",
+      "user": "Nazwa",
+      "password": "Hasło",
+      "placeholderPassword": "Podaj hasło!",
+      "show": "Pokaż",
       "wrongLogin": "Zły login!",
       "wrongPassword": "Złe hasło!",
-      "wrongLoginOrPassword": "Złe hasło lub login!"
+      "wrongLoginOrPassword": "Złe hasło lub login!",
+      "login": "ZALOGUJ SIĘ"
     },
-    "navigationBar": {
-      "home": "HOME",
-      "liveStream": "TRYB WIDEO",
-      "settings": "USTAWIENIA",
-      "telemetry": "TELEMETRIA",
-      "diagnostic": "DIAGNOSTYKA",
-      "info": "INFO",
-      "help": "POMOC"
+    "settingsView": {
+      "language": "język",
+      "sound": "dźwięk",
+      "darkMode": "tryb ciemny",
+      "polish": "polski",
+      "english": "angielski",
+      "germany": "niemiecki"
+    },
+    "diagnosticView": {
+      "diagnostic": "Diagnostyka",
+      "searchError": "Szukaj błędu...",
+      "clearLogs": "Wyczyść logi",
+      "all": "Wszystkie",
+      "errors": "Błędy",
+      "warnings": "Ostrzeżenia",
+      "info": "Komunikaty",
+      "history": "Historia",
+      "autoScroll": "autoprzewijanie"
     },
     "homeView": {
       "test": "test"
@@ -31,5 +44,17 @@
       "home": "Home",
       "memory": "Historia"
     }
-  }
+  },
+  "components": {
+    "navigationBar": {
+      "home": "Strona Główna",
+      "liveControl": "Sterowanie LIVE",
+      "telemetry": "Telemetria",
+      "diagnostic": "Diagnostyka",
+      "settings": "Ustawienia",
+      "info": "Informacja",
+      "help": "Pomoc",
+      "logout": "WYLOGUJ"
+    }
+}
 }
