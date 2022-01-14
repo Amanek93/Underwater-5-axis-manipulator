@@ -1,7 +1,7 @@
 import CircularSlider from '../../ui/components/CircularSlide';
 import LinearGradient from 'react-native-linear-gradient';
 import MainButton from '../../ui/components/MainButton';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { GLOBAL_COLORS, GLOBAL_FONTS, GLOBAL_FONTSIZES, GLOBAL_ICONS } from '@ui';
 import { HomeActionTypes, getDevice } from '@home';
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -22,17 +22,13 @@ let timer: any;
 const ControlSlider = ({ circularTitle, addActionType, subtractActionType, deviceKey }: Props) => {
     const device = useSelector(getDevice);
     const dispatch = useDispatch();
-    const [circularSliderValue, setCircularSliderValue] = useState<number>(
-        device[deviceKey as keyof typeof device],
-    );
+
 
     const handleAdd = () => {
         dispatch({ type: addActionType });
-        setCircularSliderValue(device[deviceKey as keyof typeof device]);
     };
     const handleSubtract = () => {
         dispatch({ type: subtractActionType });
-        setCircularSliderValue(device[deviceKey as keyof typeof device]);
     };
 
     useEffect(() => {
@@ -72,7 +68,7 @@ const ControlSlider = ({ circularTitle, addActionType, subtractActionType, devic
                 ]}
                 max={90}
                 min={-90}
-                onChage={() => setCircularSliderValue(device[deviceKey as keyof typeof device])}
+                onChange={() => setCircularSliderValue(device[deviceKey as keyof typeof device])}
                 openingRadian={Math.PI / 2}
                 step={1}
                 strokeWidth={15}

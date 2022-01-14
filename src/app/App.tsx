@@ -15,9 +15,6 @@ import { store } from '@store';
 // };
 
 const App = () => {
-    // useEffect(() => {
-    //     rehydrateStore();
-    // }, []);
 
     const language: string | null = 'PL';
 

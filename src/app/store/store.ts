@@ -1,4 +1,3 @@
-
 import { applyMiddleware, compose, createStore } from 'redux';
 import {AsyncStorage} from 'react-native';
 import { createLogger } from 'redux-logger';
